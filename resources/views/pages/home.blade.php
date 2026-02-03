@@ -5,6 +5,5 @@
     @include('parts.rekomendasi')
     @include('parts.cta')
     @include('parts.testimoni')
-    {{-- @include('parts.cara')
-    @include('components.footer') --}}
+    @include('components.footer')
 @endsection

@@ -1,38 +1,43 @@
-<footer class="footer-wrap">
-    <div class="container">
+<footer class="footer-wrap" style="background-color: #101828">
+    <div class="container pt-5 mt-5">
         <div class="row gy-4">
-            <div class="col-md-4">
-                <strong>Kikibi</strong>
-                <p>
-                    Platform kurasi bingkisan yang menghubungkan Anda
-                    dengan UMKM lokal terbaik.
-                </p>
+            <div class="text-white col-md-4">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="{{ asset('assets/img/logo.png') }}" alt="Logo Kikibi" width="54" height="50">
+                    </div>
+                    <div class="col-md-7">
+                        <strong class="fs-4">Kikibi.id</strong>
+                        <p>Kirim Kirim Bingkisan</p>
+                    </div>
+                    <p class="text-white w-75">
+                        Platform kurasi bingkisan yang menghubungkan Anda
+                        dengan UMKM lokal terbaik.
+                    </p>
+                </div>
             </div>
 
-            <div class="col-md-2">
+            <div class="text-white col-md-4">
                 <h6>Jelajahi</h6>
-                <a>Direktori Bingkisan</a>
-                <a>Partner UMKM</a>
-                <a>Cara Kerja</a>
+                <ul class="list-unstyled mt-4">
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-white">Beranda</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-white">AI Rekomendasi</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-white">Kontak Kami</a></li>
+                </ul>
             </div>
 
-            <div class="col-md-3">
-                <h6>Untuk Vendor</h6>
-                <a>Daftar Vendor</a>
-                <a>Panduan Vendor</a>
-                <a>Syarat & Ketentuan</a>
-            </div>
-
-            <div class="col-md-3">
+            <div class="text-white col-md-4">
                 <h6>Kontak</h6>
-                <span>Email: hello@kikibi.id</span>
-                <span>WA: +62 812-3456-7890</span>
-                <span>Jakarta, Indonesia</span>
+                <ul class="list-unstyled mt-4">
+                    <li class="mb-2">Email: hello@kikibi.id</li>
+                    <li class="mb-2">WA: +62 812-3456-7890</li>
+                    <li class="mb-2">Jakarta, Indonesia</li>
+                </ul>
             </div>
         </div>
-
-        <div class="footer-copy">
-            © 2025 Kikibi. Mendukung UMKM Indonesia 🇮🇩
+        <hr class="mb-0" style="border-color: white">
+        <div class="text-white text-center py-4">
+            © {{ date('Y') }} Kikibi.id Mendukung UMKM Indonesia
         </div>
     </div>
 </footer>
