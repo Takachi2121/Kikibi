@@ -20,9 +20,9 @@
 
       <!-- MENU TENGAH -->
       <ul class="navbar-nav mx-auto ps-4 gap-3">
-        <li class="nav-item"><a class="nav-link fw-normal active" href="#">Beranda</a></li>
-        <li class="nav-item"><a class="nav-link fw-normal" href="#">AI Rekomendasi</a></li>
-        <li class="nav-item"><a class="nav-link fw-normal pe-0" href="#">Kontak Kami</a></li>
+        <li class="nav-item"><a class="nav-link fw-normal {{ $active === 'home' ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a></li>
+        <li class="nav-item"><a class="nav-link fw-normal {{ $active === 'ai' ? 'active' : '' }}" href="{{ route('ai-kikibi') }}">AI Rekomendasi</a></li>
+        <li class="nav-item"><a class="nav-link fw-normal {{ $active === 'produk' ? 'active' : '' }} pe-0" href="{{ route('etalase') }}">Etalase Kikibi</a></li>
       </ul>
 
       <!-- TOMBOL KANAN -->

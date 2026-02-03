@@ -23,7 +23,7 @@ html, body{
 }
 
 .btn-masuk{
-    border: 2px solid #6B0702;
+    border: 2px solid #B0170F;
     color: #000;
     padding: 8px 30px !important;
 }
@@ -36,7 +36,7 @@ html, body{
 
 .btn-daftar{
     min-width: 111.3px !important;
-    background-color:#6B0702;
+    background-color:#B0170F;
     color: white;
     text-align: center;
     padding: 10px 30px !important;
