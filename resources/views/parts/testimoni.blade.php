@@ -1,4 +1,4 @@
-<section class="testimoni-section">
+<section class="testimoni-section mb-5">
     <div class="container text-center">
         <h1>Testimoni</h1>
         <p class="fs-5">Cerita dari mereka yang berhasil bikin momen lebih berkesan.</p>
@@ -10,7 +10,7 @@
                     <div class="card-body text-start">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div class="d-flex align-items-center gap-2">
-                                <img src="{{ asset('assets/img/Background/Person.png') }}"
+                                <img src="{{ asset('assets/img/Testimoni/Person.png') }}"
                                 alt="User"
                                 width="40"
                                 height="40"

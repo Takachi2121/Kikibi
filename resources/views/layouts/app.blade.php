@@ -22,6 +22,10 @@
         <main style="margin-top: 79px">
             @yield('content')
         </main>
+
+        <footer class="footer-wrap" style="background-color: #101828">
+            @include('components.footer')
+        </footer>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
