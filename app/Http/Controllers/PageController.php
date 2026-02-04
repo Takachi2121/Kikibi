@@ -20,4 +20,9 @@ class PageController extends Controller
         $active = 'produk';
         return view('pages.etalase', compact('active'));
     }
+
+    public function detail(){
+        $active = 'produk';
+        return view('pages.detail', compact('active'));
+    }
 }

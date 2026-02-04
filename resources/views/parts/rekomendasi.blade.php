@@ -38,7 +38,7 @@
 
                         <p class="product-price">Rp 250.000</p>
 
-                        <a href="#" class="btn btn-detail w-100">Lihat Detail</a>
+                        <a href="{{ route('detail') }}" class="btn btn-detail w-100">Lihat Detail</a>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
 
                         <p class="product-price">Rp 350.000</p>
 
-                        <a href="#" class="btn btn-detail w-100">Lihat Detail</a>
+                        <a href="{{ route('detail') }}" class="btn btn-detail w-100">Lihat Detail</a>
                     </div>
                 </div>
             </div>

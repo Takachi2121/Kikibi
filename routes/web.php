@@ -7,4 +7,5 @@ Route::prefix('/')->group(function() {
     Route::get('/', [PageController::class, 'home'])->name('home');
     Route::get('/ai', [PageController::class, 'aiRecommendation'])->name('ai-kikibi');
     Route::get('/hadiah', [PageController::class, 'etalase'])->name('etalase');
+    Route::get('/detail', [PageController::class, 'detail'])->name('detail');
 });

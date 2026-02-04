@@ -23,10 +23,10 @@
                         <i class="fa-solid fa-sliders"></i>&nbsp;&nbsp;Urutkan: <span id="filter-etalase">Relevansi</span>
                     </button>
                     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">Relevansi</a></li>
-                        <li><a class="dropdown-item" href="#">Harga Terendah</a></li>
-                        <li><a class="dropdown-item" href="#">Harga Tertinggi</a></li>
-                        <li><a class="dropdown-item" href="#">Populer</a></li>
+                        <li><a class="dropdown-item active" href="#" data-sort="relevansi">Relevansi</a></li>
+                        <li><a class="dropdown-item" href="#" data-sort="harga_asc">Harga Terendah</a></li>
+                        <li><a class="dropdown-item" href="#" data-sort="harga_desc">Harga Tertinggi</a></li>
+                        <li><a class="dropdown-item" href="#" data-sort="populer">Populer</a></li>
                     </ul>
                 </div>
             </div>
@@ -35,8 +35,11 @@
         <div class="row mt-3">
             @for ($i = 0; $i < 12; $i++)
             <div class="col-md-3 my-3">
-                <a href="" class="text-decoration-none">
-                    <div class="card product-card">
+                <a href="{{ route('detail') }}" class="text-decoration-none">
+                    <div class="card product-card"
+                        data-harga="250000"
+                        data-rating="4.7"
+                        data-populer="1">
                         <!-- Image -->
                         <div class="position-relative">
                             <img src="{{ asset('assets/img/Produk/Bunga.png') }}" class="card-img-top" alt="Keranjang Bunga Mawar">
@@ -63,8 +66,7 @@
                 </a>
             </div>
             @endfor
-
         </div>
-
     </div>
+<script src="{{ asset('assets/js/hadiah.js') }}"></script>
 @endsection

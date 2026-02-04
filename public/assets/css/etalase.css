@@ -5,12 +5,12 @@
 }
 
 .product-card img:hover{
-    transform: scale(1.07);
+    transform: scale(1.07) translateY(-10px);
     transition: transform .3s ease-in-out;
 }
 
 .product-card img:not(:hover){
-    transform: scale(1.00);
+    transform: scale(1.00) translateY(0);
     transition: transform .3s ease-in-out;
 }
 

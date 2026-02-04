@@ -1,0 +1,60 @@
+.font-arial{
+    font-family: Arial !important;
+}
+
+.badge-favorit {
+    position: absolute;
+    top: 12px;
+    right: 36px;
+    background-color: #1db954;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.badge-category{
+    background-color: #FFE5EC;
+    color: #C1121F;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.qty-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.qty-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: #F1F1F1;
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.qty-btn.plus {
+    background: #B00000;
+    color: #fff;
+}
+
+.qty-btn.minus {
+    background: #1E2939 !important;
+    color: white;
+}
+
+.qty-number {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+}
