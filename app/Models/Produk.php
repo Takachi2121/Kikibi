@@ -28,4 +28,14 @@ class Produk extends Model
         'foto_4',
         'foto_5',
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class);
+    }
+
+    public function pesanan()
+    {
+        return $this->hasMany(Pesanan::class);
+    }
 }

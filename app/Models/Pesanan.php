@@ -16,4 +16,14 @@ class Pesanan extends Model
         'jumlah',
         'total_harga',
     ];
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

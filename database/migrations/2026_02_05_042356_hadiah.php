@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategori', function (Blueprint $table) {
+        Schema::create('kategoris', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kategori');
         });
 
-        Schema::create('produk', function (Blueprint $table) {
+        Schema::create('produks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_id')->constrained('kategori')->onDelete('cascade');
+            $table->foreignId('kategori_id')->constrained('kategoris')->onDelete('cascade');
             $table->string('nama_produk');
             $table->text('deskripsi');
             $table->integer('harga');
@@ -27,17 +27,17 @@ return new class extends Migration
             $table->enum('untuk_gender', ['Pria', 'Wanita'])->default('Pria');
             $table->text('untuk_momen');
             $table->string('estimasi');
-            $table->string('foto_1');
-            $table->string('foto_2');
-            $table->string('foto_3');
-            $table->string('foto_4');
-            $table->string('foto_5');
+            $table->string('foto_1')->nullable();
+            $table->string('foto_2')->nullable();
+            $table->string('foto_3')->nullable();
+            $table->string('foto_4')->nullable();
+            $table->string('foto_5')->nullable();
         });
 
-        Schema::create('pesanan', function (Blueprint $table) {
+        Schema::create('pesanans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
+            $table->foreignId('produk_id')->constrained('produks')->onDelete('cascade');
             $table->integer('jumlah');
             $table->integer('total_harga');
             $table->timestamps();

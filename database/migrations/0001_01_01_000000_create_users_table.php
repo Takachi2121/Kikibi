@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_lengkap');
             $table->string('email')->unique();
-            $table->integer('no_telp');
+            $table->string('no_telp', 14);
             $table->string('password');
         });
 
