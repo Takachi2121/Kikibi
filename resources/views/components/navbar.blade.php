@@ -27,8 +27,8 @@
 
       <!-- TOMBOL KANAN -->
       <div class="d-flex gap-2">
-        <a href="#" class="btn btn-outline-danger btn-masuk rounded-pill px-4">Masuk</a>
-        <a href="#" class="btn btn-danger rounded-pill btn-daftar px-4">Daftar</a>
+        <a href="{{ route('login') }}" class="btn btn-outline-danger btn-masuk rounded-pill px-4">Masuk</a>
+        <a href="{{ route('register') }}" class="btn btn-danger rounded-pill btn-daftar px-4">Daftar</a>
       </div>
 
     </div>

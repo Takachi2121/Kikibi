@@ -25,4 +25,12 @@ class PageController extends Controller
         $active = 'produk';
         return view('pages.detail', compact('active'));
     }
+
+    public function login(){
+        return view('auth.login');
+    }
+
+    public function register(){
+        return view('auth.register');
+    }
 }
