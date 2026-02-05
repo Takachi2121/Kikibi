@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('no_telp', 14);
             $table->string('password');
+            $table->enum('role', ['admin', 'user'])->default('user');
         });
 
         Schema::create('sessions', function (Blueprint $table) {
