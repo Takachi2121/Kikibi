@@ -19,14 +19,14 @@
     <div class="collapse navbar-collapse w-100" id="navbarNav">
 
       <!-- MENU TENGAH -->
-    <ul class="navbar-nav mx-auto gap-3 my-sm-4 text-center {{ Auth::check() ? 'pe-5' : 'ps-4 ps-sm-0' }}">
+    <ul class="navbar-nav mx-auto gap-3 my-sm-4 text-end {{ Auth::check() ? 'pe-lg-5 pe-sm-0' : 'ps-4 ps-sm-0' }}">
         <li class="nav-item"><a class="nav-link py-sm-0 fw-normal {{ $active === 'home' ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a></li>
         <li class="nav-item"><a class="nav-link py-sm-0 fw-normal {{ $active === 'ai' ? 'active' : '' }}" href="{{ route('ai-kikibi') }}">AI Rekomendasi</a></li>
-        <li class="nav-item"><a class="nav-link py-sm-0 fw-normal {{ Auth::check() ? 'pe-5' : '' }} {{ $active === 'produk' ? 'active' : '' }} pe-0" href="{{ route('etalase') }}">Etalase Kikibi</a></li>
+        <li class="nav-item"><a class="nav-link py-sm-0 fw-normal {{ Auth::check() ? 'pe-lg-5 pe-sm-0' : '' }} {{ $active === 'produk' ? 'active' : '' }} pe-0" href="{{ route('etalase') }}">Etalase Kikibi</a></li>
     </ul>
 
       <!-- TOMBOL KANAN -->
-      <div class="d-lg-flex mx-lg-0 mx-sm-auto text-sm-center gap-2">
+      <div class="d-lg-flex mx-lg-0 mx-sm-auto text-sm-end gap-2">
         @auth
             <div class="dropdown">
                 <button class="fw-semibold btn-daftar rounded-5 border-0 text-decoration-none dropdown-toggle"
