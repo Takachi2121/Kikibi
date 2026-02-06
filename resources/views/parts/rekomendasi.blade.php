@@ -5,15 +5,15 @@
 
         {{-- Rekomendasi Kekasih --}}
         <div class="row mt-5">
-            <div class="col-md-6">
+            <div class="col-lg-6 col-sm-5">
                 <p class="fw-semibold fs-4 mb-0">Rekomendasi untuk Kekasih</p>
             </div>
-            <div class="col-md-6 text-end align-self-center">
+            <div class="col-lg-6 col-sm-7 text-end align-self-center">
                 <a href="" class="text-decoration-none text-muted text-end">Lihat Semua...</a>
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-md-3">
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card product-card">
                     <!-- Image -->
                     <div class="position-relative">
@@ -47,15 +47,15 @@
 
         {{-- Rekomendasi Orang Tua --}}
         <div class="row mt-5">
-            <div class="col-md-6">
+            <div class="col-lg-6 col-sm-5">
                 <p class="fw-semibold fs-4 mb-0">Rekomendasi untuk Orang Tua</p>
             </div>
-            <div class="col-md-6 text-end align-self-center">
+            <div class="col-lg-6 col-sm-7 text-end align-self-center">
                 <a href="" class="text-decoration-none text-muted text-end">Lihat Semua...</a>
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-md-3">
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card product-card">
                     <!-- Image -->
                     <div class="position-relative">

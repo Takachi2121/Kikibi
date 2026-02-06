@@ -12,6 +12,26 @@
 </head>
 
 <body>
+@if (session('error'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "bottom-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "error",
+            title: "{{ session('error') }}"
+        });
+    </script>
+@endif
 
 <!-- KEMBALI -->
 <a href="{{ route('home') }}" class="back-btn">
@@ -29,7 +49,8 @@
         <div class="auth-title fs-2 mb-1">Selamat Datang Kembali!</div>
         <div class="auth-subtitle fs-5">Masuk ke akun Kikibi Anda</div>
 
-        <form action="">
+        <form action="{{ route('Verif-login') }}" method="POST">
+            @csrf
             <div class="row">
                 <div class="col-lg-12 mb-3">
                     <label class="fw-semibold" for="emailLogin">Email</label>
@@ -56,7 +77,7 @@
                 <a href="" class="text-decoration-none text-danger text-end fw-semibold">Lupa Password?</a>
 
                 <div class="col-lg-12">
-                    <button class="btn btn-danger w-100 py-3 mt-3 rounded-3">
+                    <button type="submit" class="btn btn-danger w-100 py-3 mt-3 rounded-3">
                         <i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp;&nbsp;Masuk
                     </button>
                 </div>
@@ -79,6 +100,8 @@
     </div>
 
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 </html>

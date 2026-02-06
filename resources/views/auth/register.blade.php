@@ -29,7 +29,7 @@
         <div class="auth-title fs-2 mb-1">Buat Akun Baru</div>
         <div class="auth-subtitle fs-6">Mulai mencari bingkisan sempurna</div>
 
-        <form action="">
+        <form action="" id="regis-form">
             <div class="row">
                 <div class="col-lg-12 mb-3">
                     <label class="fw-normal" for="namaRegis">Nama Lengkap *</label>
@@ -37,7 +37,7 @@
                     <div class="position-relative mt-2">
                         <i class="fa-regular fa-user position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
 
-                        <input type="email" class="form-control input-field ps-5 rounded-4 border-2" placeholder="Nama Lengkap Anda" name="namaUser" id="namaRegis">
+                        <input type="text" class="form-control input-field ps-5 rounded-4 border-2" placeholder="Nama Lengkap Anda" name="namaUser" id="namaRegis">
                     </div>
                 </div>
                 <div class="col-lg-12 mb-3">
@@ -55,7 +55,7 @@
                     <div class="position-relative mt-2">
                         <i class="fa-solid fa-phone position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
 
-                        <input type="email" class="form-control input-field ps-5 rounded-4 border-2" placeholder="08123456789" name="telpUser" id="telpRegis">
+                        <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/[^\d]/g, '')" class="form-control input-field ps-5 rounded-4 border-2" placeholder="08123456789" name="telpUser" id="telpRegis">
                     </div>
                 </div>
                 <div class="col-lg-12 mb-3">
@@ -84,8 +84,14 @@
                 </div>
 
                 <div class="col-lg-12">
-                    <button class="btn btn-danger w-100 py-3 mt-3 rounded-3">
-                        <i class="fa-regular fa-circle-check"></i>&nbsp;&nbsp;Buat Akun
+                    <button type="submit" class="btn btn-danger w-100 py-3 mt-3 rounded-3" id="btnRegister">
+                        <span class="text-center btn-text">
+                            <i class="fa-regular fa-circle-check"></i>&nbsp;&nbsp;Buat Akun
+                        </span>
+                        <span class="btn-loading d-none">
+                            <span class="spinner-border spinner-border-sm"></span>
+                            Loading
+                        </span>
                     </button>
                 </div>
 
@@ -98,15 +104,18 @@
                 <p class="text-center">Belum Punya Akun?</p>
 
                 <div class="col-lg-12">
-                    <button class="btn btn-outline-danger w-100 py-3 rounded-3">
+                    <a href="{{ route('login') }}" class="btn btn-outline-danger w-100 py-3 rounded-3">
                         <i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp;&nbsp;Masuk
-                    </button>
+                    </a>
                 </div>
             </div>
         </form>
     </div>
 
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{ asset('assets/js/registerSystem.js') }}"></script>
 </body>
 </html>
