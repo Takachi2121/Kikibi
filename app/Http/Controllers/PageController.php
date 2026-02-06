@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -18,12 +19,14 @@ class PageController extends Controller
 
     public function etalase(){
         $active = 'produk';
-        return view('pages.etalase', compact('active'));
+        $data = Produk::all();
+        return view('pages.etalase', compact('active', 'data'));
     }
 
-    public function detail(){
+    public function detail($id){
         $active = 'produk';
-        return view('pages.detail', compact('active'));
+        $data = Produk::findorFail($id);
+        return view('pages.detail', compact('active', 'data'));
     }
 
     public function login(){

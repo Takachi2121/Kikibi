@@ -17,7 +17,6 @@ class ProdukFactory extends Factory
      */
     public function definition(): array
     {
-        $foto = 'Coklat.png';
         return [
             'kategori_id' => Kategori::factory(),
             'nama_produk' => $this->faker->word,
@@ -34,11 +33,11 @@ class ProdukFactory extends Factory
                 'Wisuda'
             ], rand(1, 3))),
             'estimasi' => $this->faker->sentence,
-            'foto_1' => $foto,
-            'foto_2' => $foto,
-            'foto_3' => $foto,
-            'foto_4' => $foto,
-            'foto_5' => $foto,
+            'foto_1' => $this->faker->randomElement(['Buah.png', 'Bunga.png', 'Coklat.png', 'Kopi.png']),
+            'foto_2' => $this->faker->randomElement(['Buah.png', 'Bunga.png', 'Coklat.png', 'Kopi.png']),
+            'foto_3' => $this->faker->randomElement(['Buah.png', 'Bunga.png', 'Coklat.png', 'Kopi.png']),
+            'foto_4' => $this->faker->randomElement(['Buah.png', 'Bunga.png', 'Coklat.png', 'Kopi.png']),
+            'foto_5' => $this->faker->randomElement(['Buah.png', 'Bunga.png', 'Coklat.png', 'Kopi.png']),
         ];
     }
 }

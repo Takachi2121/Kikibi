@@ -33,16 +33,14 @@
         </div>
 
         <div class="row mt-3">
-            @for ($i = 0; $i < 12; $i++)
+            @foreach ($data as $produk)
             <div class="col-md-3 my-3">
-                <a href="{{ route('detail') }}" class="text-decoration-none">
+                <a href="{{ route('detail', $produk->id) }}" class="text-decoration-none">
                     <div class="card product-card"
-                        data-harga="250000"
-                        data-rating="4.7"
-                        data-populer="1">
+                        data-harga="{{ $produk->harga }}">
                         <!-- Image -->
                         <div class="position-relative">
-                            <img src="{{ asset('assets/img/Produk/Bunga.png') }}" class="card-img-top" alt="Keranjang Bunga Mawar">
+                            <img src="{{ asset('assets/img/Produk/'. $produk->foto_1) }}" class="card-img-top" alt="Keranjang Bunga Mawar">
 
                             <!-- Favorit badge -->
                             <span class="badge-favorit">
@@ -53,19 +51,19 @@
                         <!-- Body -->
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="category-text fw-semibold" style="font-family: Arial !important">Bunga</span>
+                                <span class="category-text fw-semibold" style="font-family: Arial !important">{{ $produk->kategori->nama_kategori }}</span>
                                 <span class="rating-text">
                                     <i class="fa-solid fa-star text-warning"></i> 4.7
                                 </span>
                             </div>
 
-                            <p class="product-title fw-medium" style="font-family: Arial !important">Keranjang Bunga Mawar</p>
-                            <p class="product-price fw-medium mb-0" style="font-family: Arial !important">Rp 250.000</p>
+                            <p class="product-title fw-medium" style="font-family: Arial !important">{{ $produk->nama_produk }}</p>
+                            <p class="product-price fw-medium mb-0" style="font-family: Arial !important">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
                         </div>
                     </div>
                 </a>
             </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 <script src="{{ asset('assets/js/hadiah.js') }}"></script>

@@ -20,6 +20,7 @@ class KategoriFactory extends Factory
             'nama_kategori' => $this->faker->unique()->randomElement([
                 'Fashion', 'Elektronik', 'Mainan', 'Buku', 'Makanan', 'Kecantikan', 'Peralatan Rumah', 'Kesehatan', 'Olahraga', 'Bunga'
             ]),
+            'makna_hadiah' => $this->faker->text(200),
         ];
     }
 }

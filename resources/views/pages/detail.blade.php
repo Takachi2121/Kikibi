@@ -15,7 +15,7 @@
         <!-- LEFT : IMAGE -->
         <div class="col-lg-6 mt-2">
             <div class="position-relative">
-                <img src="{{ asset('assets/img/Produk/Coklat.png') }}"
+                <img src="{{ asset('assets/img/Produk/' . $data->foto_1) }}"
                      class="img-fluid w-100 rounded-4">
 
                 <!-- Favorit -->
@@ -26,8 +26,8 @@
 
             <!-- Thumbnails -->
             <div class="d-flex gap-2 mt-3 overflow-hidden w-100">
-                @for ($i = 0; $i < 5; $i++)
-                    <img src="{{ asset('assets/img/Produk/Coklat.png') }}"
+                @for ($i = 1; $i < 6; $i++)
+                    <img src="{{ asset('assets/img/Produk/' . $data->{'foto_' . $i}) }}"
                          class="img-thumbnail rounded-3 thumb-img" width="115" height="115">
                 @endfor
             </div>
@@ -37,10 +37,10 @@
         <div class="col-lg-6 mt-2">
 
             <span class="badge bg-light font-arial text-danger rounded-pill px-3 py-2">
-                Makanan & Minuman
+                {{ $data->kategori->nama_kategori }}
             </span>
 
-            <h2 class="mt-3 fw-semibold font-arial">Hampers Coklat Premium</h2>
+            <h2 class="mt-3 fw-semibold font-arial">{{ $data->nama_produk }}</h2>
 
             <!-- Rating -->
             <div class="d-flex align-items-center mb-3">
@@ -58,14 +58,14 @@
             <div class="card border-0 shadow-sm rounded-4 mb-3">
                 <div class="card-body">
                     <small class="text-muted font-arial">Harga</small>
-                    <h3 class="text-danger mt-1 font-arial">Rp 350.000</h3>
+                    <h3 class="text-danger mt-1 font-arial">Rp {{ number_format($data->harga, 0, ',', '.') }}</h3>
                 </div>
             </div>
 
             <!-- Deskripsi -->
             <h6 class="fw-semibold font-arial">Deskripsi Singkat</h6>
             <p class="text-muted font-arial">
-                Hampers coklat premium dengan pilihan rasa terbaik
+                {{ $data->deskripsi }}
             </p>
 
             <!-- Makna -->
@@ -74,16 +74,16 @@
                     <i class="fa-regular fa-heart me-2 text-danger"></i>Makna Hadiah Ini
                 </h6>
                 <p class="mb-0 text-muted font-arial">
-                    Bingkisan ini dipilih dengan penuh perhatian untuk menunjukkan kasih sayang dan apresiasi Anda. Sempurna untuk membuat momen spesial menjadi lebih berkesan dan penuh kehangatan.
+                    {{ $data->kategori->makna_hadiah }}
                 </p>
             </div>
 
             <!-- Momen -->
             <h6 class="fw-semibold mb-2">Cocok untuk Momen</h6>
             <div class="d-flex flex-wrap gap-2 mt-3 mb-4">
-                <span class="badge bg-danger text-white px-4 py-3 rounded-pill font-arial">Ulang Tahun</span>
-                <span class="badge bg-danger text-white px-4 py-3 rounded-pill font-arial">Valentine</span>
-                <span class="badge bg-danger text-white px-4 py-3 rounded-pill font-arial">Anniversary</span>
+                @foreach (explode(',', $data->untuk_momen) as $momen)
+                    <span class="badge bg-danger text-white px-4 py-3 rounded-pill font-arial">{{ $momen }}</span>
+                @endforeach
             </div>
 
             <!-- Estimasi -->
@@ -114,16 +114,15 @@
             </div>
 
             <!-- Action -->
-            <a href="#"
-            class="btn btn-danger w-100 rounded-4 py-3 mb-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
+            <a href="https://wa.me/6285233899868?text={{ urlencode('Permisi kak, saya ingin membeli ' . $data->nama_produk . ' untuk memberikan kejutan di momen spesial. Mohon informasinya, ya!') }}" target="_blank" class="btn btn-danger w-100 rounded-4 py-3 mb-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
                 <i class="fa-brands fa-whatsapp fs-5"></i>
                 Pesan via WhatsApp
             </a>
 
-            <button class="btn btn-outline-dark w-100 rounded-4 py-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
+            {{-- <button class="btn btn-outline-dark w-100 rounded-4 py-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
                 <i class="fa-regular fa-heart"></i>
                 Simpan ke Wishlist
-            </button>
+            </button> --}}
 
             <!-- Note WhatsApp -->
             <div class="alert alert-danger-subtle mt-3 p-3 rounded-4" style="background-color: #FFE5EC">
