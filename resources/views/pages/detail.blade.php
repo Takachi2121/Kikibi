@@ -3,7 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/css/detail.css') }}">
 
-<div class="container mt-4 mb-5">
+<div class="container mt-5 mb-5">
 
     <!-- Back -->
     <a href="{{ route('etalase') }}" class="text-decoration-none font-arial fw-semibold text-muted">
@@ -13,7 +13,7 @@
     <div class="row mt-1 g-5">
 
         <!-- LEFT : IMAGE -->
-        <div class="col-lg-6 mt-2">
+        <div class="col-lg-6 mt-4">
             <div class="position-relative">
                 <img src="{{ asset('assets/img/Produk/' . $data->foto_1) }}"
                      class="img-fluid w-100 rounded-4">
@@ -34,7 +34,7 @@
         </div>
 
         <!-- RIGHT : DETAIL -->
-        <div class="col-lg-6 mt-2">
+        <div class="col-lg-6 mt-4">
 
             <span class="badge bg-light font-arial text-danger rounded-pill px-3 py-2">
                 {{ $data->kategori->nama_kategori }}
