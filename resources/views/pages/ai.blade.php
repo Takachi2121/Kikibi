@@ -5,19 +5,20 @@
 <div class="container my-5">
     <h2 class="text-center mb-4 fw-semibold">Cari rekomendasi dengan AI Kikibi</h2>
 
-    <form>
+    <form action="{{ route('ai-rekomendasi') }}" method="POST">
+        @csrf
         <!-- Nama Penerima -->
         <div class="mb-4">
             <label class="form-label">Nama Penerima</label>
-            <input type="text" class="form-control py-2" placeholder="Masukkan nama penerima">
+            <input type="text" class="form-control py-2" name="nama" placeholder="Masukkan nama penerima">
         </div>
 
         <!-- Row 1 -->
         <div class="row g-3 mb-3">
             <div class="col-md-4">
                 <label class="form-label">Hadiah untuk siapa?</label>
-                <select class="form-select">
-                    <option selected hidden>Pilih Penerima</option>
+                <select class="form-select" name="penerima">
+                    <option value="" selected hidden>Pilih Penerima</option>
                     <option>Pasangan</option>
                     <option>Orang Tua</option>
                     <option>Teman</option>
@@ -26,8 +27,8 @@
 
             <div class="col-md-4">
                 <label class="form-label">Perkiraan usia penerima?</label>
-                <select class="form-select">
-                    <option selected hidden>Pilih Usia</option>
+                <select class="form-select" name="usia">
+                    <option value="" selected hidden>Pilih Usia</option>
                     <option>&lt; 18</option>
                     <option>18 - 25</option>
                     <option>26 - 35</option>
@@ -39,12 +40,12 @@
                 <label class="form-label d-block">Jenis Kelamin penerima?</label>
                 <div class="d-flex gap-4 mt-2">
                     <div class="form-check d-flex align-items-center gap-2">
-                        <input class="form-check-input mt-0" type="radio" value="Laki-Laki" name="gender" id="laki">
+                        <input class="form-check-input mt-0" name="gender" type="radio" value="Pria" name="gender" id="laki">
                         <label class="form-check-label mb-0" for="laki">Laki-laki</label>
                     </div>
 
                     <div class="form-check d-flex align-items-center gap-2">
-                        <input class="form-check-input mt-0" type="radio" value="Perempuan" name="gender" id="perempuan">
+                        <input class="form-check-input mt-0" name="gender" type="radio" value="Wanita" name="gender" id="perempuan">
                         <label class="form-check-label mb-0" for="perempuan">Perempuan</label>
                     </div>
                 </div>
@@ -55,18 +56,18 @@
         <div class="row g-3 mb-4">
             <div class="col-md-6">
                 <label class="form-label">Hadiah ini diberikan untuk momen apa?</label>
-                <select class="form-select py-2">
-                    <option selected hidden>Pilih Momen</option>
-                    <option>Ulang Tahun</option>
-                    <option>Pernikahan</option>
-                    <option>Wisuda</option>
+                <select class="form-select py-2" name="momen">
+                    <option value="" selected hidden>Pilih Momen</option>
+                    @foreach ($momen as $data)
+                        <option value="{{ $data }}">{{ $data }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="col-md-6">
                 <label class="form-label">Seberapa penting momen ini bagi Anda?</label>
-                <select class="form-select py-2">
-                    <option selected hidden>Pilih Level Kepentingan Momen</option>
+                <select class="form-select py-2" name="level_kepentingan">
+                    <option value="" selected hidden>Pilih Level Kepentingan Momen</option>
                     <option>Biasa</option>
                     <option>Penting</option>
                     <option>Sangat Penting</option>
@@ -90,6 +91,7 @@
                 max="6"
                 step="1"
                 value="0"
+                name="budget"
                 id="budgetRange"
             >
 
@@ -127,33 +129,40 @@
         <div class="row g-3 mb-5">
             <div class="col-md-4">
                 <label class="form-label">Prioritas utama Anda dalam memilih hadiah?</label>
-                <select class="form-select py-2">
-                    <option selected hidden>Pilih Prioritas</option>
+                <select class="form-select py-2" name="prioritas">
+                    <option value="" selected hidden>Pilih Prioritas</option>
                     <option>Harga</option>
                     <option>Kualitas</option>
                     <option>Keunikan</option>
+                    <option>Kepraktisan</option>
+                    <option>Mewah</option>
                 </select>
             </div>
 
             <div class="col-md-4">
                 <label class="form-label">Minat utama penerima hadiah</label>
-                <select class="form-select py-2">
-                    <option selected hidden>Pilih Minat</option>
+                <select class="form-select py-2" name="minat">
+                    <option value="" selected hidden>Pilih Minat</option>
                     <option>Teknologi</option>
                     <option>Fashion</option>
                     <option>Hobi</option>
+                    <option>Olahraga</option>
+                    <option>Makanan & Minuman</option>
                 </select>
             </div>
 
             <div class="col-md-4">
                 <label class="form-label">Gaya hadiah seperti apa yang paling cocok?</label>
-                <select class="form-select py-2">
-                    <option selected hidden>Pilih Gaya Hadiah</option>
+                <select class="form-select py-2" name="gaya">
+                    <option value="" selected hidden>Pilih Gaya Hadiah</option>
                     <option>Simple</option>
                     <option>Elegan</option>
                     <option>Lucu</option>
+                    <option>Modern</option>
+                    <option>Vintage</option>
                 </select>
             </div>
+
         </div>
 
         <!-- Buttons -->

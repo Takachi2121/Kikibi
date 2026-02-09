@@ -1,15 +1,17 @@
 <?php
 
+use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function() {
-    Route::get('/',             [PageController::class, 'home'])->name('home');
-    Route::get('/ai',           [PageController::class, 'aiRecommendation'])->name('ai-kikibi');
-    Route::get('/hadiah',       [PageController::class, 'etalase'])->name('etalase');
-    Route::get('/detail/{id}',       [PageController::class, 'detail'])->name('detail');
+    Route::get('/',              [PageController::class, 'home'])->name('home');
+    Route::get('/ai',            [PageController::class, 'aiRecommendation'])->name('ai-kikibi');
+    Route::get('/hadiah',        [PageController::class, 'etalase'])->name('etalase');
+    Route::get('/detail/{id}',   [PageController::class, 'detail'])->name('detail');
     Route::post('/logout',       [AuthController::class, 'logout'])->name('logout');
+    Route::post('/ai-rekomendasi',[AiController::class, 'cari'])->name('ai-rekomendasi');
 });
 
 Route::prefix('/auth')->middleware('guest')->group(function() {

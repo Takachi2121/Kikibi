@@ -13,11 +13,12 @@
             </div>
         </div>
         <div class="row mt-3">
+            @foreach ($produk as $data)
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card product-card">
                     <!-- Image -->
                     <div class="position-relative">
-                        <img src="{{ asset('assets/img/Produk/Bunga.png') }}" class="card-img-top" alt="Keranjang Bunga Mawar">
+                        <img src="{{ asset('assets/img/Produk/'. $data->foto_1) }}" class="card-img-top" alt="Keranjang Bunga Mawar">
 
                         <!-- Favorit badge -->
                         <span class="badge-favorit">
@@ -28,20 +29,21 @@
                     <!-- Body -->
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="category-text">Bunga</span>
+                            <span class="category-text">{{ $data->kategori->nama_kategori }}</span>
                             <span class="rating-text">
                                 <i class="fa-solid fa-star text-warning"></i> 4.7
                             </span>
                         </div>
 
-                        <p class="product-title">Keranjang Bunga Mawar</p>
+                        <p class="product-title">{{ $data->nama_produk }}</p>
 
-                        <p class="product-price">Rp 250.000</p>
+                        <p class="product-price">Rp {{ number_format($data->harga, 0, ',', '.') }}</p>
 
-                        <a href="{{ route('detail') }}" class="btn btn-detail w-100">Lihat Detail</a>
+                        <a href="{{ route('detail', $data->id) }}" class="btn btn-detail w-100">Lihat Detail</a>
                     </div>
                 </div>
             </div>
+            @endforeach
 
         </div>
 
@@ -55,11 +57,12 @@
             </div>
         </div>
         <div class="row mt-3">
+            @foreach ($produk as $data)
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card product-card">
                     <!-- Image -->
                     <div class="position-relative">
-                        <img src="{{ asset('assets/img/Produk/Coklat.png') }}" class="card-img-top" alt="Hampers Coklat Premium">
+                        <img src="{{ asset('assets/img/Produk/'. $data->foto_1) }}" class="card-img-top" alt="Keranjang Bunga Mawar">
 
                         <!-- Favorit badge -->
                         <span class="badge-favorit">
@@ -70,20 +73,21 @@
                     <!-- Body -->
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="category-text">Makanan & Minuman</span>
+                            <span class="category-text">{{ $data->kategori->nama_kategori }}</span>
                             <span class="rating-text">
-                                <i class="fa-solid fa-star text-warning"></i> 4.9
+                                <i class="fa-solid fa-star text-warning"></i> 4.7
                             </span>
                         </div>
 
-                        <p class="product-title">Hampers Coklat Premium</p>
+                        <p class="product-title">{{ $data->nama_produk }}</p>
 
-                        <p class="product-price">Rp 350.000</p>
+                        <p class="product-price">Rp {{ number_format($data->harga, 0, ',', '.') }}</p>
 
-                        <a href="{{ route('detail') }}" class="btn btn-detail w-100">Lihat Detail</a>
+                        <a href="{{ route('detail', $data->id) }}" class="btn btn-detail w-100">Lihat Detail</a>
                     </div>
                 </div>
             </div>
+            @endforeach
 
         </div>
     </div>
