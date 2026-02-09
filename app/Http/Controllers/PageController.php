@@ -35,6 +35,12 @@ class PageController extends Controller
     {
         $active = 'produk';
         $isAI = $request->has('ai');
+
+        if($isAI) {
+            $active = 'ai';
+        }else{
+            $active = 'produk';
+        }
         $responseAI = session('responseAI', []);
 
         $budgetMapping = [
@@ -44,7 +50,7 @@ class PageController extends Controller
             3 => 300000,
             4 => 400000,
             5 => 500000,
-            6 => 5000000,
+            6 => null, // > 500rb → NO LIMIT
         ];
 
         $maxHarga = $budgetMapping[$request->max] ?? null;
@@ -52,17 +58,17 @@ class PageController extends Controller
         $data = Produk::when($isAI, function ($q) use ($request, $maxHarga) {
 
             // Filter momen
-            if (!empty($request->momen)) {
+            if ($request->filled('momen')) {
                 $q->where('untuk_momen', 'LIKE', '%' . $request->momen . '%');
             }
 
             // Filter gender
-            if (!empty($request->gender)) {
+            if ($request->filled('gender')) {
                 $q->where('untuk_gender', $request->gender);
             }
 
             // Filter usia
-            if (!empty($request->usia)) {
+            if ($request->filled('usia')) {
                 switch ($request->usia) {
                     case '< 18':
                         $q->where('umur_min', '<=', 17)
@@ -79,29 +85,33 @@ class PageController extends Controller
                         ->where('umur_max', '>=', 26);
                         break;
 
-                    case '36+':
-                        $q->where('umur_max', '>=', 36);
+                    case '36 - 45':
+                        $q->where('umur_min', '<=', 45)
+                        ->where('umur_max', '>=', 36);
+                        break;
+
+                    case '> 45':
+                        $q->where('umur_min', '>=', 45);
                         break;
                 }
             }
 
-            // Filter harga
-            if (!empty($maxHarga)) {
-                $q->where('harga', '<=', intval($maxHarga));
+            // ✅ Filter harga (SATU KALI SAJA)
+            if (!is_null($maxHarga)) {
+                $q->where('harga', '<=', $maxHarga);
             }
-
-            if (!empty($maxHarga == 1000000)){
-                $q->where('harga', '<=', 1000000);
-            }
-
-            // dd($maxHarga);
-
         })
         ->orderBy('id', 'desc')
         ->get();
 
-        return view('pages.etalase', compact('active', 'data', 'isAI', 'responseAI'));
+        return view('pages.etalase', compact(
+            'active',
+            'data',
+            'isAI',
+            'responseAI'
+        ));
     }
+
 
 
     public function detail($id){

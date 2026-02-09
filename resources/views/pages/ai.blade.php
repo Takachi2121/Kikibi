@@ -19,9 +19,11 @@
                 <label class="form-label">Hadiah untuk siapa?</label>
                 <select class="form-select" name="penerima">
                     <option value="" selected hidden>Pilih Penerima</option>
-                    <option>Pasangan</option>
-                    <option>Orang Tua</option>
-                    <option>Teman</option>
+                    <option value="Pasangan">Pasangan</option>
+                    <option value="Orang Tua">Orang Tua</option>
+                    <option value="Teman">Teman</option>
+                    <option value="Rekan Kerja">Rekan Kerja</option>
+                    <option value="Atasan atau Klien">Atasan / Klien</option>
                 </select>
             </div>
 
@@ -29,10 +31,11 @@
                 <label class="form-label">Perkiraan usia penerima?</label>
                 <select class="form-select" name="usia">
                     <option value="" selected hidden>Pilih Usia</option>
-                    <option>&lt; 18</option>
-                    <option>18 - 25</option>
-                    <option>26 - 35</option>
-                    <option>36+</option>
+                    <option value="< 18">&lt; 18</option>
+                    <option value="18 - 25">18 - 25</option>
+                    <option value="26 - 35">26 - 35</option>
+                    <option value="36 - 45">36 - 45</option>
+                    <option value="> 45">&gt; 45</option>
                 </select>
             </div>
 
@@ -68,9 +71,9 @@
                 <label class="form-label">Seberapa penting momen ini bagi Anda?</label>
                 <select class="form-select py-2" name="level_kepentingan">
                     <option value="" selected hidden>Pilih Level Kepentingan Momen</option>
-                    <option>Biasa</option>
-                    <option>Penting</option>
-                    <option>Sangat Penting</option>
+                    <option value="Biasa">Biasa</option>
+                    <option value="Penting">Penting</option>
+                    <option value="Sangat Penting atau Spesial">Sangat Penting</option>
                 </select>
             </div>
         </div>
@@ -96,13 +99,13 @@
             >
 
             <div class="d-flex justify-content-between small text-muted mt-2">
-                <span>&lt; Rp 100.000</span>
-                <span>Rp 100.000</span>
-                <span>Rp 200.000</span>
-                <span>Rp 300.000</span>
-                <span>Rp 400.000</span>
-                <span>Rp 500.000</span>
-                <span>&gt; Rp 500.000</span>
+                <span>&lt; Rp 100rb</span>
+                <span>Rp 100rb</span>
+                <span>Rp 200rb</span>
+                <span>Rp 300rb</span>
+                <span>Rp 400rb</span>
+                <span>Rp 500rb</span>
+                <span>&gt; Rp 500rb</span>
             </div>
         </div>
         <script>
@@ -131,11 +134,10 @@
                 <label class="form-label">Prioritas utama Anda dalam memilih hadiah?</label>
                 <select class="form-select py-2" name="prioritas">
                     <option value="" selected hidden>Pilih Prioritas</option>
-                    <option>Harga</option>
-                    <option>Kualitas</option>
-                    <option>Keunikan</option>
-                    <option>Kepraktisan</option>
-                    <option>Mewah</option>
+                    <option value="Harga">Harga Produk</option>
+                    <option value="Kualitas">Kualitas Produk</option>
+                    <option value="Tampilan">Tampilan / Estetika</option>
+                    <option value="Makna">Makna Simbolik</option>
                 </select>
             </div>
 
@@ -143,11 +145,11 @@
                 <label class="form-label">Minat utama penerima hadiah</label>
                 <select class="form-select py-2" name="minat">
                     <option value="" selected hidden>Pilih Minat</option>
-                    <option>Teknologi</option>
-                    <option>Fashion</option>
-                    <option>Hobi</option>
-                    <option>Olahraga</option>
-                    <option>Makanan & Minuman</option>
+                    <option value="Teknologi atau Self Care">Teknologi & Self Care</option>
+                    <option value="Dekorasi atau LifeStyle">Dekorasi & LifeStyle</option>
+                    <option value="Produk Kreatif atau Handmade">Produk Kreatif / Handmade</option>
+                    <option value="Religi atau Budaya">Religi & Budaya</option>
+                    <option value="Makanan atau Minuman">Makanan & Minuman</option>
                 </select>
             </div>
 
@@ -155,11 +157,11 @@
                 <label class="form-label">Gaya hadiah seperti apa yang paling cocok?</label>
                 <select class="form-select py-2" name="gaya">
                     <option value="" selected hidden>Pilih Gaya Hadiah</option>
-                    <option>Simple</option>
-                    <option>Elegan</option>
-                    <option>Lucu</option>
-                    <option>Modern</option>
-                    <option>Vintage</option>
+                    <option value="Simpel dan Minimalis">Simpel & Minimalis</option>
+                    <option value="Elegan dan Premium">Elegan & Premium</option>
+                    <option value="Unik dan Kreatif">Unik & Kreatif</option>
+                    <option value="Lucu dan Playful">Lucu & Playful</option>
+                    <option value="Fungsional">Fungsional</option>
                 </select>
             </div>
 

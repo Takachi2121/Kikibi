@@ -27,10 +27,10 @@ class ProdukFactory extends Factory
             'untuk_gender' => $this->faker->randomElement(['Pria', 'Wanita']),
             'untuk_momen' => implode(', ', $this->faker->randomElements([
                 'Ulang Tahun',
-                'Valentine',
-                'Anniversary',
-                'Hari Ibu',
-                'Wisuda'
+                'Hari Raya',
+                'Kelulusan',
+                'Pernikahan',
+                'Ucapan Terima Kasih / Apresiasi',
             ], rand(1, 3))),
             'estimasi' => $this->faker->sentence,
             'foto_1' => $this->faker->randomElement(['Buah.png', 'Bunga.png', 'Coklat.png', 'Kopi.png']),

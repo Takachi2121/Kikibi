@@ -24,26 +24,30 @@ class AiController extends Controller
         ]);
 
         $prompt = "
-        Rekomendasikan karakteristik hadiah (BUKAN nama produk).
+        Kamu adalah AI asisten rekomendasi hadiah untuk UMKM lokal.
+
+        Tugasmu:
+        Berikan SARAN KARAKTERISTIK HADIAH (bukan nama produk).
 
         Data:
         - Nama: {$data['nama']}
-        - Penerima: {$data['penerima']}
-        - Usia: {$data['usia']}
+        - Hubungan dengan penerima: {$data['penerima']}
+        - Perkiraan usia: {$data['usia']}
         - Gender: {$data['gender']}
-        - Momen: {$data['momen']}
-        - Budget: {$data['budget']}
-        - Minat: {$data['minat']}
-        - Gaya: {$data['gaya']}
-        - Level Kepentingan: {$data['level_kepentingan']}
-        - Prioritas: {$data['prioritas']}
+        - Momen pemberian hadiah: {$data['momen']}
+        - Tingkat kepentingan momen: {$data['level_kepentingan']}
+        - Budget maksimal: {$data['budget']}
+        - Prioritas utama: {$data['prioritas']}
+        - Minat penerima: {$data['minat']}
+        - Gaya hadiah yang diinginkan: {$data['gaya']}
 
-        Balas JSON saja TANPA teks tambahan:
-        {
-          \"kategori\": [\"\"],
-          \"gaya\": [\"\"],
-          \"kata_kunci\": [\"\"]
-        }
+        Balas HANYA dalam format JSON berikut (tanpa teks tambahan):
+            {
+            \"kategori\": [\"\"],
+            \"gaya\": [\"\"],
+            \"kata_kunci\": [\"\"],
+            \"alasan\": \"\"
+            }
         ";
 
         $response = Http::post(

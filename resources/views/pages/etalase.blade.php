@@ -3,28 +3,34 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/css/etalase.css') }}">
     <div class="container mt-4">
-        <a href="{{ route('home') }}" class="text-decoration-none text-black fs-5 gap-3">
+        <a href="{{ route($isAI ? 'ai-kikibi' : 'home') }}" class="text-decoration-none text-black fs-5 gap-3">
             <i class="fa-solid fa-arrow-left"></i>&nbsp;&nbsp;Kembali
         </a>
         <div class="row align-items-center mt-4">
-            @if ($isAI && isset($responseAI['gaya'], $responseAI['kata_kunci']) && count($responseAI['gaya']) > 0)
+            @if (
+                $isAI &&
+                !empty($responseAI) &&
+                isset($responseAI['gaya']) &&
+                is_array($responseAI['gaya']) &&
+                count($responseAI['gaya']) > 0
+            )
                 <div class="col-12">
-                    <h1 class="mb-0">Rekomendasi AI</h1>
-                    <p class="fst-italic">
-                        “Kalau aku boleh saran, pilih hadiah dengan gaya
-                        <strong>{{ $responseAI['gaya'][0] }}</strong>.
-                        Hadiah seperti ini biasanya disukai karena
-                        <strong>{{ $responseAI['kata_kunci'][0] ?? 'kualitasnya' }}</strong>
-                        dan
-                        <strong>{{ $responseAI['kata_kunci'][1] ?? 'keunikan desainnya' }}</strong>.”
-                    </p>
+                    <h1 class="mb-1">Rekomendasi AI</h1>
+
+                    @if (!empty($responseAI['alasan']))
+                        <small class="text-muted d-block mb-1">Alasan rekomendasi:</small>
+                        <span>{{ $responseAI['alasan'] }}</span>
+                    @endif
                 </div>
-                @else
+            @else
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <h1 class="mb-0">Etalase Kikibi</h1>
-                    <p class="mb-0 text-muted">{{ $data->count() }} Bingkisan tersedia dari UMKM Terpercaya</p>
+                    <p class="mb-0 text-muted">
+                        {{ $data->count() }} Bingkisan tersedia dari UMKM Terpercaya
+                    </p>
                 </div>
-                @endif
+            @endif
+
 
             @if (!$isAI)
                 <div class="col-6 d-flex justify-content-end">
@@ -50,7 +56,7 @@
 
         <div class="row mt-3" style="min-height: 48.7dvh">
             @forelse ($data as $produk)
-            <div class="col-md-3 my-3">
+            <div class="col-lg-3 col-md-6 my-3">
                 <a href="{{ route('detail', $produk->id) }}" class="text-decoration-none">
                     <div class="card product-card"
                         data-harga="{{ $produk->harga }}">
