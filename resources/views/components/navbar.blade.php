@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
+<nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top" data-aos="fade-down" data-aos-duration="1000" data-aos-once="true">
   <div class="container">
 
     <!-- Brand kiri -->

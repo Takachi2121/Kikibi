@@ -27,15 +27,15 @@
                             </div>
                         </div>
 
-                        <p class="text-muted small mb-4">
+                        <p class="text-muted small">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </p>
 
-                        <div class="d-flex align-items-center gap-2 text-muted small">
+                        {{-- <div class="d-flex align-items-center gap-2 text-muted small">
                             <i class="fa-regular fa-heart"></i>
                             <span>200 Like</span>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

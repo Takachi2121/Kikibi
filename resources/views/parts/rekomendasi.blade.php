@@ -12,7 +12,9 @@
                 <a href="{{ route('etalase') }}" class="text-decoration-none text-muted text-end">Lihat Semua...</a>
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-3 flex-wrap g-4">
+
+            {{-- Card Produk --}}
             @foreach ($produk as $data)
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card product-card">
