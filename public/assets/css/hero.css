@@ -9,8 +9,8 @@
 .btn-rekomendasi{
     border-radius: 20px;
     border: none;
-    color: white;
-    background-color: #F7AC12;
+    color: white !important;
+    background-color: #F7AC12 !important;
     padding: 8px 30px !important;
     position: relative;
     overflow: hidden;
@@ -20,7 +20,7 @@
 }
 
 .btn-rekomendasi:hover{
-    color: white;
+    color: white !important;
+    background-color: #F7AC12 !important;
     transform: scale(1);
 }
-

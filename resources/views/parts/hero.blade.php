@@ -14,6 +14,6 @@
             Bingung mencari bingkisan untuk seseorang?
         </p>
 
-        <button class="btn-rekomendasi mt-4">Coba AI Sekarang</button>
+        <a href="{{ route('ai-kikibi') }}" class="text-decoration-none btn btn-rekomendasi mt-4">Coba AI Sekarang</a>
     </div>
 </section>
