@@ -24,7 +24,7 @@ class AuthController extends Controller
             return redirect()->route('home');
         }else if($user && Hash::check($password, $user->password) && $user->role == 'admin'){
             Auth::login($user);
-            return redirect()->route('home');
+            return redirect()->route('admin-dashboard');
         }else{
             return redirect()->back()->withInput()->withErrors('error', 'Email atau Password Salah');
         }

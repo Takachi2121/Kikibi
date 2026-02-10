@@ -1,0 +1,38 @@
+/* Header DataTable */
+.dataTables_wrapper .dt-buttons {
+    margin-bottom: 15px;
+}
+
+.dataTables_wrapper .dt-buttons .btn {
+    border-radius: 6px;
+    padding: 6px 14px;
+}
+
+/* Search box */
+.dataTables_filter input {
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-left: 8px;
+}
+
+/* Length menu */
+.dataTables_length select {
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+/* Pagination */
+.dataTables_paginate .paginate_button {
+    border-radius: 6px !important;
+    margin: 0 2px;
+}
+
+/* Table look */
+#usersTable thead th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+#usersTable tbody td {
+    vertical-align: middle;
+}

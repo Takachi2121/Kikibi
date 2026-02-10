@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 
@@ -115,5 +116,23 @@ class PageController extends Controller
 
     public function register(){
         return view('auth.register');
+    }
+
+    // Admin Pages
+    public function kategori(){
+        $active = 'kategori';
+        $data = Kategori::all();
+        return view('admin.pages.kategori', compact('active', 'data'));
+    }
+
+    public function produk(){
+        $active = 'produk';
+        $data = Produk::all();
+        return view('admin.pages.produk', compact('active', 'data'));
+    }
+
+    public function pengaturan(){
+        $active = 'pengaturan';
+        return view('admin.pages.pengaturan', compact('active'));
     }
 }

@@ -1,8 +1,8 @@
 <aside class="sidebar d-flex flex-column p-4" id="sidebar">
     <!-- Logo -->
     <div class="text-center mb-5">
-        <a href="{{ route('rumahgue') }}">
-            <img src="{{ asset('assets/img/logo-login.png') }}" class="object-fit-contain" width="200" alt="Logo">
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('assets/img/Background/logo-form.png') }}" class="object-fit-contain" width="100" height="100" alt="Logo">
         </a>
     </div>
 
@@ -10,17 +10,15 @@
     <nav class="nav flex-column gap-2 flex-grow-1">
         <p class="text-uppercase text-black-50 small fw-bold mt-3 mb-1">Menu Utama</p>
 
-        @if (Auth::user()->is_mitra == 1)
-            <a class="nav-link" href="{{ route('mitra-home') }}"><i class="fa-solid fa-pencil me-2"></i> Data Diri</a>
-            <a class="nav-link" href="{{ route('mitra-portfolio') }}"><i class="fa-solid fa-briefcase me-2"></i> Portofolio</a>
-        @elseif(Auth::user()->is_mitra == 2)
-            <a class="nav-link" href="{{ route('admin-user') }}"><i class="fa-solid fa-pencil me-2"></i> Data User</a>
-            <a class="nav-link" href="{{ route('admin-mitra') }}"><i class="fa-solid fa-briefcase me-2"></i> Data Mitra</a>
-        @endif
+        <a class="nav-link {{ $active == 'kategori' ? 'active' : '' }}" href="{{ route('admin-dashboard') }}"><i class="fa-solid fa-briefcase me-2"></i> Kategori</a>
+        <a class="nav-link {{ $active == 'produk' ? 'active' : '' }}" href="{{ route('admin-produk') }}"><i class="fa-solid fa-box me-2"></i> Produk</a>
+
+        <a class="nav-link" href=""><i class="fa-solid fa-cart-shopping me-2"></i> Pesanan</a>
 
         <p class="text-uppercase text-black-50 small fw-bold mt-3 mb-1">Pengaturan</p>
 
-        <a class="nav-link" href="{{ route('mitra-settings') }}"><i class="fa-solid fa-gear me-2"></i> Ubah Password</a>
+        <a class="nav-link" href=""><i class="fa-solid fa-user me-2"></i> Ubah Profil</a>
+        <a class="nav-link" href=""><i class="fa-solid fa-gear me-2"></i> Ubah Password</a>
     </nav>
 
     <!-- Logout -->
