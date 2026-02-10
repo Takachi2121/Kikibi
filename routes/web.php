@@ -3,13 +3,14 @@
 use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
+use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function() {
     Route::get('/',              [PageController::class, 'home'])->name('home');
 });
 
-Route::middleware('auth:web')->group(function() {
+Route::middleware(['auth:web', Role::class . ':user'])->group(function() {
     Route::post('/logout',       [AuthController::class, 'logout'])->name('logout');
     Route::get('/detail/{id}',   [PageController::class, 'detail'])->name('detail');
     Route::get('/ai',            [PageController::class, 'aiRecommendation'])->name('ai-kikibi');

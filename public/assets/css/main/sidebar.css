@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html{
+    box-sizing: border-box;
+    overflow-x: clip;
+    scroll-behavior: smooth;
+    scrollbar-color: var(--primary-color) var(--base-color);
+    scrollbar-width: thin;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins";
+  background: #f8f8f8;
+  overflow-x: clip;
+}
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    color: #000;
+    position: fixed;
+    transition: transform 0.3s ease-in-out;
+}
+
+main{
+    margin-left: 250px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Sidebar link */
+.sidebar .nav-link {
+    color: #000;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    color: #a11b1b;
+}
+
+/* Overlay (untuk mobile) */
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    z-index: 998;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 1.5rem;
+}
+
+/* === MOBILE === */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        z-index: 999;
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    main {
+        margin-left: 0;
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+    }
+}
+

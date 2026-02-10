@@ -1,0 +1,115 @@
+/* dashboard.css atau langsung di <style> sidebar.blade.php */
+
+body {
+  overflow-x: hidden;
+}
+
+.sidebar-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 2000;
+  background: #222;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: none; /* default hidden, tampil di bawah */
+  transition: background-color 0.3s ease;
+}
+.sidebar-toggle:hover {
+  background-color: #444;
+}
+
+/* Sidebar default */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 280px;
+  background-color: #d3d4d5;
+  padding: 1rem;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 1500;
+}
+
+/* Konten bergeser saat sidebar ada */
+.content-wrapper {
+  margin-left: 280px;
+  padding: 2rem;
+  transition: margin-left 0.3s ease, padding-top 0.3s ease;
+}
+
+/* Responsive - layar kecil (mobile) */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+
+  .content-wrapper {
+    margin-left: 0;
+    padding: 4rem 1.5rem 2rem 1.5rem; /* beri padding atas untuk toggle button */
+  }
+}
+
+
+/* Card dan form modern */
+.card {
+    border: none;
+    background-color: #ffffff;
+    border-radius: 1rem;
+}
+
+.btn-primary {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+}
+
+input, textarea {
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #ced4da;
+}
+
+input:focus, textarea:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
+}
+
+.profile-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto; /* biar proporsional */
+  aspect-ratio: 1 / 1; /* buat jadi kotak persegi */
+  object-fit: cover;
+  object-position: top;
+  border-radius: 50%; /* supaya bulat */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  margin-bottom: 1.5rem;
+}
+
+/* Atur container gambar supaya tetap di col-md-3 */
+.col-md-3.text-center {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+}
+
+/* Responsive: di layar kecil, gambar jangan terlalu besar */
+@media (max-width: 768px) {
+  .profile-image {
+    max-width: 150px;
+    margin: 0 auto 1.5rem;
+  }
+}
