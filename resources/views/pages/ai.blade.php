@@ -5,7 +5,7 @@
 <div class="container my-5">
     <h2 class="text-center mb-4 fw-semibold">Cari rekomendasi dengan AI Kikibi</h2>
 
-    <form action="{{ route('ai-rekomendasi') }}" method="POST">
+    <form action="{{ route('ai-rekomendasi') }}" method="POST" id="form-AI">
         @csrf
         <!-- Nama Penerima -->
         <div class="mb-4">
@@ -173,9 +173,32 @@
                 <a href="#" class="btn btn-danger h-100 w-100 px-5 py-2 shadow-lg"><i class="fa-solid fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a>
             </div>
             <div class="col-md-6 mb-sm-3">
-                <button type="submit" class="btn btn-dark h-100 w-100 px-5 py-2 shadow-lg">Cari Sekarang&nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i></button>
+                <button type="submit" class="btn btn-dark h-100 w-100 px-5 py-2 shadow-lg" id="btnAI">
+                    <span class="text-center btn-text">
+                        Cari Sekarang&nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                    <span class="btn-loading d-none">
+                        <span class="spinner-border spinner-border-sm"></span>
+                        Loading
+                    </span>
+                </button>
             </div>
         </div>
     </form>
 </div>
+
+<script>
+    document.getElementById('btnAI').addEventListener('click', function (e) {
+        // jangan submit otomatis dulu
+        e.preventDefault();
+
+        // disable tombol + tampilkan loading
+        this.disabled = true;
+        this.querySelector('.btn-text').classList.add('d-none');
+        this.querySelector('.btn-loading').classList.remove('d-none');
+
+        // submit form manual
+        document.getElementById('form-AI').submit();
+    });
+</script>
 @endsection

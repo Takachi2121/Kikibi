@@ -35,14 +35,9 @@ class PageController extends Controller
     {
         $active = 'produk';
         $isAI = $request->has('ai');
-
-        if($isAI) {
-            $active = 'ai';
-        }else{
-            $active = 'produk';
-        }
         $responseAI = session('responseAI', []);
 
+        // Mapping slider budget ke nominal
         $budgetMapping = [
             0 => 100000,
             1 => 100000,
@@ -50,26 +45,26 @@ class PageController extends Controller
             3 => 300000,
             4 => 400000,
             5 => 500000,
-            6 => null, // > 500rb → NO LIMIT
+            6 => 5000000,
         ];
 
-        $maxHarga = $budgetMapping[$request->max] ?? null;
+        $maxHarga = $budgetMapping[$request->input('max')] ?? null;
 
         $data = Produk::when($isAI, function ($q) use ($request, $maxHarga) {
 
-            // Filter momen
+            // Filter momen jika ada
             if ($request->filled('momen')) {
-                $q->where('untuk_momen', 'LIKE', '%' . $request->momen . '%');
+                $q->where('untuk_momen', 'LIKE', '%' . $request->input('momen') . '%');
             }
 
-            // Filter gender
+            // Filter gender jika ada
             if ($request->filled('gender')) {
-                $q->where('untuk_gender', $request->gender);
+                $q->where('untuk_gender', $request->input('gender'));
             }
 
-            // Filter usia
+            // Filter usia jika ada
             if ($request->filled('usia')) {
-                switch ($request->usia) {
+                switch ($request->input('usia')) {
                     case '< 18':
                         $q->where('umur_min', '<=', 17)
                         ->where('umur_max', '>=', 0);
@@ -86,8 +81,7 @@ class PageController extends Controller
                         break;
 
                     case '36 - 45':
-                        $q->where('umur_min', '<=', 45)
-                        ->where('umur_max', '>=', 36);
+                        $q->where('umur_max', '>=', 36);
                         break;
 
                     case '> 45':
@@ -96,22 +90,17 @@ class PageController extends Controller
                 }
             }
 
-            // ✅ Filter harga (SATU KALI SAJA)
-            if (!is_null($maxHarga)) {
-                $q->where('harga', '<=', $maxHarga);
+            // Filter harga jika ada
+            if (!empty($maxHarga)) {
+                $q->where('harga', '<=', intval($maxHarga));
             }
+
         })
         ->orderBy('id', 'desc')
         ->get();
 
-        return view('pages.etalase', compact(
-            'active',
-            'data',
-            'isAI',
-            'responseAI'
-        ));
+        return view('pages.etalase', compact('active', 'data', 'isAI', 'responseAI'));
     }
-
 
 
     public function detail($id){

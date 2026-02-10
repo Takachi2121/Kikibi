@@ -11,17 +11,24 @@ class AiController extends Controller
     public function cari(Request $request)
     {
         $data = $request->validate([
-            'nama'                => 'required',
-            'penerima'            => 'required',
-            'usia'                => 'required',
-            'gender'              => 'required',
-            'level_kepentingan'   => 'required',
-            'momen'               => 'required',
-            'prioritas'           => 'required',
-            'budget'              => 'required',
-            'minat'               => 'required',
-            'gaya'                => 'required',
+            'nama'               => 'nullable|string',
+            'penerima'           => 'nullable|string',
+            'usia'               => 'nullable|string',
+            'gender'             => 'nullable|string',
+            'level_kepentingan'  => 'nullable|string',
+            'momen'              => 'nullable|string',
+            'prioritas'          => 'nullable|string',
+            'budget'             => 'nullable|numeric',
+            'minat'              => 'nullable|string',
+            'gaya'               => 'nullable|string',
         ]);
+
+        $promptData = [];
+        foreach ($data as $key => $value) {
+            if (!empty($value)) {
+                $promptData[] = "- $key: $value";
+            }
+        }
 
         $prompt = "
         Kamu adalah AI asisten rekomendasi hadiah untuk UMKM lokal.
@@ -29,26 +36,16 @@ class AiController extends Controller
         Tugasmu:
         Berikan SARAN KARAKTERISTIK HADIAH (bukan nama produk).
 
-        Data:
-        - Nama: {$data['nama']}
-        - Hubungan dengan penerima: {$data['penerima']}
-        - Perkiraan usia: {$data['usia']}
-        - Gender: {$data['gender']}
-        - Momen pemberian hadiah: {$data['momen']}
-        - Tingkat kepentingan momen: {$data['level_kepentingan']}
-        - Budget maksimal: {$data['budget']}
-        - Prioritas utama: {$data['prioritas']}
-        - Minat penerima: {$data['minat']}
-        - Gaya hadiah yang diinginkan: {$data['gaya']}
+        Data yang tersedia:
+        " . implode("\n", $promptData) . "
 
         Balas HANYA dalam format JSON berikut (tanpa teks tambahan):
-            {
+        {
             \"kategori\": [\"\"],
             \"gaya\": [\"\"],
             \"kata_kunci\": [\"\"],
             \"alasan\": \"\"
-            }
-        ";
+        }";
 
         $response = Http::post(
             'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' . env('GEMINI_API_KEY'),
@@ -76,10 +73,10 @@ class AiController extends Controller
         // 👉 REDIRECT pakai QUERY
         return redirect()->route('etalase', [
             'ai'     => 1,
-            'momen'  => $data['momen'],
-            'gender' => $data['gender'],
-            'usia'   => $data['usia'],
-            'max'    => $data['budget'],
+            'momen'  => $request->input('momen', ''),
+            'gender' => $request->input('gender', ''),
+            'usia'   => $request->input('usia', ''),
+            'max'    => $request->input('budget', ''),
         ])->with('responseAI', $ai);
     }
 }
