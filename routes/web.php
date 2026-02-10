@@ -10,12 +10,16 @@ Route::prefix('/')->group(function() {
     Route::get('/',              [PageController::class, 'home'])->name('home');
 });
 
-Route::middleware(['auth:web', Role::class . ':user'])->group(function() {
+Route::middleware('auth:web')->group(function() {
     Route::post('/logout',       [AuthController::class, 'logout'])->name('logout');
     Route::get('/detail/{id}',   [PageController::class, 'detail'])->name('detail');
     Route::get('/ai',            [PageController::class, 'aiRecommendation'])->name('ai-kikibi');
     Route::get('/hadiah',        [PageController::class, 'etalase'])->name('etalase');
     Route::post('/ai-rekomendasi',[AiController::class, 'cari'])->name('ai-rekomendasi');
+});
+
+Route::prefix('/admin')->middleware(['auth:web', Role::class . ':admin'])->group(function() {
+    Route::get('/', [PageController::class, 'admin'])->name('admin-dashboard');
 });
 
 Route::prefix('/auth')->middleware('guest')->group(function() {
