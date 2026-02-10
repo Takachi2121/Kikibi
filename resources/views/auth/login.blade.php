@@ -12,6 +12,16 @@
 </head>
 
 <body>
+@if (session('auth_error'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            title: "Informasi",
+            text: "{{ session('auth_error') }}",
+            icon: "question"
+        });
+    </script>
+@endif
 @if (session('error'))
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

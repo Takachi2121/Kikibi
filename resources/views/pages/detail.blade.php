@@ -114,7 +114,7 @@
             </div>
 
             <!-- Action -->
-            <a href="https://wa.me/6285233899868?text={{ urlencode('Permisi kak, saya ingin membeli ' . $data->nama_produk . ' untuk memberikan kejutan di momen spesial. Mohon informasinya, ya!') }}" target="_blank" class="btn btn-danger w-100 rounded-4 py-3 mb-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
+            <a href="https://wa.me/6287731122287?text={{ urlencode('Permisi kak, saya ingin membeli ' . $data->nama_produk . ' untuk memberikan kejutan di momen spesial. Mohon informasinya, ya!') }}" target="_blank" class="btn btn-danger w-100 rounded-4 py-3 mb-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
                 <i class="fa-brands fa-whatsapp fs-5"></i>
                 Pesan via WhatsApp
             </a>

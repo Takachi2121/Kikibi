@@ -39,13 +39,16 @@
 
                 <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="menuUser">
                     <li>
-                        <form action="{{ route('logout') }}" method="POST">
+                        <!-- Tombol logout di dropdown -->
+                        <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        class="dropdown-item bg-transparent position-relative ps-5">
+                            <i class="fa-solid fa-arrow-right-from-bracket position-absolute top-50 translate-middle-y" style="left: 20px"></i>Keluar
+                        </a>
+
+                        <!-- Hidden form -->
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
-                            <button class="dropdown-item position-relative ps-5">
-                                <i class="fa-solid fa-arrow-right-from-bracket position-absolute top-50 translate-middle-y"
-                                style="left: 20px"></i>
-                                Keluar
-                            </button>
                         </form>
                     </li>
                 </ul>
