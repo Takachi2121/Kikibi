@@ -25,10 +25,10 @@ return new class extends Migration
             $table->integer('harga');
             $table->integer('umur_min');
             $table->integer('umur_max');
-            $table->enum('untuk_gender', ['Pria', 'Wanita'])->default('Pria');
+            $table->enum('untuk_gender', ['Pria', 'Wanita', 'Unisex'])->default('Pria');
             $table->text('untuk_momen');
             $table->string('estimasi');
-            $table->string('foto_1')->nullable();
+            $table->string('foto_1');
             $table->string('foto_2')->nullable();
             $table->string('foto_3')->nullable();
             $table->string('foto_4')->nullable();

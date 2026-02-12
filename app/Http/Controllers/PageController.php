@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PageController extends Controller
 {
@@ -127,8 +128,10 @@ class PageController extends Controller
 
     public function produk(){
         $active = 'produk';
-        $data = Produk::all();
-        return view('admin.pages.produk', compact('active', 'data'));
+        $data = Cache::remember('produk_all', 60, function() {
+            return Produk::with('kategori')->get();
+        });
+        return view('admin.pages.produk.index', compact('active', 'data'));
     }
 
     public function pengaturan(){
