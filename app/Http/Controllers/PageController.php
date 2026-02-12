@@ -62,6 +62,8 @@ class PageController extends Controller
             // Filter gender jika ada
             if ($request->filled('gender')) {
                 $q->where('untuk_gender', $request->input('gender'));
+            }else{
+                $q->whereIn('untuk_gender', ['Pria', 'Wanita', 'Unisex']);
             }
 
             // Filter usia jika ada

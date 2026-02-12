@@ -136,5 +136,5 @@
 @endsection
 
 @section('js-admin')
-<script src="{{ asset('assets/js/kategori.js') }}"></script>
+<script src="{{ asset('assets/js/main/kategori.js') }}"></script>
 @endsection
