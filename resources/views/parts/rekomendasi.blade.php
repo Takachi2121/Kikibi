@@ -1,3 +1,6 @@
+@php
+    $produk = \App\Models\Produk::all()->random(4);
+@endphp
 @if ($produk->count() > 0)
 <link rel="stylesheet" href="{{ asset('assets/css/produk.css') }}">
 <section class="rekomendasi-section">

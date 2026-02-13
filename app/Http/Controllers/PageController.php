@@ -13,8 +13,7 @@ class PageController extends Controller
 {
     public function home(){
         $active = 'home';
-        $produk = Produk::all()->random(4);
-        return view('pages.home', compact('active', 'produk'));
+        return view('pages.home', compact('active'));
     }
 
     public function aiRecommendation(){
