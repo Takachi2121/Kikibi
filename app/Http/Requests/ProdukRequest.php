@@ -27,7 +27,7 @@ class ProdukRequest extends FormRequest
             'gender' => 'required|in:Pria,Wanita,Unisex',
             'umur_min' => 'required|integer|min:0|max:99|numeric|gte:0',
             'umur_max' => 'required|integer|min:0|max:99|gte:umur_min',
-            'estimasi' => 'required|string|in:1-2 Hari,3-4 Hari,5-7 Hari,8-10 Hari',
+            'estimasi' => 'required|string|in:1 - 2 Hari,3 - 4 Hari,5 - 7 Hari,8 - 10 Hari',
         ];
 
         // rules foto_1 berbeda untuk create vs update
