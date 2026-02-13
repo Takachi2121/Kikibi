@@ -10,10 +10,10 @@ use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function() {
-    // Route::get('/',              [PageController::class, 'home'])->name('home');
-    Route::get('/', function(){
-        return view('construction');
-    });
+    Route::get('/',              [PageController::class, 'home'])->name('home');
+    // Route::get('/', function(){
+    //     return view('construction');
+    // });
 });
 
 Route::middleware('auth:web')->group(function() {
