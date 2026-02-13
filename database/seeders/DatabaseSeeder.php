@@ -20,5 +20,13 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
         Pesanan::factory(10)->create();
+
+        User::create([
+            'nama_lengkap' => 'Admin',
+            'email' => 'kikibi@gmail.com',
+            'no_telp' => '08123456789',
+            'password' => bcrypt('password123'),
+            'role' => 'admin',
+        ]);
     }
 }

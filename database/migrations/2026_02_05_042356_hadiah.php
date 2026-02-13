@@ -41,6 +41,7 @@ return new class extends Migration
             $table->foreignId('produk_id')->constrained('produks')->onDelete('cascade');
             $table->integer('jumlah');
             $table->integer('total_harga');
+            $table->enum('status', ['Pending', 'Dikirim', 'Selesai'])->default('Pending');
             $table->timestamps();
         });
     }

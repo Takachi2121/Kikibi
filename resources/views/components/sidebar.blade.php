@@ -13,7 +13,7 @@
         <a class="nav-link {{ $active == 'kategori' ? 'active' : '' }}" href="{{ route('admin-dashboard') }}"><i class="fa-solid fa-briefcase me-2"></i> Kategori</a>
         <a class="nav-link {{ $active == 'produk' ? 'active' : '' }}" href="{{ route('admin-produk') }}"><i class="fa-solid fa-box me-2"></i> Produk</a>
 
-        <a class="nav-link" href=""><i class="fa-solid fa-cart-shopping me-2"></i> Pesanan</a>
+        <a class="nav-link {{ $active == 'pesanan' ? 'active' : '' }}" href="{{ route('admin-pesanan') }}"><i class="fa-solid fa-cart-shopping me-2"></i> Pesanan</a>
 
         <p class="text-uppercase text-black-50 small fw-bold mt-3 mb-1">Pengaturan</p>
 

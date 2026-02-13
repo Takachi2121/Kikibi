@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\Pesanan;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -134,6 +135,24 @@ class PageController extends Controller
             return Produk::with('kategori')->get();
         });
         return view('admin.pages.produk.index', compact('active', 'data'));
+    }
+
+    public function pesanan(){
+        $active = 'pesanan';
+
+        $data = Cache::remember('pesanan_all', 60, function() {
+            return Pesanan::with('produk')
+                ->orderByRaw("
+                    FIELD(status,
+                        'Pending',
+                        'Dikirim',
+                        'Selesai'
+                    )
+                ")
+                ->get();
+        });
+
+        return view('admin.pages.pesanan.index', compact('active', 'data'));
     }
 
     public function pengaturan(){

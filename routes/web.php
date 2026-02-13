@@ -4,6 +4,7 @@ use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,9 @@ Route::prefix('/admin')->middleware(['auth:web', Role::class . ':admin'])->group
 
     Route::get('/produk',         [PageController::class, 'produk'])->name('admin-produk');
     Route::resource('/produk-action', ProdukController::class);
+
+    Route::get('/pesanan',         [PageController::class, 'pesanan'])->name('admin-pesanan');
+    Route::resource('/pesanan-action', PesananController::class);
 });
 
 Route::prefix('/auth')->middleware('guest')->group(function() {
