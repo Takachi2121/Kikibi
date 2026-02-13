@@ -19,6 +19,10 @@ class AuthController extends Controller
 
         $user = User::where('email', $email)->first();
 
+        if(!$user) {
+            return redirect()->back()->withInput()->with('error', 'User Tidak Ditemukan');
+        }
+
         if($user && Hash::check($password, $user->password) && $user->role == 'user'){
             Auth::login($user);
             return redirect()->route('home');
@@ -26,7 +30,7 @@ class AuthController extends Controller
             Auth::login($user);
             return redirect()->route('admin-dashboard');
         }else{
-            return redirect()->back()->withInput()->withErrors('error', 'Email atau Password Salah');
+            return redirect()->back()->withInput()->with('error', 'Email atau Password Salah');
         }
     }
 

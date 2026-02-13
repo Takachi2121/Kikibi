@@ -23,6 +23,8 @@ class PesananFactory extends Factory
             'produk_id' => Produk::factory(),
             'jumlah' => $this->faker->numberBetween(1, 5),
             'total_harga' => $this->faker->numberBetween(100000, 1000000),
+            'nama_penerima' => $this->faker->name(),
+            'alamat_penerima' => $this->faker->address(),
             'status' => $this->faker->randomElement(['Pending', 'Dikirim', 'Selesai']),
         ];
     }

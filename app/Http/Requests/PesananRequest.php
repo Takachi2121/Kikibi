@@ -22,12 +22,26 @@ class PesananRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_produk' => 'required|string|max:255',
-            'nama_pengirim' => 'required|string|max:255',
-            'nomor_telepon' => 'required|string|max:20',
+            'produk_id' => 'required|integer|exists:produks,id',
+            'user_id' => 'required|integer|exists:users,id',
+            'nama_penerima' => 'required|string|max:255',
+            'alamat_penerima' => 'required|string|max:500',
+            'jumlah' => 'required|integer|min:1|max:1000',
             'status' => 'required|string|max:50',
-            'tanggal_pesanan' => 'required|date',
-            'tanggal_dikirim' => 'nullable|date|after_or_equal:tanggal_pesanan',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'produk_id.required' => 'Produk wajib dipilih.',
+            'user_id.required' => 'Pengirim wajib dipilih.',
+            'nama_penerima.required' => 'Nama penerima wajib diisi.',
+            'alamat_penerima.required' => 'Alamat penerima wajib diisi.',
+            'jumlah.required' => 'Jumlah pesanan wajib diisi.',
+            'jumlah.min' => 'Jumlah pesanan minimal 1.',
+            'jumlah.max' => 'Jumlah pesanan maksimal 1000.',
+            'status.required' => 'Status pesanan wajib diisi.',
         ];
     }
 }

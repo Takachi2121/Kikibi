@@ -8,6 +8,7 @@ use App\Models\Produk;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'nama_lengkap' => 'Admin',
             'email' => 'kikibi@gmail.com',
             'no_telp' => '08123456789',
-            'password' => bcrypt('password123'),
+            'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
     }

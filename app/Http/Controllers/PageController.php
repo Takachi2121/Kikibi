@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use App\Models\Pesanan;
 use App\Models\Produk;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -149,10 +150,20 @@ class PageController extends Controller
                         'Selesai'
                     )
                 ")
+                ->orderBy('created_at', 'desc')
                 ->get();
         });
 
-        return view('admin.pages.pesanan.index', compact('active', 'data'));
+        $users = Cache::remember('users_all', 60, function() {
+            return User::all();
+        });
+
+        $produk = Cache::remember('produk_all_keyed', 60, function() {
+            return Produk::all();
+        });
+
+
+        return view('admin.pages.pesanan', compact('active', 'data', 'produk', 'users'));
     }
 
     public function pengaturan(){

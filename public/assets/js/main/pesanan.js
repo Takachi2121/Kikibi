@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+
     /* =======================
      * DATATABLE
      * ======================= */
@@ -13,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 extend: 'excelHtml5',
                 text: 'Export Excel',
                 className: 'btn btn-success',
-                title: 'Data Kategori',
+                title: 'Data Pesanan',
                 exportOptions: {
-                    columns: [0, 1, 2], // No, Nama, Makna
+                    columns: [0, 1, 3, 4, 5, 6, 7], // No, Nama Produk, Nama Pengirim, No Telp, Jumlah, Total, Status
                     format: {
                         body: function (data) {
                             const div = document.createElement('div');
@@ -34,19 +35,25 @@ document.addEventListener('DOMContentLoaded', function () {
         },
     });
 
+
     /* =======================
      * MODAL EDIT
      * ======================= */
-    const editModalEl = document.getElementById('editKategoriModal');
+    const editModalEl = document.getElementById('editPesananModal');
     const editModal = new bootstrap.Modal(editModalEl);
-    const editForm = document.getElementById('editKategoriForm');
-    const editBtn = document.getElementById('btnKategoriEdit');
+    const editForm = document.getElementById('editPesananForm');
+    const editBtn = document.getElementById('btnPesananEdit');
 
-    document.querySelectorAll('.btn-edit').forEach(btn => {
+    // tombol edit di tabel Pesanan
+    document.querySelectorAll('#PesanansTable .btn-warning').forEach(btn => {
         btn.addEventListener('click', function () {
             document.getElementById('idEdit').value = this.dataset.id;
-            document.getElementById('namaKategoriEdit').value = this.dataset.nama;
-            document.getElementById('maknaHadiahEdit').value = this.dataset.maknaHadiah;
+            document.getElementById('produkIdEdit').value = this.dataset.produkId;
+            document.getElementById('pengirimIdEdit').value = this.dataset.pengirimId;
+            document.getElementById('namaPenerimaEdit').value = this.dataset.namaPenerima;
+            document.getElementById('alamatPenerimaEdit').value = this.dataset.alamatPenerima;
+            document.getElementById('jumlahEdit').value = this.dataset.jumlah;
+            document.getElementById('statusEdit').value = this.dataset.status;
 
             editModal.show();
         });
@@ -63,14 +70,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const url = editForm.dataset.url.replace('/0','/' + id);
 
         axios.put(url, {
-            nama_kategori: document.getElementById('namaKategoriEdit').value,
-            makna_hadiah: document.getElementById('maknaHadiahEdit').value,
+            produk_id: document.getElementById('produkIdEdit').value,
+            user_id: document.getElementById('pengirimIdEdit').value,
+            nama_penerima: document.getElementById('namaPenerimaEdit').value,
+            alamat_penerima: document.getElementById('alamatPenerimaEdit').value,
+            jumlah: document.getElementById('jumlahEdit').value,
+            status: document.getElementById('statusEdit').value,
         })
         .then(res => {
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil',
-                text: res.data.message ?? 'Data kategori berhasil diperbarui',
+                text: res.data.message ?? 'Data pesanan berhasil diperbarui',
                 timer: 1500,
                 showConfirmButton: false
             }).then(() => location.reload());
@@ -91,10 +102,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* =======================
-     * TAMBAH KATEGORI
+     * TAMBAH PESANAN
      * ======================= */
-    const tambahForm = document.getElementById('addKategoriForm');
-    const tambahBtn = document.getElementById('btnTambahKategori');
+    const tambahForm = document.getElementById('tambahPesananForm');
+    const tambahBtn = document.getElementById('btnTambahPesanan');
 
     tambahForm.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -111,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil',
-                text: res.data.message ?? 'Kategori berhasil ditambahkan',
+                text: res.data.message ?? 'Pesanan berhasil ditambahkan',
                 timer: 1500,
                 showConfirmButton: false
             }).then(() => location.reload());
@@ -132,18 +143,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* =======================
-     * HAPUS KATEGORI
+     * HAPUS PESANAN
      * ======================= */
-    document.querySelectorAll('.form-delete-kategori').forEach(form => {
+    document.querySelectorAll('.form-delete-pesanan').forEach(form => {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const id = this.dataset.id;
-            const url = this.dataset.url.replace('/0','/' + id);
+            const url = this.dataset.url;
 
             Swal.fire({
                 title: 'Yakin ingin menghapus?',
-                text: 'Data kategori akan dihapus permanen!',
+                text: 'Data pesanan akan dihapus permanen!',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -156,17 +166,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         Swal.fire({
                             icon: 'success',
                             title: 'Berhasil',
-                            text: res.data.message ?? 'Kategori berhasil dihapus',
+                            text: res.data.message ?? 'Pesanan berhasil dihapus',
                             timer: 1500,
                             showConfirmButton: false
                         }).then(() => location.reload());
                     })
-                    .catch(() => {
+                    .catch((err) => {
                         Swal.fire({
                             icon: 'error',
                             title: 'Gagal',
                             text: 'Data gagal dihapus'
                         });
+                        console.log(err.response);
                     });
                 }
             });
