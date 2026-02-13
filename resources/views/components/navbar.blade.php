@@ -2,7 +2,7 @@
   <div class="container">
 
     <!-- Brand kiri -->
-    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}">
       <img src="{{ asset('assets/img/logo.png') }}" width="56" />
       <div class="d-none d-md-block lh-1">
         <div class="fw-bold" style="font-size: 20px; font-family: Arial !important;">Kikibi.id</div>
