@@ -13,7 +13,7 @@ class PageController extends Controller
 {
     public function home(){
         $active = 'home';
-        $produk = Produk::inRandomOrder()->limit(4)->get();
+        $produk = Produk::all()->random(4);
         return view('pages.home', compact('active', 'produk'));
     }
 

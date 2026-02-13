@@ -14,7 +14,7 @@
         <div class="row mt-3 flex-wrap g-4">
 
             {{-- Card Produk --}}
-            @foreach ($produk as $data)
+            @forelse ($produk as $data)
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card product-card">
                     <!-- Image -->
@@ -46,7 +46,7 @@
             </div>
             @empty
                 <p class="text-center">Tidak ada produk tersedia.</p>
-            @endforeach
+            @endforelse
         </div>
     </div>
 </section>
