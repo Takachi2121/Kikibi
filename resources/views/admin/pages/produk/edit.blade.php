@@ -92,10 +92,10 @@
                             <label for="estimasi" class="form-label">Estimasi</label>
                             <select name="estimasi" id="estimasi" class="form-control">
                                 <option value="" disabled hidden selected>Pilih Estimasi</option>
-                                <option value="1-2 Hari" {{ $produk->estimasi == '1-2 Hari' ? 'selected' : '' }}>1-2 Hari Pengiriman</option>
-                                <option value="3-4 Hari" {{ $produk->estimasi == '3-4 Hari' ? 'selected' : '' }}>3-4 Hari Pengiriman</option>
-                                <option value="5-7 Hari" {{ $produk->estimasi == '5-7 Hari' ? 'selected' : '' }}>5-7 Hari Pengiriman</option>
-                                <option value="8-10 Hari" {{ $produk->estimasi == '8-10 Hari' ? 'selected' : '' }}>8-10 Hari Pengiriman</option>
+                                <option value="1 - 2 Hari" {{ $produk->estimasi == '1 - 2 Hari' ? 'selected' : '' }}>1-2 Hari Pengiriman</option>
+                                <option value="3 - 4 Hari" {{ $produk->estimasi == '3 - 4 Hari' ? 'selected' : '' }}>3-4 Hari Pengiriman</option>
+                                <option value="5 - 7 Hari" {{ $produk->estimasi == '5 - 7 Hari' ? 'selected' : '' }}>5-7 Hari Pengiriman</option>
+                                <option value="8 - 10 Hari" {{ $produk->estimasi == '8 - 10 Hari' ? 'selected' : '' }}>8-10 Hari Pengiriman</option>
                             </select>
                         </div>
                         <div class="col-lg-6 col-md-12">

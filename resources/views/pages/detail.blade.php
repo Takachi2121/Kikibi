@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <link rel="stylesheet" href="{{ asset('assets/css/detail.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/produk.css') }}">
 
 <div class="container mt-5 mb-5">
 
@@ -15,21 +17,76 @@
         <!-- LEFT : IMAGE -->
         <div class="col-lg-6 mt-4">
             <div class="position-relative">
-                <img src="{{ asset('assets/img/Produk/' . $data->foto_1) }}"
-                     class="img-fluid w-100 rounded-4">
+                <img id="mainImage"
+                    src="{{ asset('assets/img/Produk/' . $data->foto_1) }}"
+                    class="img-fluid w-100 rounded-4">
 
-                <!-- Favorit -->
-                <span class="badge  font-arial position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill" style="background-color: #00C950">
+                <span class="badge font-arial position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill"
+                    style="background-color: #00C950">
                     <i class="fa-solid fa-medal me-1"></i> UMKM Terverifikasi
                 </span>
             </div>
 
-            <!-- Thumbnails -->
-            <div class="d-flex gap-2 mt-3 overflow-hidden w-100">
-                @for ($i = 1; $i < 6; $i++)
-                    <img src="{{ asset('assets/img/Produk/' . $data->{'foto_' . $i}) }}"
-                         class="img-thumbnail rounded-3 thumb-img" width="115" height="115">
-                @endfor
+            <!-- Swiper Thumbnail -->
+            <div class="swiper mySwiper mt-3">
+                <div class="swiper-wrapper">
+                    @for ($i = 1; $i < 6; $i++)
+                        @if($data->{'foto_' . $i})
+                            <div class="swiper-slide">
+                                <img src="{{ asset('assets/img/Produk/' . $data->{'foto_' . $i}) }}"
+                                    class="thumb-img img-thumbnail rounded-3"
+                                    data-img="{{ asset('assets/img/Produk/' . $data->{'foto_' . $i}) }}">
+                            </div>
+                        @endif
+                    @endfor
+                </div>
+            </div>
+
+            <div class="row mt-4 align-items-center">
+                <div class="col-lg-6">
+                    <p class="text-semibold fs-4 text-arial mb-0">Produk Lainnya</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-end">
+                        <a href="{{ route('etalase') }}" class="text-decoration-none text-black-50 font-arial fw-semibold">
+                            Lihat Semua...</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-1">
+                @foreach ($produkLain as $data)
+                <div class="col-lg-5 col-md-6 col-sm-12">
+                    <div class="card product-card">
+                        <!-- Image -->
+                        <div class="position-relative">
+                            <img src="{{ asset('assets/img/Produk/'. $data->foto_1) }}" class="card-img-top" alt="Keranjang Bunga Mawar">
+
+                            <!-- Favorit badge -->
+                            <span class="badge-favorit">
+                                <i class="fa-solid fa-award"></i>&nbsp;&nbsp;Verified
+                            </span>
+                        </div>
+
+                        <!-- Body -->
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="category-text">{{ $data->kategori->nama_kategori }}</span>
+                                <span class="rating-text">
+                                    <i class="fa-solid fa-star text-warning"></i> 4.7
+                                </span>
+                            </div>
+
+                            <p class="product-title">{{ $data->nama_produk }}</p>
+
+                            <p class="product-price">Rp {{ number_format($data->harga, 0, ',', '.') }}</p>
+
+                            <a href="{{ route('detail', $data->id) }}" class="btn btn-detail w-100">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
 
@@ -91,7 +148,7 @@
                 <div class="col-md-6">
                     <div class="p-3 bg-light rounded-4 h-100">
                         <i class="fa-solid fa-truck-fast text-primary me-2"></i>
-                        <small class="font-arial">Estimasi Pengiriman<br><b>2-3 hari kerja</b></small>
+                        <small class="font-arial">Estimasi Pengiriman<br><b>{{ $data->estimasi }} Kerja</b></small>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -139,4 +196,40 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Init Swiper
+    const swiper = new Swiper(".mySwiper", {
+        slidesPerView: "auto",
+        spaceBetween: 10,
+        freeMode: true,
+    });
+
+    const mainImage = document.getElementById("mainImage");
+    const thumbs = document.querySelectorAll(".thumb-img");
+
+    // Set default active
+    if (thumbs.length > 0) {
+        thumbs[0].classList.add("active");
+    }
+
+    thumbs.forEach(img => {
+        img.addEventListener("click", function () {
+
+            // Ganti gambar utama
+            mainImage.src = this.dataset.img;
+
+            // Hapus active lama
+            thumbs.forEach(i => i.classList.remove("active"));
+
+            // Tambah active baru
+            this.classList.add("active");
+        });
+    });
+
+});
+</script>
+
 @endsection

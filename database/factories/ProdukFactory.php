@@ -32,7 +32,7 @@ class ProdukFactory extends Factory
                 'Pernikahan',
                 'Ucapan Terima Kasih / Apresiasi',
             ], rand(1, 3))),
-            'estimasi' => $this->faker->sentence,
+            'estimasi' => $this->faker->randomElement(['1 - 2 Hari', '3 - 4 Hari', '5 - 7 Hari', '8 - 10 Hari']),
             'foto_1' => $this->faker->randomElement(['Buah.png', 'Bunga.png', 'Coklat.png', 'Kopi.png']),
             'foto_2' => $this->faker->randomElement(['Buah.png', 'Bunga.png', 'Coklat.png', 'Kopi.png']),
             'foto_3' => $this->faker->randomElement(['Buah.png', 'Bunga.png', 'Coklat.png', 'Kopi.png']),

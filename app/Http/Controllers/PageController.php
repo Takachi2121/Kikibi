@@ -109,10 +109,19 @@ class PageController extends Controller
     }
 
 
-    public function detail($id){
+    public function detail($id)
+    {
         $active = 'produk';
-        $data = Produk::findorFail($id);
-        return view('pages.detail', compact('active', 'data'));
+
+        $data = Produk::with('kategori')->findOrFail($id);
+
+        $produkLain = Produk::where('id', '!=', $id)
+                        ->where('kategori_id', $data->kategori_id)
+                        ->orderBy('id', 'desc')
+                        ->take(4)
+                        ->get();
+
+        return view('pages.detail', compact('active', 'data', 'produkLain'));
     }
 
     public function login(){

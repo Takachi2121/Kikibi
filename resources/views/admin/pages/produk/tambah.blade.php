@@ -90,10 +90,10 @@
                             <label for="estimasi" class="form-label">Estimasi</label>
                             <select name="estimasi" id="estimasi" class="form-control">
                                 <option value="" disabled hidden selected>Pilih Estimasi</option>
-                                <option value="1-2 Hari">1-2 Hari Pengiriman</option>
-                                <option value="3-4 Hari">3-4 Hari Pengiriman</option>
-                                <option value="5-7 Hari">5-7 Hari Pengiriman</option>
-                                <option value="8-10 Hari">8-10 Hari Pengiriman</option>
+                                <option value="1 - 2 Hari">1-2 Hari Pengiriman</option>
+                                <option value="3 - 4 Hari">3-4 Hari Pengiriman</option>
+                                <option value="5 - 7 Hari">5-7 Hari Pengiriman</option>
+                                <option value="8 - 10 Hari">8-10 Hari Pengiriman</option>
                             </select>
                         </div>
                         <div class="col-lg-6 col-md-12">

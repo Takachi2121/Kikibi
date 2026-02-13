@@ -38,6 +38,15 @@
                 </button>
 
                 <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="menuUser">
+                    @if(Auth::user()->role == 'admin')
+                    <li>
+                        <!-- Tombol logout di dropdown -->
+                        <a href="{{ route('admin-produk') }}"
+                        class="dropdown-item bg-transparent position-relative ps-5">
+                            <i class="fa-solid fa-table-columns position-absolute top-50 translate-middle-y" style="left: 20px"></i>Dashboard
+                        </a>
+                    </li>
+                    @endif
                     <li>
                         <!-- Tombol logout di dropdown -->
                         <a href="{{ route('logout') }}"
