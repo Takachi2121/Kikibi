@@ -11,9 +11,17 @@ use Illuminate\Support\Facades\Cache;
 
 class PageController extends Controller
 {
-    public function home(){
+    public function home()
+    {
         $active = 'home';
-        $produk = Produk::all()->inRandomOrder()->limit(4)->get();
+        $allProduk = Produk::all();
+
+        if ($allProduk->count() >= 4) {
+            $produk = $allProduk->random(4);
+        } else {
+            $produk = $allProduk;
+        }
+
         return view('pages.home', compact('active', 'produk'));
     }
 
