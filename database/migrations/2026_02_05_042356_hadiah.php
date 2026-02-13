@@ -46,6 +46,19 @@ return new class extends Migration
             $table->enum('status', ['Pending', 'Dikirim', 'Selesai'])->default('Pending');
             $table->timestamps();
         });
+
+        Schema::create('wishlists', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('produk_id')->constrained('produks')->onDelete('cascade');
+        });
+
+        Schema::create('testimonis', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->text('komentar');
+            $table->integer('rating');
+        });
     }
 
     /**

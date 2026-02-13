@@ -46,7 +46,15 @@
                             <i class="fa-solid fa-table-columns position-absolute top-50 translate-middle-y" style="left: 20px"></i>Dashboard
                         </a>
                     </li>
+                    <hr class="my-1">
                     @endif
+                    {{-- <li>
+                        <!-- Tombol logout di dropdown -->
+                        <a href="{{ route('admin-produk') }}"
+                        class="dropdown-item bg-transparent position-relative ps-5">
+                            <i class="fa-solid fa-gear position-absolute top-50 translate-middle-y" style="left: 20px"></i>Pengaturan Akun
+                        </a>
+                    </li> --}}
                     <li>
                         <!-- Tombol logout di dropdown -->
                         <a href="{{ route('logout') }}"

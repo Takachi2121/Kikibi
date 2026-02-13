@@ -11,8 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
 
     <style>
-        html,
-        body{
+        html,body{
             background: linear-gradient(75deg, #A30029 0%, #DC2629 100%);
             font-family: 'Lexend', sans-serif;
             color: #fff;
@@ -23,6 +22,7 @@
             height: 100dvh;
             margin-top: 120px;
             overflow: hidden;
+            width: 100%;
         }
 
         h1{
