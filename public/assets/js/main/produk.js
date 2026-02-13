@@ -15,6 +15,41 @@ function previewImage(input, index) {
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    /* =======================
+     * DATATABLE
+     * ======================= */
+    $('#ProduksTable').DataTable({
+        responsive: true,
+        scrollY: '600px',
+        scrollCollapse: true,
+        pageLength: -1,
+        dom: 'Bfrt',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Export Excel',
+                className: 'btn btn-success',
+                title: 'Data Produk',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4],
+                    format: {
+                        body: function (data) {
+                            const div = document.createElement('div');
+                            div.innerHTML = data;
+                            return div.textContent || div.innerText || '';
+                        }
+                    }
+                }
+            }
+        ],
+        language: {
+            search: "Cari:",
+            lengthMenu: "Tampilkan _MENU_ data per halaman",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+            paginate: { next: "Next", previous: "Prev" }
+        },
+    });
+
     // -------------------
     // HARGA INPUT
     // -------------------

@@ -60,12 +60,7 @@
                             @endif
                         @endfor
                         <td class="text-center gap-2  justify-content-center h-100">
-                            <button class="btn btn-sm text-white btn-warning btn-edit"
-                                data-id="{{ $produk->id }}"
-                                data-nama="{{ $produk->nama_produk }}"
-                                data-makna-hadiah="{{ $produk->makna_hadiah }}"
-                            >
-                            <a href="{{ route('produk-action.edit', $produk->id) }}" class="text-decoration-none text-white">
+                            <a href="{{ route('produk-action.edit', $produk->id) }}" class="text-decoration-none text-white btn btn-sm btn-warning">
                                 <i class="fa-solid fa-pen"></i>&nbsp;&nbsp;Edit</button>
                             </a>
                             <form class="d-inline form-delete-Produk" data-url="{{ route('produk-action.destroy', $produk->id) }}">

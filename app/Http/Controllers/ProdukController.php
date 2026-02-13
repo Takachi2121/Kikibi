@@ -190,6 +190,8 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk_action)
     {
+        $this->authorize('delete', $produk_action);
+
         $produk_action->delete();
         if($produk_action->foto_1){
             $oldFilePath = public_path('assets/img/Produk/' . $produk_action->foto_1);
