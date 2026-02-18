@@ -81,6 +81,13 @@ class TestimoniController extends Controller
     {
         $testimoni_action->delete();
 
+        if($testimoni_action->foto) {
+            $existingFile = public_path('assets/img/Testimoni/' . $testimoni_action->foto);
+            if(file_exists($existingFile)) {
+                unlink($existingFile);
+            }
+        }
+
         Cache::forget('testimoni_all');
 
         return response()->json([
