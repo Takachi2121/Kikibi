@@ -43,7 +43,7 @@
                             @endif
                         </td>
                         <td>{{ $testimoni->nama }}</td>
-                        <td>{{ Str::limit($testimoni->komentar,80) }}</td>
+                        <td>{{ Str::limit($testimoni->komentar,44) }}</td>
                         <td class="text-center">
                             <span class="d-none">{{ $testimoni->rating }}</span>
                             @for ($i = 1; $i <= 5; $i++)
