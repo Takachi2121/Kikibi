@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Kategori;
 use App\Models\Pesanan;
 use App\Models\Produk;
+use App\Models\Testimoni;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
         Pesanan::factory(10)->create();
+        Testimoni::factory(7)->create();
 
         User::create([
             'nama_lengkap' => 'Admin',

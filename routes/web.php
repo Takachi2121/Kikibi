@@ -6,6 +6,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\TestimoniController;
 use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,9 @@ Route::prefix('/admin')->middleware(['auth:web', Role::class . ':admin'])->group
 
     Route::get('/pesanan',         [PageController::class, 'pesanan'])->name('admin-pesanan');
     Route::resource('/pesanan-action', PesananController::class);
+
+    Route::get('/testimoni', [PageController::class, 'testimoni'])->name('admin-testimoni');
+    Route::resource('/testimoni-action', TestimoniController::class);
 });
 
 Route::prefix('/auth')->middleware('guest')->group(function() {

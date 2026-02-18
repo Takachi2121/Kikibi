@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use App\Models\Pesanan;
 use App\Models\Produk;
+use App\Models\Testimoni;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -21,8 +22,9 @@ class PageController extends Controller
         } else {
             $produk = $allProduk;
         }
+        $testimoni = Testimoni::orderBy('created_at', 'desc')->take(6)->get();
 
-        return view('pages.home', compact('active', 'produk'));
+        return view('pages.home', compact('active', 'produk', 'testimoni'));
     }
 
     public function aiRecommendation(){
@@ -181,6 +183,14 @@ class PageController extends Controller
 
 
         return view('admin.pages.pesanan', compact('active', 'data', 'produk', 'users'));
+    }
+
+    public function testimoni(){
+        $active = 'testimoni';
+        $data = Cache::remember('testimoni_all', 60, function() {
+            return Testimoni::all();
+        });
+        return view('admin.pages.testimoni', compact('active', 'data'));
     }
 
     public function pengaturan(){

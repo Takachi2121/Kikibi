@@ -55,9 +55,11 @@ return new class extends Migration
 
         Schema::create('testimonis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('nama');
             $table->text('komentar');
             $table->integer('rating');
+            $table->string('foto')->nullable();
+            $table->timestamps();
         });
     }
 

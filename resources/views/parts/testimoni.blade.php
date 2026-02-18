@@ -4,32 +4,41 @@
         <p class="fs-5">Cerita dari mereka yang berhasil bikin momen lebih berkesan.</p>
         <div class="row g-4">
             <!-- Card -->
-            @for ($i = 0; $i < 6; $i++)
+            @foreach($testimoni as $data)
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card h-100 shadow-sm border-0">
                     <div class="card-body text-start">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div class="d-flex align-items-center gap-2">
-                                <img src="{{ asset('assets/img/Testimoni/Person.png') }}"
-                                alt="User"
-                                width="40"
-                                height="40"
-                                class="rounded-circle">
-                                <h6 class="mb-0 fw-semibold">John Doe</h6>
+                                @if ($data->foto)
+                                    <img src="{{ asset('assets/img/Testimoni/' . $data->foto) }}"
+                                    alt="User"
+                                    width="40"
+                                    height="40"
+                                    class="rounded-circle">
+                                @else
+                                    <img src="{{ asset('assets/img/Testimoni/default.png') }}"
+                                    alt="User"
+                                    width="40"
+                                    height="40"
+                                    class="rounded-circle">
+                                @endif
+                                <h6 class="mb-0 fw-semibold">{{ $data->nama }}</h6>
                             </div>
 
                             <div class="text-warning align-self-center">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star text-muted"></i>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= $data->rating)
+                                        <i class="fa-solid fa-star text-warning"></i>
+                                    @else
+                                        <i class="fa-regular fa-star text-muted"></i>
+                                    @endif
+                                @endfor
                             </div>
                         </div>
 
                         <p class="text-muted small">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            {{ $data->komentar }}
                         </p>
 
                         {{-- <div class="d-flex align-items-center gap-2 text-muted small">
@@ -39,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 </section>

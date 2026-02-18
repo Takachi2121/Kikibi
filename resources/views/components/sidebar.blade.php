@@ -15,6 +15,10 @@
 
         <a class="nav-link {{ $active == 'pesanan' ? 'active' : '' }}" href="{{ route('admin-pesanan') }}"><i class="fa-solid fa-cart-shopping me-2"></i> Pesanan</a>
 
+        <p class="text-uppercase text-black-50 small fw-bold mt-3 mb-1">Menu Tambahan</p>
+
+        <a class="nav-link {{ $active == 'testimoni' ? 'active' : '' }}" href="{{ route('admin-testimoni') }}"><i class="fa-solid fa-lightbulb me-2"></i> Testimoni</a>
+
         <p class="text-uppercase text-black-50 small fw-bold mt-3 mb-1">Pengaturan</p>
 
         <a class="nav-link" href=""><i class="fa-solid fa-user me-2"></i> Ubah Profil</a>
