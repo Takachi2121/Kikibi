@@ -15,7 +15,7 @@
                                     alt="User"
                                     width="40"
                                     height="40"
-                                    class="rounded-circle">
+                                    class="rounded-circle object-fit-cover" style="object-position: top;">
                                 @else
                                     <img src="{{ asset('assets/img/Testimoni/default.png') }}"
                                     alt="User"
