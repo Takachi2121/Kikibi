@@ -52,15 +52,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('produk_id')->constrained('produks')->onDelete('cascade');
         });
-
-        Schema::create('testimonis', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->text('komentar');
-            $table->integer('rating');
-            $table->string('foto')->nullable();
-            $table->timestamps();
-        });
     }
 
     /**
