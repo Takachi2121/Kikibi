@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Kategori;
+use App\Models\Notifikasi;
 use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\Testimoni;
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         Pesanan::factory(10)->create();
         Testimoni::factory(7)->create();
+        Notifikasi::factory(10)->create();
 
         User::create([
             'nama_lengkap' => 'Admin',
@@ -30,6 +32,14 @@ class DatabaseSeeder extends Seeder
             'no_telp' => '08123456789',
             'password' => Hash::make('password'),
             'role' => 'admin',
+        ]);
+
+        User::create([
+            'nama_lengkap' => 'Andre',
+            'email' => 'andremm73@gmail.com',
+            'no_telp' => '08123456789',
+            'password' => Hash::make('password'),
+            'role' => 'user',
         ]);
     }
 }

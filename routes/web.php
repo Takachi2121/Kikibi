@@ -3,6 +3,7 @@
 use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProdukController;
@@ -23,6 +24,8 @@ Route::middleware('auth:web')->group(function() {
     Route::get('/ai',             [PageController::class, 'aiRecommendation'])->name('ai-kikibi');
     Route::get('/hadiah',         [PageController::class, 'etalase'])->name('etalase');
     Route::post('/ai-rekomendasi',[AiController::class, 'cari'])->name('ai-rekomendasi');
+    Route::get('/notifikasi', [NotifikasiController::class, 'notifAll'])->name('notif');
+    Route::post('/notif-read', [NotifikasiController::class, 'notifRead'])->name('notif-read');
 });
 
 Route::prefix('/admin')->middleware(['auth:web', Role::class . ':admin'])->group(function() {

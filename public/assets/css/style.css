@@ -65,15 +65,59 @@ html, body{
     color: #fff;
 }
 
-.step-number {
+.notif-box {
+    width: 360px;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.notif-header {
+    font-size: 18px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.notif-item {
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid #f1f3f5;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.notif-item:hover {
+    background-color: #f8f9fa;
+}
+
+.notif-icon {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: #ffe3e3;
-    color: #dc3545;
-    font-weight: bold;
+    background: #D9E1F1;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    font-size: 18px;
+    color: #2b2f32;
+}
+
+.notif-content {
+    flex: 1;
+}
+
+.notif-title {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.notif-message {
+    font-size: 13px;
+    color: #6c757d;
+}
+
+.notif-time {
+    font-size: 12px;
+    color: #6c757d;
+    white-space: nowrap;
 }

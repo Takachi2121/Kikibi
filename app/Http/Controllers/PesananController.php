@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PesananRequest;
+use App\Models\Notifikasi;
 use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\User;
@@ -31,6 +32,12 @@ class PesananController extends Controller
         $data->status = $request->input('status');
         $data->save();
 
+        $notif = new Notifikasi;
+        $notif->user_id = $request->input('user_id');
+        $notif->jenis_notif = '1';
+        $notif->pesan = 'Pesanan '. Produk::find($request->input('produk_id'))->nama_produk .' baru saja diproses';
+        $notif->save();
+
         Cache::forget('pesanan_all');
         Cache::forget('produk_all_keyed');
         Cache::forget('users_all');
@@ -48,6 +55,22 @@ class PesananController extends Controller
         $this->authorize('update', $pesanan_action);
 
         $pesanan_action->update($request->all());
+
+        if($pesanan_action->status == 'Dikirim'){
+            $notif = new Notifikasi;
+            $notif->user_id = $request->input('user_id');
+            $notif->jenis_notif = '2';
+            $notif->pesan = 'Pesanan '. Produk::find($request->input('produk_id'))->nama_produk .' sedang dikirim';
+        }
+
+        if($pesanan_action->status == 'Selesai'){
+            $notif = new Notifikasi;
+            $notif->user_id = $request->input('user_id');
+            $notif->jenis_notif = '3';
+            $notif->pesan = 'Pesanan '. Produk::find($request->input('produk_id'))->nama_produk .' sudah diterima';
+        }
+
+        $notif->save();
 
         Cache::forget('pesanan_all');
         Cache::forget('produk_all_keyed');

@@ -42,6 +42,11 @@ class User extends Authenticatable
         return $this->hasMany(Produk::class);
     }
 
+    public function notifikasi()
+    {
+        return $this->hasMany(Notifikasi::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
