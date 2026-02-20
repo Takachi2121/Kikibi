@@ -35,11 +35,11 @@
             @auth
 
                 @if(auth()->user()->role === 'user')
-                <div class="align-self-center me-2">
+                {{-- <div class="align-self-center me-2">
                     <a href="">
                         <img src="{{ asset('assets/img/clover.png') }}" alt="Wishlist" class="img-fluid" width="100%" height="21.75px">
                     </a>
-                </div>
+                </div> --}}
                 <div class="dropdown align-self-center pt-1 me-2">
                     <button
                         class="btn p-0 border-0 bg-transparent position-relative"
