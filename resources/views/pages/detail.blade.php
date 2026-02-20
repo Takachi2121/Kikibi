@@ -56,12 +56,12 @@
             </div>
 
             <div class="row g-4 mt-1">
-                @foreach ($produkLain as $data)
-                <div class="col-lg-5 col-md-6 col-sm-12">
+                @foreach ($produkLain as $produk)
+                <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="card product-card">
                         <!-- Image -->
                         <div class="position-relative">
-                            <img src="{{ asset('assets/img/Produk/'. $data->foto_1) }}" class="card-img-top" alt="Keranjang Bunga Mawar">
+                            <img src="{{ asset('assets/img/Produk/'. $produk->foto_1) }}" class="card-img-top" alt="Keranjang Bunga Mawar">
 
                             <!-- Favorit badge -->
                             <span class="badge-favorit">
@@ -72,17 +72,17 @@
                         <!-- Body -->
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="category-text">{{ $data->kategori->nama_kategori }}</span>
+                                <span class="category-text">{{ $produk->kategori->nama_kategori }}</span>
                                 <span class="rating-text">
                                     <i class="fa-solid fa-star text-warning"></i> 4.7
                                 </span>
                             </div>
 
-                            <p class="product-title">{{ $data->nama_produk }}</p>
+                            <p class="product-title">{{ $produk->nama_produk }}</p>
 
-                            <p class="product-price">Rp {{ number_format($data->harga, 0, ',', '.') }}</p>
+                            <p class="product-price">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
 
-                            <a href="{{ route('detail', $data->id) }}" class="btn btn-detail w-100">Lihat Detail</a>
+                            <a href="{{ route('detail', $produk->id) }}" class="btn btn-detail w-100">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -164,14 +164,14 @@
                 <span class="fw-medium font-arial">Jumlah</span>
 
                 <div class="qty-wrapper">
-                    <button class="qty-btn minus font-arial">−</button>
+                    <button type="button" class="qty-btn minus font-arial">−</button>
                     <span class="qty-number font-arial">1</span>
-                    <button class="qty-btn plus font-arial">+</button>
+                    <button type="button" class="qty-btn plus font-arial">+</button>
                 </div>
             </div>
 
             <!-- Action -->
-            <a href="https://wa.me/6287731122287?text={{ urlencode('Permisi kak, saya ingin membeli ' . $data->nama_produk . ' untuk memberikan kejutan di momen spesial. Mohon informasinya, ya!') }}" target="_blank" class="btn btn-danger w-100 rounded-4 py-3 mb-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
+            <a href="#" target="_blank" id="waButton" class="btn btn-danger w-100 rounded-4 py-3 mb-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
                 <i class="fa-brands fa-whatsapp fs-5"></i>
                 Pesan via WhatsApp
             </a>
@@ -199,6 +199,39 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+
+    const minusBtn = document.querySelector(".minus");
+    const plusBtn = document.querySelector(".plus");
+    const qtyNumber = document.querySelector(".qty-number");
+    const waButton = document.getElementById("waButton");
+
+    const productName = @json($produk->nama_produk);
+    const phoneNumber = "6287731122287";
+
+    let quantity = 1;
+
+    function updateWhatsAppLink() {
+        const message = `Permisi kak, saya ingin membeli ${productName} sebanyak ${quantity} buah untuk memberikan kejutan di momen spesial. Mohon informasinya, ya!`;
+        const encodedMessage = encodeURIComponent(message);
+        waButton.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    }
+
+    plusBtn.addEventListener("click", function () {
+        quantity++;
+        qtyNumber.textContent = quantity;
+        updateWhatsAppLink();
+    });
+
+    minusBtn.addEventListener("click", function () {
+        if (quantity > 1) {
+            quantity--;
+            qtyNumber.textContent = quantity;
+            updateWhatsAppLink();
+        }
+    });
+
+    // Set default link saat pertama load
+    updateWhatsAppLink();
 
     // Init Swiper
     const swiper = new Swiper(".mySwiper", {

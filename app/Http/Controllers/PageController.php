@@ -125,11 +125,33 @@ class PageController extends Controller
 
         $data = Produk::with('kategori')->findOrFail($id);
 
-        $produkLain = Produk::where('id', '!=', $id)
-                        ->where('kategori_id', $data->kategori_id)
-                        ->orderBy('id', 'desc')
-                        ->take(4)
-                        ->get();
+        $limit = 2;
+
+        // Produk lain berdasarkan kategori
+        $produkLain = Produk::where('id' , '!=', $id)
+            ->where('kategori_id', $data->kategori_id)
+            ->orderBy('id', 'desc')
+            ->take($limit)
+            ->get();
+
+        // Kalau kurang, ambil tambahan berdasarkan momen
+        if ($produkLain->count() < $limit) {
+            $kekurangan = $limit - $produkLain->count();
+            $momenArray = explode(',', $data->untuk_momen);
+
+            $produkMomen = Produk::where('id', '!=', $id)
+                ->whereNotIn('id', $produkLain->pluck('id'))
+                ->where(function($q) use ($momenArray) {
+                    foreach ($momenArray as $momen) {
+                        $q->orWhere('untuk_momen', 'LIKE', "%{$momen}%");
+                    }
+                })
+                ->orderBy('id', 'desc')
+                ->take($kekurangan)
+                ->get();
+
+            $produkLain = $produkLain->concat($produkMomen);
+        }
 
         return view('pages.detail', compact('active', 'data', 'produkLain'));
     }
