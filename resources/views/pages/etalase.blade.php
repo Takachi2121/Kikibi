@@ -41,13 +41,11 @@
                         id="dropdownMenuButton"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <i class="fa-solid fa-sliders"></i>&nbsp;&nbsp;Urutkan: <span id="filter-etalase">Relevansi</span>
+                        <i class="fa-solid fa-sliders"></i>&nbsp;&nbsp; <span id="filter-etalase">Urutkan Berdasarkan</span>
                         </button>
                         <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item active" href="#" data-sort="relevansi">Relevansi</a></li>
-                            <li><a class="dropdown-item" href="#" data-sort="harga_asc">Harga Terendah</a></li>
                             <li><a class="dropdown-item" href="#" data-sort="harga_desc">Harga Tertinggi</a></li>
-                            <li><a class="dropdown-item" href="#" data-sort="populer">Populer</a></li>
+                            <li><a class="dropdown-item" href="#" data-sort="harga_asc">Harga Terendah</a></li>
                         </ul>
                     </div>
                 </div>

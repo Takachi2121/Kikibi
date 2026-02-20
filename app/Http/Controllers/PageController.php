@@ -48,8 +48,8 @@ class PageController extends Controller
     public function etalase(Request $request)
     {
         $active = 'produk';
-        $isAI = $request->has('ai');
-        $responseAI = session('responseAI', []);
+        $isAI = $request->input('ai') == 1;
+        $responseAI = session('responseAI');
 
         // Mapping slider budget ke nominal
         $budgetMapping = [

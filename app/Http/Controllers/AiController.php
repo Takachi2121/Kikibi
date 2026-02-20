@@ -70,6 +70,8 @@ class AiController extends Controller
         preg_match('/\{.*\}/s', $raw, $match);
         $ai = json_decode($match[0] ?? '{}', true);
 
+        session(['responseAI' => $ai]);
+
         // 👉 REDIRECT pakai QUERY
         return redirect()->route('etalase', [
             'ai'     => 1,
@@ -77,7 +79,7 @@ class AiController extends Controller
             'gender' => $request->input('gender', ''),
             'usia'   => $request->input('usia', ''),
             'max'    => $request->input('budget', ''),
-        ])->with('responseAI', $ai);
+        ]);
     }
 }
 
