@@ -7,6 +7,7 @@ use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\Testimoni;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -162,6 +163,12 @@ class PageController extends Controller
 
     public function register(){
         return view('auth.register');
+    }
+
+    public function wishlist(){
+        $active = 'wishlist';
+        $data = Wishlist::where('user_id', auth()->user()->id)->get();
+        return view('pages.wishlist', compact('active', 'data'));
     }
 
     // Admin Pages

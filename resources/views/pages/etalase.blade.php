@@ -36,7 +36,7 @@
                 <div class="col-6 d-flex justify-content-end">
                     <div class="dropdown">
                         <button
-                        class="btn bg-white border rounded px-3 py-2 dropdown-toggle"
+                        class="btn bg-white border rounded-pill px-3 py-2 dropdown-toggle"
                         type="button"
                         id="dropdownMenuButton"
                         data-bs-toggle="dropdown"

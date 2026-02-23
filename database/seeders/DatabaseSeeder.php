@@ -8,6 +8,7 @@ use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\Testimoni;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
         Pesanan::factory(10)->create();
         Testimoni::factory(7)->create();
         Notifikasi::factory(10)->create();
+        Wishlist::factory(10)->create();
 
         User::create([
             'nama_lengkap' => 'Admin',

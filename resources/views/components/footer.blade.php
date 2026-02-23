@@ -19,9 +19,9 @@
         <div class="text-white col-md-4">
             <h6>Jelajahi</h6>
             <ul class="list-unstyled mt-4">
-                <li class="mb-2"><a href="#" class="text-decoration-none text-white">Beranda</a></li>
-                <li class="mb-2"><a href="#" class="text-decoration-none text-white">AI Rekomendasi</a></li>
-                <li class="mb-2"><a href="#" class="text-decoration-none text-white">Kontak Kami</a></li>
+                <li class="mb-2"><a href="{{ route('home') }}" class="text-decoration-none text-white">Beranda</a></li>
+                <li class="mb-2"><a href="{{ route('ai-kikibi') }}" class="text-decoration-none text-white">AI Rekomendasi</a></li>
+                <li class="mb-2"><a href="{{ route('etalase') }}" class="text-decoration-none text-white">Etalase Kikibi</a></li>
             </ul>
         </div>
 
@@ -29,7 +29,11 @@
             <h6>Kontak</h6>
             <ul class="list-unstyled mt-4">
                 <li class="mb-2">Email: hello@kikibi.id</li>
-                <li class="mb-2">WA: +62 812-3456-7890</li>
+                <li class="mb-2">
+                    <a href="https://wa.me/6287731122287" class="text-decoration-none text-white">
+                        WA: +62 8773 1122 287
+                    </a>
+                </li>
                 <li class="mb-2">Jakarta, Indonesia</li>
             </ul>
         </div>
