@@ -64,6 +64,8 @@
                             data-pengirim-id="{{ $pesanan->user_id }}"
                             data-nama-penerima="{{ $pesanan->nama_penerima }}"
                             data-alamat-penerima="{{ $pesanan->alamat_penerima }}"
+                            data-notelp-penerima="{{ $pesanan->notelp_penerima }}"
+                            data-catatan="{{ $pesanan->catatan }}"
                             data-jumlah="{{ $pesanan->jumlah }}"
                             data-status="{{ $pesanan->status }}"
                             >
@@ -123,6 +125,16 @@
                     <div class="mb-3">
                         <label class="form-label">Alamat Penerima</label>
                         <input type="text" name="alamat_penerima" id="alamatPenerimaTambah" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nomor Telpon Penerima</label>
+                        <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" name="notelp_penerima" id="noTelpPenerimaTambah" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Catatan untuk Penerima</label>
+                        <textarea type="text" name="catatan_penerima" id="catatanPenerimaTambah" class="form-control"></textarea>
                     </div>
 
                     <div class="mb-3">
@@ -196,6 +208,16 @@
                         <div class="mb-3">
                             <label class="form-label">Alamat Penerima</label>
                             <input type="text" name="alamat_penerima" id="alamatPenerimaEdit" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nomor Telepon Penerima</label>
+                            <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="notelp_penerima" id="notelpPenerimaEdit" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Catatan untuk Penerima</label>
+                            <textarea type="text" name="catatan_penerima" id="catatanPenerimaEdit" class="form-control"></textarea>
                         </div>
 
                         <div class="mb-3">

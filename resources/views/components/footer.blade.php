@@ -28,7 +28,11 @@
         <div class="text-white col-md-4">
             <h6>Kontak</h6>
             <ul class="list-unstyled mt-4">
-                <li class="mb-2">Email: hello@kikibi.id</li>
+                <li class="mb-2">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=official.kikibi@gmail.com" class="text-decoration-none text-white" target="_blank">
+                        Email: official.kikibi@gmail.com
+                    </a>
+                </li>
                 <li class="mb-2">
                     <a href="https://wa.me/6287731122287" class="text-decoration-none text-white">
                         WA: +62 8773 1122 287

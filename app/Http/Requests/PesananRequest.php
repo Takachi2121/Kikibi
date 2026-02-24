@@ -26,6 +26,8 @@ class PesananRequest extends FormRequest
             'user_id' => 'required|integer|exists:users,id',
             'nama_penerima' => 'required|string|max:255',
             'alamat_penerima' => 'required|string|max:500',
+            'notelp_penerima' => 'required|numeric|min:10',
+            'catatan' => 'nullable|string|max:255',
             'jumlah' => 'required|integer|min:1|max:1000',
             'status' => 'required|string|max:50',
         ];
@@ -42,6 +44,10 @@ class PesananRequest extends FormRequest
             'jumlah.min' => 'Jumlah pesanan minimal 1.',
             'jumlah.max' => 'Jumlah pesanan maksimal 1000.',
             'status.required' => 'Status pesanan wajib diisi.',
+            'notelp_penerima.required' => 'Nomor telepon penerima wajib diisi.',
+            'notelp_penerima.min' => 'Nomor telepon penerima minimal 10 angka.',
+            'catatan.max' => 'Catatan maksimal 255 karakter.',
+            'alamat_penerima.max' => 'Alamat penerima maksimal 500 karakter.',
         ];
     }
 }

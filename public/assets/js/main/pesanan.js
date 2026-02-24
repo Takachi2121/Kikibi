@@ -52,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('pengirimIdEdit').value = this.dataset.pengirimId;
             document.getElementById('namaPenerimaEdit').value = this.dataset.namaPenerima;
             document.getElementById('alamatPenerimaEdit').value = this.dataset.alamatPenerima;
+            document.getElementById('notelpPenerimaEdit').value = this.dataset.notelpPenerima;
+            document.getElementById('catatanPenerimaEdit').value = this.dataset.catatan;
             document.getElementById('jumlahEdit').value = this.dataset.jumlah;
             document.getElementById('statusEdit').value = this.dataset.status;
 
@@ -74,6 +76,8 @@ document.addEventListener('DOMContentLoaded', function () {
             user_id: document.getElementById('pengirimIdEdit').value,
             nama_penerima: document.getElementById('namaPenerimaEdit').value,
             alamat_penerima: document.getElementById('alamatPenerimaEdit').value,
+            notelp_penerima: document.getElementById('notelpPenerimaEdit').value,
+            catatan: document.getElementById('catatanPenerimaEdit').value,
             jumlah: document.getElementById('jumlahEdit').value,
             status: document.getElementById('statusEdit').value,
         })
@@ -92,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 title: 'Gagal',
                 text: err.response?.data?.message ?? 'Terjadi kesalahan'
             });
+            console.log(err.response);
         })
         .finally(() => {
             editBtn.disabled = false;
@@ -133,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 msg = Object.values(err.response.data.errors)[0][0];
             }
             Swal.fire({ icon: 'error', title: 'Gagal', text: msg });
+            console.log(err.response);
         })
         .finally(() => {
             tambahBtn.disabled = false;
@@ -177,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             title: 'Gagal',
                             text: 'Data gagal dihapus'
                         });
-                        console.log(err.response);
                     });
                 }
             });

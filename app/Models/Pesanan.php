@@ -15,6 +15,8 @@ class Pesanan extends Model
         'produk_id',
         'nama_penerima',
         'alamat_penerima',
+        'notelp_penerima',
+        'catatan',
         'jumlah',
         'total_harga',
         'status'

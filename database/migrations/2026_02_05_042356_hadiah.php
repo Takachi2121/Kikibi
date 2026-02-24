@@ -41,6 +41,8 @@ return new class extends Migration
             $table->foreignId('produk_id')->constrained('produks')->onDelete('cascade');
             $table->string('nama_penerima');
             $table->string('alamat_penerima');
+            $table->string('notelp_penerima');
+            $table->text('catatan')->nullable();
             $table->integer('jumlah');
             $table->integer('total_harga');
             $table->enum('status', ['Pending', 'Dikirim', 'Selesai'])->default('Pending');
