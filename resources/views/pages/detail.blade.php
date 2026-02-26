@@ -97,7 +97,7 @@
                 {{ $data->kategori->nama_kategori }}
             </span>
 
-            <h2 class="mt-3 fw-semibold font-arial">{{ $data->nama_produk }}</h2>
+            <h2 class="mt-3 fw-semibold font-arial product-detail" data-nama="{{ $data->nama_produk }}">{{ $data->nama_produk }}</h2>
 
             <!-- Rating -->
             <div class="d-flex align-items-center mb-3">
@@ -176,10 +176,34 @@
                 Pesan via WhatsApp
             </a>
 
-            {{-- <button class="btn btn-outline-dark w-100 rounded-4 py-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
-                <i class="fa-regular fa-heart"></i>
-                Simpan ke Wishlist
-            </button> --}}
+            @if (!$wishlist)
+                <form id="tambah-wishlist" method="POST" data-url="{{ route('wishlist-action.store') }}" data-produk-id="{{ $data->id }}" data-user-id="{{ auth()->user()->id }}">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-dark w-100 rounded-4 py-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
+                        <span class="text-center btn-text">
+                            <i class="fa-regular fa-heart"></i>&nbsp;&nbsp;Simpan ke Wishlist
+                        </span>
+                        <span class="btn-loading d-none">
+                            <span class="spinner-border spinner-border-sm"></span>
+                            Loading
+                        </span>
+                    </button>
+                </form>
+            @else
+                <form id="hapus-wishlist" method="POST" data-wishlist="{{ $wishlist->id }}" data-url="{{ route('wishlist-action.destroy', 0) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-dark w-100 rounded-4 py-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
+                        <span class="text-center btn-text">
+                            <i class="fa-solid fa-heart"></i>&nbsp;&nbsp;Hapus dari Wishlist
+                        </span>
+                        <span class="btn-loading d-none">
+                            <span class="spinner-border spinner-border-sm"></span>
+                            Loading
+                        </span>
+                    </button>
+                </form>
+            @endif
 
             <!-- Note WhatsApp -->
             <div class="alert alert-danger-subtle mt-3 p-3 rounded-4" style="background-color: #FFE5EC">
@@ -197,72 +221,6 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const minusBtn = document.querySelector(".minus");
-    const plusBtn = document.querySelector(".plus");
-    const qtyNumber = document.querySelector(".qty-number");
-    const waButton = document.getElementById("waButton");
-
-    const productName = @json($produk->nama_produk);
-    const phoneNumber = "6287731122287";
-
-    let quantity = 1;
-
-    function updateWhatsAppLink() {
-        const message = `Permisi kak, saya ingin membeli ${productName} sebanyak ${quantity} buah untuk memberikan kejutan di momen spesial. Mohon informasinya, ya!`;
-        const encodedMessage = encodeURIComponent(message);
-        waButton.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    }
-
-    plusBtn.addEventListener("click", function () {
-        quantity++;
-        qtyNumber.textContent = quantity;
-        updateWhatsAppLink();
-    });
-
-    minusBtn.addEventListener("click", function () {
-        if (quantity > 1) {
-            quantity--;
-            qtyNumber.textContent = quantity;
-            updateWhatsAppLink();
-        }
-    });
-
-    // Set default link saat pertama load
-    updateWhatsAppLink();
-
-    // Init Swiper
-    const swiper = new Swiper(".mySwiper", {
-        slidesPerView: "auto",
-        spaceBetween: 10,
-        freeMode: true,
-    });
-
-    const mainImage = document.getElementById("mainImage");
-    const thumbs = document.querySelectorAll(".thumb-img");
-
-    // Set default active
-    if (thumbs.length > 0) {
-        thumbs[0].classList.add("active");
-    }
-
-    thumbs.forEach(img => {
-        img.addEventListener("click", function () {
-
-            // Ganti gambar utama
-            mainImage.src = this.dataset.img;
-
-            // Hapus active lama
-            thumbs.forEach(i => i.classList.remove("active"));
-
-            // Tambah active baru
-            this.classList.add("active");
-        });
-    });
-
-});
-</script>
+<script src="{{ asset('assets/js/detail.js') }}"></script>
 
 @endsection

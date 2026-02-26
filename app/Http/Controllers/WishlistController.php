@@ -20,7 +20,11 @@ class WishlistController extends Controller
         $data->produk_id = $request->input('produk_id');
         $data->total = $request->input('total');
         $data->save();
-        return response()->json(['success' => 'Wishlist berhasil ditambahkan.']);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Wishlist berhasil ditambahkan.'
+        ]);
     }
 
     /**
@@ -33,7 +37,10 @@ class WishlistController extends Controller
         $data = Wishlist::find($wishlist_action->id);
         $data->total = $request->input('total');
         $data->update();
-        return response()->json(['success' => 'Wishlist berhasil diubah.']);
+        return response()->json([
+            'status' => true,
+            'message' => 'Wishlist berhasil diubah.'
+        ]);
     }
 
     /**
@@ -44,6 +51,9 @@ class WishlistController extends Controller
         $this->authorize('delete', $wishlist_action);
 
         $wishlist_action->delete();
-        return response()->json(['success' => 'Wishlist berhasil dihapus.']);
+        return response()->json([
+            'status' => true,
+            'message' => 'Wishlist berhasil dihapus.'
+        ]);
     }
 }

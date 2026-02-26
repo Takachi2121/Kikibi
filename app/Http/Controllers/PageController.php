@@ -128,6 +128,8 @@ class PageController extends Controller
 
         $limit = 2;
 
+        $wishlist = Wishlist::where('user_id', auth()->user()->id)->where('produk_id', $id)->first();
+
         // Produk lain berdasarkan kategori
         $produkLain = Produk::where('id' , '!=', $id)
             ->where('kategori_id', $data->kategori_id)
@@ -154,7 +156,7 @@ class PageController extends Controller
             $produkLain = $produkLain->concat($produkMomen);
         }
 
-        return view('pages.detail', compact('active', 'data', 'produkLain'));
+        return view('pages.detail', compact('active', 'wishlist', 'data', 'produkLain'));
     }
 
     public function login(){
