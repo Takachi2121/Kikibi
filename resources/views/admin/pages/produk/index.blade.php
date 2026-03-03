@@ -63,7 +63,7 @@
                             <a href="{{ route('produk-action.edit', $produk->id) }}" class="text-decoration-none text-white btn btn-sm btn-warning">
                                 <i class="fa-solid fa-pen"></i>&nbsp;&nbsp;Edit</button>
                             </a>
-                            <form class="d-inline form-delete-Produk" data-url="{{ route('produk-action.destroy', $produk->id) }}">
+                            <form class="d-inline form-delete-produk" data-url="{{ route('produk-action.destroy', $produk->id) }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">
