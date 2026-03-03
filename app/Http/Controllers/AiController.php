@@ -47,21 +47,44 @@ class AiController extends Controller
             \"alasan\": \"\"
         }";
 
-        $response = Http::post(
-            'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview:generateContent?key=' . env('GEMINI_API_KEY'),
-            [
-                'contents' => [
+        $apiKeys = explode(',', env('GEMINI_API_KEYS'));
+        $response = null;
+        $success = false;
+        $lastErrorMessage = 'Semua API Key gagal merespon';
+
+        foreach ($apiKeys as $apiKey) {
+            $apiKey = trim($apiKey);
+            if (empty($apiKey)) continue;
+
+            try {
+                $response = Http::timeout(60)->post(
+                    'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=' . $apiKey,
                     [
-                        'parts' => [
-                            ['text' => $prompt]
+                        'contents' => [
+                            [
+                                'parts' => [
+                                    ['text' => $prompt]
+                                ]
+                            ]
                         ]
                     ]
-                ]
-            ]
-        );
+                );
 
-        if ($response->failed()) {
-            abort(500, 'AI gagal merespon');
+                if ($response->successful()) {
+                    $success = true;
+                    break;
+                } else {
+                    $errorData = $response->json();
+                    $lastErrorMessage = $errorData['error']['message'] ?? 'API Key gagal merespon dengan kode ' . $response->status();
+                }
+            } catch (\Exception $e) {
+                $lastErrorMessage = 'Koneksi API Error: ' . $e->getMessage();
+                continue;
+            }
+        }
+
+        if (!$success) {
+            abort(500, 'API Error: ' . $lastErrorMessage);
         }
 
         $raw = $response['candidates'][0]['content']['parts'][0]['text'];
