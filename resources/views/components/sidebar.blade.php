@@ -18,6 +18,7 @@
         <p class="text-uppercase text-black-50 small fw-bold mt-3 mb-1">Menu Tambahan</p>
 
         <a class="nav-link {{ $active == 'testimoni' ? 'active' : '' }}" href="{{ route('admin-testimoni') }}"><i class="fa-solid fa-lightbulb me-2"></i> Testimoni</a>
+        {{-- <a class="nav-link {{ $active == 'diskon' ? 'active' : '' }}" href="{{ route('admin-diskon') }}"><i class="fa-solid fa-lightbulb me-2"></i> Diskon</a> --}}
 
         <p class="text-uppercase text-black-50 small fw-bold mt-3 mb-1">Pengaturan</p>
 

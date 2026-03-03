@@ -43,4 +43,9 @@ class Produk extends Model
     {
         return $this->hasMany(Wishlist::class);
     }
+
+    public function diskon()
+    {
+        return $this->hasMany(Diskon::class);
+    }
 }
