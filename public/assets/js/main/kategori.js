@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /* =======================
      * DATATABLE
      * ======================= */
-    $('#KategorisTable').DataTable({
+    const table = $('#KategorisTable').DataTable({
         responsive: true,
         scrollY: '600px',
         scrollCollapse: true,
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 className: 'btn btn-success',
                 title: 'Data Kategori',
                 exportOptions: {
-                    columns: [0, 1, 2], // No, Nama, Makna
+                    columns: [0, 1, 2],
                     format: {
                         body: function (data) {
                             const div = document.createElement('div');
@@ -36,25 +36,35 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-
     /* =======================
-     * MODAL EDIT
+     * MODAL SETUP
      * ======================= */
-    const editModalEl = document.getElementById('editKategoriModal');
-    const editModal = new bootstrap.Modal(editModalEl);
+    const editModal = new bootstrap.Modal(document.getElementById('editKategoriModal'));
     const editForm = document.getElementById('editKategoriForm');
     const editBtn = document.getElementById('btnKategoriEdit');
 
-    document.querySelectorAll('.btn-edit').forEach(btn => {
-        btn.addEventListener('click', function () {
-            document.getElementById('idEdit').value = this.dataset.id;
-            document.getElementById('namaKategoriEdit').value = this.dataset.nama;
-            document.getElementById('maknaHadiahEdit').value = this.dataset.maknaHadiah;
+    const tambahForm = document.getElementById('addKategoriForm');
+    const tambahBtn = document.getElementById('btnTambahKategori');
 
-            editModal.show();
-        });
+
+    /* =======================
+     * EVENT DELEGATION - EDIT
+     * ======================= */
+    document.addEventListener('click', function (e) {
+        const btn = e.target.closest('.btn-edit');
+        if (!btn) return;
+
+        document.getElementById('idEdit').value = btn.dataset.id;
+        document.getElementById('namaKategoriEdit').value = btn.dataset.nama;
+        document.getElementById('maknaHadiahEdit').value = btn.dataset.maknaHadiah;
+
+        editModal.show();
     });
 
+
+    /* =======================
+     * SUBMIT EDIT
+     * ======================= */
     editForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -63,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         editBtn.querySelector('.btn-loading').classList.remove('d-none');
 
         const id = document.getElementById('idEdit').value;
-        const url = editForm.dataset.url.replace('/0','/' + id);
+        const url = editForm.dataset.url.replace('/0', '/' + id);
 
         axios.put(url, {
             nama_kategori: document.getElementById('namaKategoriEdit').value,
@@ -94,11 +104,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* =======================
-     * TAMBAH KATEGORI
+     * SUBMIT TAMBAH
      * ======================= */
-    const tambahForm = document.getElementById('addKategoriForm');
-    const tambahBtn = document.getElementById('btnTambahKategori');
-
     tambahForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -124,7 +131,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (err.response?.status === 422) {
                 msg = Object.values(err.response.data.errors)[0][0];
             }
-            Swal.fire({ icon: 'error', title: 'Gagal', text: msg });
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: msg
+            });
         })
         .finally(() => {
             tambahBtn.disabled = false;
@@ -135,44 +146,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* =======================
-     * HAPUS KATEGORI
+     * EVENT DELEGATION - HAPUS
      * ======================= */
-    document.querySelectorAll('.form-delete-kategori').forEach(form => {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
+    document.addEventListener('submit', function (e) {
+        const form = e.target.closest('.form-delete-kategori');
+        if (!form) return;
 
-            const id = this.dataset.id;
-            const url = this.dataset.url.replace('/0','/' + id);
+        e.preventDefault();
+        const url = form.dataset.url;
 
-            Swal.fire({
-                title: 'Yakin ingin menghapus?',
-                text: 'Data kategori akan dihapus permanen!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonText: 'Batal',
-                confirmButtonText: 'Ya, hapus'
-            }).then(result => {
-                if (result.isConfirmed) {
-                    axios.delete(url)
-                    .then(res => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: res.data.message ?? 'Kategori berhasil dihapus',
-                            timer: 1500,
-                            showConfirmButton: false
-                        }).then(() => location.reload());
-                    })
-                    .catch(() => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal',
-                            text: 'Data gagal dihapus'
-                        });
+        Swal.fire({
+            title: 'Yakin ingin menghapus?',
+            text: 'Data kategori akan dihapus permanen!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Ya, hapus'
+        }).then(result => {
+            if (result.isConfirmed) {
+                axios.delete(url)
+                .then(res => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: res.data.message ?? 'Kategori berhasil dihapus',
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => location.reload());
+                })
+                .catch(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: 'Data gagal dihapus'
                     });
-                }
-            });
+                });
+            }
         });
     });
+
 });

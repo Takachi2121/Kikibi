@@ -43,7 +43,7 @@
                         <td style="width: 15%">
                             @foreach(explode(',', $produk->untuk_momen) as $momen)
                                 <span class="badge bg-danger text-white me-1">
-                                    {{ trim($momen) }}
+                                    {{ Str::limit(trim($momen), 10, '...') }}
                                 </span>
                             @endforeach
                         </td>

@@ -148,44 +148,41 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    /* =======================
-     * HAPUS PESANAN
-     * ======================= */
-    document.querySelectorAll('.form-delete-pesanan').forEach(form => {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
+    document.addEventListener('submit', function (e) {
+        const form = e.target.closest('.form-delete-pesanan');
+        if (!form) return;
 
-            const url = this.dataset.url;
+        e.preventDefault();
+        const url = form.dataset.url;
 
-            Swal.fire({
-                title: 'Yakin ingin menghapus?',
-                text: 'Data pesanan akan dihapus permanen!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonText: 'Batal',
-                confirmButtonText: 'Ya, hapus'
-            }).then(result => {
-                if (result.isConfirmed) {
-                    axios.delete(url)
-                    .then(res => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: res.data.message ?? 'Pesanan berhasil dihapus',
-                            timer: 1500,
-                            showConfirmButton: false
-                        }).then(() => location.reload());
-                    })
-                    .catch((err) => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal',
-                            text: 'Data gagal dihapus'
-                        });
+        Swal.fire({
+            title: 'Yakin ingin menghapus?',
+            text: 'Data pesanan akan dihapus permanen!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Ya, hapus'
+        }).then(result => {
+            if (result.isConfirmed) {
+                axios.delete(url)
+                .then(res => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: res.data.message ?? 'Pesanan berhasil dihapus',
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => location.reload());
+                })
+                .catch(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: 'Data gagal dihapus'
                     });
-                }
-            });
+                });
+            }
         });
     });
 });
