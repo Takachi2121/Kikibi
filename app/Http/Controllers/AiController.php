@@ -85,7 +85,7 @@ class AiController extends Controller
             'momen'  => $request->input('momen', ''),
             'gender' => $request->input('gender', ''),
             'usia'   => $request->input('usia', ''),
-            'max'    => $request->input('budget', ''),
+            // 'max'    => $request->input('budget', ''),
         ]);
     }
 }

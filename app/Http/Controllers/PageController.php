@@ -53,19 +53,19 @@ class PageController extends Controller
         $responseAI = session('responseAI');
 
         // Mapping slider budget ke nominal
-        $budgetMapping = [
-            0 => 100000,
-            1 => 100000,
-            2 => 200000,
-            3 => 300000,
-            4 => 400000,
-            5 => 500000,
-            6 => 5000000,
-        ];
+        // $budgetMapping = [
+        //     0 => 100000,
+        //     1 => 100000,
+        //     2 => 200000,
+        //     3 => 300000,
+        //     4 => 400000,
+        //     5 => 500000,
+        //     6 => 5000000,
+        // ];
 
-        $maxHarga = $budgetMapping[$request->input('max')] ?? null;
+        // $maxHarga = $budgetMapping[$request->input('max')] ?? null;
 
-        $data = Produk::when($isAI, function ($q) use ($request, $maxHarga) {
+        $data = Produk::when($isAI, function ($q) use ($request) {
 
             // Filter momen jika ada
             if ($request->filled('momen')) {
@@ -108,13 +108,13 @@ class PageController extends Controller
             }
 
             // Filter harga jika ada
-            if (!empty($maxHarga)) {
-                $q->where('harga', '<=', intval($maxHarga));
-            }
+            // if (!empty($maxHarga)) {
+            //     $q->where('harga', '<=', intval($maxHarga));
+            // }
 
-            if ($request->input('max') == 0){
-                $q->where('harga', '<=', 100000);
-            }
+            // if ($request->input('max') == 0){
+            //     $q->where('harga', '<=', 100000);
+            // }
 
         })
         ->orderBy('id', 'desc')
