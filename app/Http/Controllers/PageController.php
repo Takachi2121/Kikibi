@@ -54,7 +54,7 @@ class PageController extends Controller
 
         // Mapping slider budget ke nominal
         $budgetMapping = [
-            0 => 100000,
+            0 => null,
             1 => 100000,
             2 => 200000,
             3 => 300000,

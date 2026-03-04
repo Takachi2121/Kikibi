@@ -47,44 +47,28 @@ class AiController extends Controller
             \"alasan\": \"\"
         }";
 
-        $apiKeys = explode(',', env('GEMINI_API_KEYS'));
-        $response = null;
-        $success = false;
-        $lastErrorMessage = 'Semua API Key gagal merespon';
-
-        foreach ($apiKeys as $apiKey) {
-            $apiKey = trim($apiKey);
-            if (empty($apiKey)) continue;
-
-            try {
-                $response = Http::timeout(60)->post(
-                    'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=' . $apiKey,
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json'
+        ])->post(
+            'https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-flash:generateContent?key=' . env('GEMINI_API_KEY'),
+            [
+                'contents' => [
                     [
-                        'contents' => [
-                            [
-                                'parts' => [
-                                    ['text' => $prompt]
-                                ]
-                            ]
+                        'role' => 'user',
+                        'parts' => [
+                            ['text' => $prompt]
                         ]
                     ]
-                );
+                ]
+            ]
+        );
 
-                if ($response->successful()) {
-                    $success = true;
-                    break;
-                } else {
-                    $errorData = $response->json();
-                    $lastErrorMessage = $errorData['error']['message'] ?? 'API Key gagal merespon dengan kode ' . $response->status();
-                }
-            } catch (\Exception $e) {
-                $lastErrorMessage = 'Koneksi API Error: ' . $e->getMessage();
-                continue;
-            }
-        }
-
-        if (!$success) {
-            abort(500, 'API Error: ' . $lastErrorMessage);
+        if ($response->failed()) {
+            \Log::error('Vertex AI Error', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
+            abort(500, 'AI gagal merespon: ' . $response->body());
         }
 
         $raw = $response['candidates'][0]['content']['parts'][0]['text'];

@@ -7,39 +7,20 @@
 
     <form action="{{ route('ai-rekomendasi') }}" method="POST" id="form-AI">
         @csrf
-        <!-- Nama Penerima -->
-        <div class="mb-4">
-            <label class="form-label">Nama Penerima</label>
-            <input type="text" class="form-control py-2" name="nama" placeholder="Masukkan nama penerima">
-        </div>
-
         <!-- Row 1 -->
         <div class="row g-3 mb-3">
-            <div class="col-md-4">
-                <label class="form-label">Hadiah untuk siapa?</label>
-                <select class="form-select" name="penerima">
-                    <option value="" selected hidden>Pilih Penerima</option>
-                    <option value="Pasangan">Pasangan</option>
-                    <option value="Orang Tua">Orang Tua</option>
-                    <option value="Teman">Teman</option>
-                    <option value="Rekan Kerja">Rekan Kerja</option>
-                    <option value="Atasan atau Klien">Atasan / Klien</option>
+
+            <div class="col-md-6">
+                <label class="form-label">Hadiah ini diberikan untuk momen apa?</label>
+                <select class="form-select py-2" name="momen">
+                    <option value="" selected hidden>Pilih Momen</option>
+                    @foreach ($momen as $data)
+                        <option value="{{ $data }}">{{ $data }}</option>
+                    @endforeach
                 </select>
             </div>
 
-            <div class="col-md-4">
-                <label class="form-label">Perkiraan usia penerima?</label>
-                <select class="form-select" name="usia">
-                    <option value="" selected hidden>Pilih Usia</option>
-                    <option value="< 18">&lt; 18</option>
-                    <option value="18 - 25">18 - 25</option>
-                    <option value="26 - 35">26 - 35</option>
-                    <option value="36 - 45">36 - 45</option>
-                    <option value="> 45">&gt; 45</option>
-                </select>
-            </div>
-
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label class="form-label d-block">Jenis Kelamin penerima?</label>
                 <div class="d-flex gap-4 mt-2">
                     <div class="form-check d-flex align-items-center gap-2">
@@ -51,6 +32,11 @@
                         <input class="form-check-input mt-0" name="gender" type="radio" value="Wanita" name="gender" id="perempuan">
                         <label class="form-check-label mb-0" for="perempuan">Perempuan</label>
                     </div>
+
+                    <div class="form-check d-flex align-items-center gap-2">
+                        <input class="form-check-input mt-0" name="gender" type="radio" value="" name="gender" id="unisex">
+                        <label class="form-check-label mb-0" for="unisex">Unisex</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,12 +44,14 @@
         <!-- Row 2 -->
         <div class="row g-3 mb-4">
             <div class="col-md-6">
-                <label class="form-label">Hadiah ini diberikan untuk momen apa?</label>
-                <select class="form-select py-2" name="momen">
-                    <option value="" selected hidden>Pilih Momen</option>
-                    @foreach ($momen as $data)
-                        <option value="{{ $data }}">{{ $data }}</option>
-                    @endforeach
+                <label class="form-label">Perkiraan usia penerima?</label>
+                <select class="form-select" name="usia">
+                    <option value="" selected hidden>Pilih Usia</option>
+                    <option value="< 18">&lt; 18 Tahun</option>
+                    <option value="18 - 25">18 - 25 Tahun</option>
+                    <option value="26 - 35">26 - 35 Tahun</option>
+                    <option value="36 - 45">36 - 45 Tahun</option>
+                    <option value="> 45">&gt; 45 Tahun</option>
                 </select>
             </div>
 
