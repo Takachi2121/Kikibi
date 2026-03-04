@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/ai.css') }}">
 
 <div class="container my-5">
-    <div class="p-4 bg-white shadow rounded">
+    <div class="p-4 bg-white shadow rounded" style="margin-top: 84px" >
         <h2 class="text-center mb-4 fw-semibold">Cari rekomendasi dengan AI Kikibi</h2>
 
         <form action="{{ route('ai-rekomendasi') }}" method="POST" id="form-AI">

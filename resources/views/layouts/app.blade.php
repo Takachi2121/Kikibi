@@ -20,7 +20,7 @@
         </header>
 
         {{-- Content --}}
-        <main style="margin-top: 99px">
+        <main style="margin-top: 79px">
             @yield('content')
         </main>
 
