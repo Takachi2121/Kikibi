@@ -54,7 +54,7 @@ class PageController extends Controller
 
         // Mapping slider budget ke nominal
         $budgetMapping = [
-            0 => null,
+            0 => 100000,
             1 => 100000,
             2 => 200000,
             3 => 300000,
@@ -110,6 +110,10 @@ class PageController extends Controller
             // Filter harga jika ada
             if (!empty($maxHarga)) {
                 $q->where('harga', '<=', intval($maxHarga));
+            }
+
+            if ($request->input('max') == 0){
+                $q->where('harga', '<=', 100000);
             }
 
         })

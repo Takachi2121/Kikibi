@@ -44,6 +44,11 @@ input[type="range"] {
     outline: none;
 }
 
+input[type="range"]:active {
+    box-shadow: none;
+    outline: none;
+}
+
 /* Track - Firefox */
 input[type="range"]::-moz-range-track {
     height: 6px;
