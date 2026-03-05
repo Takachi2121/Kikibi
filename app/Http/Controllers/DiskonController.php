@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DiskonRequest;
 use App\Models\Diskon;
-use App\Http\Requests\StoreDiskonRequest;
-use App\Http\Requests\UpdateDiskonRequest;
+use App\Models\Produk;
+use Illuminate\Support\Facades\Cache;
 
 class DiskonController extends Controller
 {
@@ -13,7 +14,13 @@ class DiskonController extends Controller
      */
     public function index()
     {
-        //
+        $active = 'diskon';
+        $data = Cache::remember('diskon_all', 60, function() {
+            return Diskon::all();
+        });
+        $produk = Produk::all();
+
+        return view('admin.pages.diskon', compact('active', 'data', 'produk'));
     }
 
     /**
@@ -27,7 +34,7 @@ class DiskonController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDiskonRequest $request)
+    public function store(DiskonRequest $request)
     {
         //
     }
@@ -51,7 +58,7 @@ class DiskonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDiskonRequest $request, Diskon $diskon)
+    public function update(DiskonRequest $request, Diskon $diskon)
     {
         //
     }

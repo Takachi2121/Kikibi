@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DiskonController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\PageController;
@@ -14,9 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function() {
     Route::get('/',              [PageController::class, 'home'])->name('home');
-    // Route::get('/', function(){
-    //     return view('construction');
-    // });
 });
 
 Route::middleware('auth:web')->group(function() {
@@ -29,6 +27,8 @@ Route::middleware('auth:web')->group(function() {
     Route::post('/notif-read',    [NotifikasiController::class, 'notifRead'])->name('notif-read');
     Route::get('/wishlist',       [PageController::class, 'wishlist'])->name('wishlist');
     Route::resource('/wishlist-action', WishlistController::class);
+
+    Route::post('/checkout/{id}', [PageController::class, 'checkout'])->name('checkout');
 
     Route::put('/update-profile', [AuthController::class, 'updateProfile'])->name('update-profile');
     Route::put('/update-pass', [AuthController::class, 'updatePass'])->name('update-pass');
@@ -46,6 +46,8 @@ Route::prefix('/admin')->middleware(['auth:web', Role::class . ':admin'])->group
 
     Route::get('/testimoni', [PageController::class, 'testimoni'])->name('admin-testimoni');
     Route::resource('/testimoni-action', TestimoniController::class);
+
+    Route::resource('/diskon', DiskonController::class);
 });
 
 Route::prefix('/auth')->middleware('guest')->group(function() {

@@ -8,8 +8,10 @@ use App\Models\Produk;
 use App\Models\Testimoni;
 use App\Models\User;
 use App\Models\Wishlist;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Mail;
 
 class PageController extends Controller
 {
@@ -228,8 +230,85 @@ class PageController extends Controller
         return view('admin.pages.testimoni', compact('active', 'data'));
     }
 
-    public function pengaturan(){
-        $active = 'pengaturan';
-        return view('admin.pages.pengaturan', compact('active'));
+    public function checkout(Request $request, $id){
+        $request->validate([
+            'produk_id' => 'required|integer|exists:produks,id',
+            'user_id' => 'required|integer|exists:users,id',
+            'nama_penerima' => 'required|string|max:255',
+            'alamat_penerima' => 'required|string|max:500',
+            'notelp_penerima' => 'required|numeric|min:10',
+            'catatan' => 'nullable|string|max:255',
+            'jumlah' => 'required|integer|min:1|max:1000',
+            'status' => 'required|string|max:50',
+        ],[
+            'produk_id.required' => 'Produk wajib dipilih.',
+            'user_id.required' => 'Pengirim wajib dipilih.',
+            'nama_penerima.required' => 'Nama penerima wajib diisi.',
+            'alamat_penerima.required' => 'Alamat penerima wajib diisi.',
+            'jumlah.required' => 'Jumlah pesanan wajib diisi.',
+            'jumlah.min' => 'Jumlah pesanan minimal 1.',
+            'jumlah.max' => 'Jumlah pesanan maksimal 1000.',
+            'status.required' => 'Status pesanan wajib diisi.',
+            'notelp_penerima.required' => 'Nomor telepon penerima wajib diisi.',
+            'notelp_penerima.min' => 'Nomor telepon penerima minimal 10 angka.',
+            'catatan.max' => 'Catatan maksimal 255 karakter.',
+            'alamat_penerima.max' => 'Alamat penerima maksimal 500 karakter.',
+        ]);
+
+        $user = Auth::user();
+        $data = Produk::findorFail($id);
+
+        $pesanan = new Pesanan();
+
+        $pesanan->user_id = $user->id;
+        $pesanan->produk_id = $data->id;
+        $pesanan->nama_penerima = $request->input('nama_penerima');
+        $pesanan->alamat_penerima = $request->input('alamat_penerima');
+        $pesanan->notelp_penerima = $request->input('notelp_penerima');
+        $pesanan->catatan = $request->input('catatan_penerima');
+        $pesanan->jumlah = $request->input('jumlah');
+        $pesanan->total_harga = $data->harga * (int) $request->input('jumlah');
+        $pesanan->status = 'Pending';
+        $data->jumlah = $request->input('jumlah');
+
+        Mail::send('email.checkout', [
+            'user_name' => $user->nama_lengkap, // pengirim
+            'user_phone' => $user->no_telp,
+            'user_email' => $user->email,
+            'receiver_name' => $request->input('nama_penerima'), // penerima
+            'receiver_address' => $request->input('alamat_penerima'),
+            'receiver_phone' => $request->input('notelp_penerima'),
+            'catatan' => $request->input('catatan_penerima'),
+            'items' => [$data], // list produk
+            'total_harga' => $data->harga * $request->input('jumlah'),
+            'status' => 'Perlu Diproses'
+        ], function($msg) use ($user) {
+            $msg->to($user->email)
+                ->subject('Terima Kasih sudah melakukan Checkout - Kikibi');
+        });
+
+        Mail::send('email.checkout', [
+            'user_name' => $user->nama_lengkap, // pengirim
+            'user_phone' => $user->no_telp,
+            'user_email' => $user->email,
+            'receiver_name' => $request->input('nama_penerima'), // penerima
+            'receiver_address' => $request->input('alamat_penerima'),
+            'receiver_phone' => $request->input('notelp_penerima'),
+            'catatan' => $request->input('catatan_penerima'),
+            'items' => [$data], // list produk
+            'total_harga' => $data->harga * $request->input('jumlah'),
+            'status' => 'Perlu Diproses'
+        ], function($msg) use ($user) {
+            $msg->to('ntakachi73@gmail.com')
+            // $msg->to('official.kikibi@gmail.com')
+                ->subject('Pesanan Diterima - Kikibi');
+        });
+
+        $pesanan->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Produk berhasil di Checkout'
+        ]);
     }
 }

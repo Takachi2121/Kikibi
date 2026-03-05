@@ -170,11 +170,13 @@
                 </div>
             </div>
 
-            <!-- Action -->
-            <a href="#" target="_blank" id="waButton" class="btn btn-danger w-100 rounded-4 py-3 mb-3 fw-semibold d-flex justify-content-center align-items-center gap-2 font-arial">
-                <i class="fa-brands fa-whatsapp fs-5"></i>
-                Pesan via WhatsApp
-            </a>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#kirim-pesanan" class="btn btn-danger w-100 rounded-4 py-3 mb-2 fw-semibold d-flex justify-content-center align-items-center gap-2">
+                <i class="fa-solid fa-bag-shopping fs-5"></i>
+                Checkout
+            </button>
+            <small class="text-muted d-block text-center mb-2">
+                Pesanan Anda akan diteruskan ke admin Kikibi untuk diproses.
+            </small>
 
             @if (!$wishlist)
                 <form id="tambah-wishlist" method="POST" data-url="{{ route('wishlist-action.store') }}" data-produk-id="{{ $data->id }}" data-user-id="{{ auth()->user()->id }}">
@@ -219,6 +221,51 @@
 
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="kirim-pesanan" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="penerima-form" method="POST" data-url="{{ route('checkout', $data->id) }}" data-produk-id="{{ $data->id }}" data-user-id="{{ auth()->user()->id }}">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Lengkapi Data Penerima</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Penerima</label>
+                        <input type="text" name="nama_penerima" id="namaPenerimaTambah" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Alamat Penerima</label>
+                        <input type="text" name="alamat_penerima" id="alamatPenerimaTambah" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nomor Telpon Penerima</label>
+                        <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" name="notelp_penerima" id="noTelpPenerimaTambah" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Catatan untuk Penerima</label>
+                        <textarea type="text" name="catatan_penerima" id="catatanPenerimaTambah" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" id="btnTambahPenerima" class="btn btn-danger w-100">
+                        <span class="btn-text"><i class="fa-regular fa-paper-plane"></i> Kirim Pesanan</span>
+                        <span class="btn-loading d-none"><span class="spinner-border spinner-border-sm"></span> Loading...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="{{ asset('assets/js/detail.js') }}"></script>

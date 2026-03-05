@@ -16,7 +16,6 @@ class Diskon extends Model
         'produk_id',
         'diskon',
         'harga_akhir',
-        'tanggal_mulai',
         'tanggal_selesai'
     ];
 
