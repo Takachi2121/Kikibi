@@ -29,6 +29,9 @@ Route::middleware('auth:web')->group(function() {
     Route::post('/notif-read',    [NotifikasiController::class, 'notifRead'])->name('notif-read');
     Route::get('/wishlist',       [PageController::class, 'wishlist'])->name('wishlist');
     Route::resource('/wishlist-action', WishlistController::class);
+
+    Route::put('/update-profile', [AuthController::class, 'updateProfile'])->name('update-profile');
+    Route::put('/update-pass', [AuthController::class, 'updatePass'])->name('update-pass');
 });
 
 Route::prefix('/admin')->middleware(['auth:web', Role::class . ':admin'])->group(function() {

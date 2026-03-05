@@ -22,16 +22,17 @@
 
         <p class="text-uppercase text-black-50 small fw-bold mt-3 mb-1">Pengaturan</p>
 
-        <a class="nav-link" href=""><i class="fa-solid fa-user me-2"></i> Ubah Profil</a>
-        <a class="nav-link" href=""><i class="fa-solid fa-gear me-2"></i> Ubah Password</a>
+        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modalProfil"><i class="fa-solid fa-user me-2"></i> Ubah Profil</a>
+        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modalPass"><i class="fa-solid fa-gear me-2"></i> Ubah Password</a>
     </nav>
 
     <!-- Logout -->
-    <div class="mt-auto pt-4">
-        <a href="{{ route('logout') }}" class="btn btn-danger w-100">
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="btn btn-danger w-100">
             <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
-        </a>
-    </div>
+        </button>
+    </form>
 </aside>
 
 <!-- Main Content -->
@@ -73,3 +74,262 @@
     });
 </script>
 
+<!-- Modal Profil -->
+<div class="modal fade" id="modalProfil" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ubah Profil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" data-url="{{ route('update-profile') }}" id="form-profil">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="mb-3">
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text" name="nama_lengkap" class="form-control"
+                               value="{{ Auth::user()->nama_lengkap }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nomor Telepon</label>
+                        <input type="text" name="no_telp" class="form-control"
+                               value="{{ Auth::user()->no_telp }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control"
+                               value="{{ Auth::user()->email }}">
+                    </div>
+
+                    <div class="mb-3 position-relative">
+                        <label class="form-label">Konfirmasi Password</label>
+                        <input type="password" name="password" class="form-control pe-5">
+                        <span onclick="togglePasswordInput(this)"
+                              class="position-absolute end-0 me-3"
+                              style="cursor:pointer; top: 57.5%;">
+                            <i class="fa-regular fa-eye text-muted"></i>
+                        </span>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger w-100" id="btn-profil">
+                        <span><span class="btn-loading d-none">
+                            <span class="spinner-border spinner-border-sm"></span> Loading...
+                        </span>
+                        <span class="btn-text"><i class="fa-regular fa-floppy-disk"></i> Simpan</span></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ubah Password -->
+<div class="modal fade" id="modalPass" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ubah Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" data-url="{{ route('update-pass') }}" id="form-pass">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="mb-3 position-relative">
+                        <label class="form-label">Password Lama</label>
+                        <input type="password" name="current_password" class="form-control pe-5">
+                        <span onclick="togglePasswordInput(this)"
+                              class="position-absolute end-0 me-3"
+                              style="cursor:pointer; top: 57.5%;">
+                            <i class="fa-regular fa-eye text-muted"></i>
+                        </span>
+                    </div>
+
+                    <div class="mb-3 position-relative">
+                        <label class="form-label">Password Baru</label>
+                        <input type="password" name="password_new" class="form-control pe-5">
+                        <span onclick="togglePasswordInput(this)"
+                              class="position-absolute end-0 me-3"
+                              style="cursor:pointer; top: 57.5%;">
+                            <i class="fa-regular fa-eye text-muted"></i>
+                        </span>
+                    </div>
+
+                    <div class="mb-3 position-relative">
+                        <label class="form-label">Konfirmasi Password</label>
+                        <input type="password" name="password_new_confirmation" class="form-control pe-5">
+                        <span onclick="togglePasswordInput(this)"
+                              class="position-absolute end-0 me-3"
+                              style="cursor:pointer; top: 57.5%;">
+                            <i class="fa-regular fa-eye text-muted"></i>
+                        </span>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger w-100" id="btn-pass">
+                        <span><span class="btn-loading d-none">
+                            <span class="spinner-border spinner-border-sm"></span> Loading...
+                        </span>
+                        <span class="btn-text"><i class="fa-regular fa-floppy-disk"></i> Simpan</span></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePasswordInput(span){
+    const input = span.previousElementSibling; // input sebelum span
+    const icon = span.querySelector('i');
+
+    if(input.type === "password"){
+        input.type = "text";
+        icon.classList.replace("fa-eye","fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.replace("fa-eye-slash","fa-eye");
+    }
+}
+</script>
+
+<script>
+const formProfil = document.getElementById('form-profil');
+const btnProfil = document.getElementById('btn-profil');
+
+if(formProfil){
+    formProfil.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        btnProfil.disabled = true;
+        formProfil.querySelector('.btn-loading').classList.remove('d-none');
+        formProfil.querySelector('.btn-text').classList.add('d-none');
+
+        const data = {
+            nama_lengkap: formProfil.nama_lengkap.value,
+            no_telp: formProfil.no_telp.value,
+            email: formProfil.email.value,
+            password: formProfil.password.value,
+        };
+        const url = formProfil.dataset.url;
+
+        axios.put(url, data)
+        .then(res => {
+
+            if(res.data.success){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: res.data.message ?? 'Profil berhasil diperbarui',
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => location.reload());
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: res.data.message ?? 'Terjadi kesalahan'
+                });
+            }
+
+        })
+        .catch(err => {
+
+            let msg = 'Terjadi kesalahan';
+
+            if (err.response && err.response.status === 422) {
+                msg = Object.values(err.response.data.errors)[0][0];
+            }
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: msg
+            });
+
+            console.log(err.response);
+
+        })
+        .finally(() => {
+
+            btnProfil.disabled = false;
+            formProfil.querySelector('.btn-loading').classList.add('d-none');
+            formProfil.querySelector('.btn-text').classList.remove('d-none');
+
+        });
+    });
+}
+
+const formPass = document.getElementById('form-pass');
+const btnPass = document.getElementById('btn-pass');
+
+if(formPass){
+    formPass.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        btnPass.disabled = true;
+        formPass.querySelector('.btn-loading').classList.remove('d-none');
+        formPass.querySelector('.btn-text').classList.add('d-none');
+
+        const data = {
+            current_password: formPass.current_password.value,
+            password_new: formPass.password_new.value,
+            password_new_confirmation: formPass.password_new_confirmation.value,
+        };
+        const url = formPass.dataset.url;
+
+        axios.put(url, data)
+        .then(res => {
+
+            if(res.data.success){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: res.data.message ?? 'Profil berhasil diperbarui',
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    if(res.data.redirect){
+                        window.location.href = res.data.redirect;
+                    }
+                });
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: res.data.message ?? 'Terjadi kesalahan'
+                });
+            }
+
+        })
+        .catch(err => {
+
+            let msg = 'Terjadi kesalahan';
+
+            if (err.response && err.response.status === 422) {
+                msg = Object.values(err.response.data.errors)[0][0];
+            }
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: msg
+            });
+
+            console.log(err.response);
+
+        })
+        .finally(() => {
+
+            btnPass.disabled = false;
+            formPass.querySelector('.btn-loading').classList.add('d-none');
+            formPass.querySelector('.btn-text').classList.remove('d-none');
+
+        });
+    });
+}
+</script>
