@@ -299,8 +299,7 @@ class PageController extends Controller
             'total_harga' => $data->harga * $request->input('jumlah'),
             'status' => 'Perlu Diproses'
         ], function($msg) use ($user) {
-            $msg->to('ntakachi73@gmail.com')
-            // $msg->to('official.kikibi@gmail.com')
+            $msg->to('official.kikibi@gmail.com')
                 ->subject('Pesanan Diterima - Kikibi');
         });
 
