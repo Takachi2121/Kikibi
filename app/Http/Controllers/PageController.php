@@ -306,6 +306,10 @@ class PageController extends Controller
 
         $pesanan->save();
 
+        if($request->input('wishlist')){
+            Wishlist::where('user_id', auth()->user()->id)->where('produk_id', $id)->delete();
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Produk berhasil di Checkout'

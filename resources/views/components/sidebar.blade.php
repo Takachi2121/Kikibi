@@ -22,8 +22,8 @@
 
         <p class="text-uppercase text-black-50 small fw-bold mt-3 mb-1">Pengaturan</p>
 
-        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modalProfil"><i class="fa-solid fa-user me-2"></i> Ubah Profil</a>
-        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modalPass"><i class="fa-solid fa-gear me-2"></i> Ubah Password</a>
+        <a class="nav-link" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalProfil"><i class="fa-solid fa-user me-2"></i> Ubah Profil</a>
+        <a class="nav-link" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalPass"><i class="fa-solid fa-gear me-2"></i> Ubah Password</a>
     </nav>
 
     <!-- Logout -->

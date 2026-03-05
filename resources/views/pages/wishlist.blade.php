@@ -74,12 +74,11 @@
 
                     <!-- BUTTON -->
                     <div class="col-12 col-md-3">
-                        <a href="#"
-                        data-name="{{ $item->produk->nama_produk }}"
-                        class="btn btn-wa shadow-sm text-white w-100 mb-2 py-2"
+                        <button data-bs-toggle="modal" data-bs-target="#kirim-pesanan"
+                        class="btn shadow-sm text-white w-100 mb-2 py-2"
                         style="background-color: #B0170F">
-                            Check Out Whatsapp
-                        </a>
+                            Check Out
+                        </button>
 
                         <form method="POST"
                             data-id="{{ $item->id }}"
@@ -97,6 +96,49 @@
 
                 </div>
             </div>
+
+            <div class="modal fade" id="kirim-pesanan" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form id="penerima-form" method="POST" data-url="{{ route('checkout', $item->produk->id) }}" data-produk-id="{{ $item->produk->id }}" data-user-id="{{ auth()->user()->id }}" data-quantity="{{ $item->total }}" data-wishlist="{{ $item->id }}">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title">Lengkapi Data Penerima</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Nama Penerima</label>
+                                    <input type="text" name="nama_penerima" id="namaPenerimaTambah" class="form-control">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Alamat Penerima</label>
+                                    <input type="text" name="alamat_penerima" id="alamatPenerimaTambah" class="form-control">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Nomor Telpon Penerima</label>
+                                    <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" name="notelp_penerima" id="noTelpPenerimaTambah" class="form-control">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Catatan untuk Penerima</label>
+                                    <textarea type="text" name="catatan_penerima" id="catatanPenerimaTambah" class="form-control"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" id="btnTambahPenerima" class="btn btn-danger w-100">
+                                    <span class="btn-text"><i class="fa-regular fa-paper-plane"></i> Kirim Pesanan</span>
+                                    <span class="btn-loading d-none"><span class="spinner-border spinner-border-sm"></span> Loading...</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             @empty
             <div class="col-12">
                 <div class="card">
@@ -109,53 +151,4 @@
         </div>
     </div>
 <script src="{{ asset('assets/js/main/wishlist.js') }}"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-    axios.defaults.headers.common['X-CSRF-TOKEN'] =
-        document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-    document.querySelectorAll('.qty-wrapper').forEach(wrapper => {
-        const minusBtn = wrapper.querySelector('.minus');
-        const plusBtn = wrapper.querySelector('.plus');
-        const qtyNumber = wrapper.querySelector('.qty-number');
-
-        const wishlistId = wrapper.dataset.id;
-        let quantity = parseInt(qtyNumber.textContent);
-
-        function sendUpdate(newQty) {
-            axios.patch(`/wishlist-action/${wishlistId}`, { total: newQty })
-            .catch(err => {
-                console.error(err.response || err);
-                // optional: rollback UI kalau error
-                qtyNumber.textContent = quantity;
-            });
-        }
-
-        plusBtn.addEventListener('click', () => {
-            quantity++;                  // update UI dulu
-            qtyNumber.textContent = quantity;
-            sendUpdate(quantity);        // kirim ke server
-        });
-
-        minusBtn.addEventListener('click', () => {
-            if (quantity > 1) {
-                quantity--;              // update UI dulu
-                qtyNumber.textContent = quantity;
-                sendUpdate(quantity);    // kirim ke server
-            }
-        });
-
-        const waButton = wrapper.closest('.row.align-items-center').querySelector('.btn-wa');
-        waButton.addEventListener('click', e => {
-            e.preventDefault();
-            const productName = e.target.dataset.name;
-            const text = `Permisi kak, saya ingin membeli ${productName} sebanyak ${qtyNumber.textContent} buah untuk memberikan kejutan di momen spesial. Mohon informasinya, ya!.`;
-            const waLink = `https://wa.me/6287731122287?text=${encodeURIComponent(text)}`;
-            window.open(waLink, '_blank');
-        });
-    });
-
-});
-</script>
 @endsection

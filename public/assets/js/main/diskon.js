@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     /* =======================
      * DATATABLE
      * ======================= */
-    const table = $("#DiskonsTable").DataTable({
+    $("#DiskonsTable").DataTable({
         responsive: true,
         scrollY: "600px",
         scrollCollapse: true,
@@ -13,9 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 extend: "excelHtml5",
                 text: "Export Excel",
                 className: "btn btn-success",
-                title: "Data Kategori",
+                title: "Data Diskon",
                 exportOptions: {
-                    columns: [0, 1, 2],
+                    columns: [0, 1, 2, 3, 4, 5], // No, Nama Produk, Nama Pengirim, No Telp, Jumlah, Total, Status
                     format: {
                         body: function (data) {
                             const div = document.createElement("div");
@@ -35,35 +35,26 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /* =======================
-     * MODAL SETUP
+     * MODAL EDIT
      * ======================= */
-    const editModal = new bootstrap.Modal(
-        document.getElementById("editKategoriModal"),
-    );
-    const editForm = document.getElementById("editKategoriForm");
-    const editBtn = document.getElementById("btnKategoriEdit");
+    const editModalEl = document.getElementById("editDiskonModal");
+    const editModal = new bootstrap.Modal(editModalEl);
+    const editForm = document.getElementById("editDiskonForm");
+    const editBtn = document.getElementById("btnDiskonEdit");
 
-    const tambahForm = document.getElementById("addKategoriForm");
-    const tambahBtn = document.getElementById("btnTambahKategori");
+    // tombol edit di tabel Pesanan
+    document.querySelectorAll("#DiskonsTable .btn-warning").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            document.getElementById("idEdit").value = this.dataset.id;
+            document.getElementById("produkEdit").value = this.dataset.produk;
+            document.getElementById("diskonEdit").value = this.dataset.diskon;
+            document.getElementById("tanggalEdit").value =
+                this.dataset.tanggalSelesai;
 
-    /* =======================
-     * EVENT DELEGATION - EDIT
-     * ======================= */
-    document.addEventListener("click", function (e) {
-        const btn = e.target.closest(".btn-edit");
-        if (!btn) return;
-
-        document.getElementById("idEdit").value = btn.dataset.id;
-        document.getElementById("namaKategoriEdit").value = btn.dataset.nama;
-        document.getElementById("maknaHadiahEdit").value =
-            btn.dataset.maknaHadiah;
-
-        editModal.show();
+            editModal.show();
+        });
     });
 
-    /* =======================
-     * SUBMIT EDIT
-     * ======================= */
     editForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -76,16 +67,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         axios
             .put(url, {
-                nama_kategori:
-                    document.getElementById("namaKategoriEdit").value,
-                makna_hadiah: document.getElementById("maknaHadiahEdit").value,
+                produk_id: document.getElementById("produkEdit").value,
+                diskon: document.getElementById("diskonEdit").value,
+                tanggal_selesai: document.getElementById("tanggalEdit").value,
             })
             .then((res) => {
                 Swal.fire({
                     icon: "success",
                     title: "Berhasil",
-                    text:
-                        res.data.message ?? "Data kategori berhasil diperbarui",
+                    text: res.data.message ?? "Data Diskon berhasil diperbarui",
                     timer: 1500,
                     showConfirmButton: false,
                 }).then(() => location.reload());
@@ -96,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     title: "Gagal",
                     text: err.response?.data?.message ?? "Terjadi kesalahan",
                 });
+                console.log(err.response);
             })
             .finally(() => {
                 editBtn.disabled = false;
@@ -105,8 +96,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /* =======================
-     * SUBMIT TAMBAH
+     * TAMBAH PESANAN
      * ======================= */
+    const tambahForm = document.getElementById("addDiskonForm");
+    const tambahBtn = document.getElementById("btnTambahDiskon");
+
     tambahForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -117,13 +111,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData(tambahForm);
         const url = tambahForm.dataset.url;
 
+        for (feri of formData.entries()) {
+            console.log(feri);
+        }
+
         axios
             .post(url, formData)
             .then((res) => {
                 Swal.fire({
                     icon: "success",
                     title: "Berhasil",
-                    text: res.data.message ?? "Kategori berhasil ditambahkan",
+                    text: res.data.message ?? "Pesanan berhasil ditambahkan",
                     timer: 1500,
                     showConfirmButton: false,
                 }).then(() => location.reload());
@@ -133,11 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (err.response?.status === 422) {
                     msg = Object.values(err.response.data.errors)[0][0];
                 }
-                Swal.fire({
-                    icon: "error",
-                    title: "Gagal",
-                    text: msg,
-                });
+                Swal.fire({ icon: "error", title: "Gagal", text: msg });
+                console.log(err.response);
             })
             .finally(() => {
                 tambahBtn.disabled = false;
@@ -146,11 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
-    /* =======================
-     * EVENT DELEGATION - HAPUS
-     * ======================= */
     document.addEventListener("submit", function (e) {
-        const form = e.target.closest(".form-delete-kategori");
+        const form = e.target.closest(".form-delete-diskon");
         if (!form) return;
 
         e.preventDefault();
@@ -158,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         Swal.fire({
             title: "Yakin ingin menghapus?",
-            text: "Data kategori akan dihapus permanen!",
+            text: "Data diskon akan dihapus permanen!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
@@ -172,8 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         Swal.fire({
                             icon: "success",
                             title: "Berhasil",
-                            text:
-                                res.data.message ?? "Kategori berhasil dihapus",
+                            text: res.data.message ?? "Diskon berhasil dihapus",
                             timer: 1500,
                             showConfirmButton: false,
                         }).then(() => location.reload());

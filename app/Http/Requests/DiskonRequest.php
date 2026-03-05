@@ -23,9 +23,8 @@ class DiskonRequest extends FormRequest
     {
         return [
             'produk_id' => 'required|integer|exists:produks,id',
-            'diskon' => 'required|integer',
-            'harga_akhir' => 'required|integer',
-            'tanggal_mulai' => 'required|date',
+            'diskon' => 'required|integer|min:0|max:100',
+            'harga_akhir' => 'nullable|integer',
             'tanggal_selesai' => 'required|date',
         ];
     }
@@ -34,11 +33,13 @@ class DiskonRequest extends FormRequest
     {
         return [
             'produk_id.required' => 'Produk wajib dipilih.',
-            'harga_akhir.required' => 'Harga Akhir wajib diisi.',
+            'produk_id.integer' => 'Produk harus berupa angka.',
+            'produk_id.exists' => 'Produk tidak ditemukan.',
             'harga_akhir.integer' => 'Harga Akhir harus berupa angka.',
             'diskon.required' => 'Diskon wajib diisi.',
             'diskon.integer' => 'Diskon harus berupa angka.',
-            'tanggal_mulai.required' => 'Tanggal mulai wajib diisi.',
+            'diskon.min' => 'Diskon minimal 0.',
+            'diskon.max' => 'Diskon maksimal 100.',
             'tanggal_selesai.required' => 'Tanggal selesai wajib diisi.',
         ];
     }

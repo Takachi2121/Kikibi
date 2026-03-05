@@ -49,10 +49,12 @@
                             <button class="btn btn-sm text-white btn-warning btn-edit"
                                 data-id="{{ $diskon->id }}"
                                 data-produk="{{ $diskon->produk->id }}"
-                                data-makna-hadiah="{{ $diskon->makna_hadiah }}"
+                                data-diskon="{{ $diskon->diskon }}"
+                                data-harga-akhir="{{ $diskon->harga_akhir }}"
+                                data-tanggal-selesai="{{ $diskon->tanggal_selesai }}"
                             >
                                 <i class="fa-solid fa-pen"></i>&nbsp;&nbsp;Edit</button>
-                            <form class="d-inline form-delete-kategori" data-url="{{ route('kategori-action.destroy', $diskon->id) }}">
+                            <form class="d-inline form-delete-diskon" data-url="{{ route('diskon.destroy', $diskon->id) }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">
@@ -70,17 +72,17 @@
 <div class="modal fade" id="addDiskonModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form id="addKategoriForm" data-url="{{ route('kategori-action.store') }}">
+            <form id="addDiskonForm" data-url="{{ route('diskon.store') }}">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title">Tambah Data Kategori</h5>
+                    <h5 class="modal-title">Tambah Data Diskon</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Pilih Produk</label>
-                        <select name="produk" id="Produk" class="form-select">
+                        <select name="produk_id" id="Produk" class="form-select">
                             <option value="" disabled selected hidden>Pilih Produk</option>
                             @foreach($produk as $item)
                                 <option value="{{ $item->id }}" data-img="{{ asset('assets/img/Produk/' . $item->foto_1) }}">
@@ -92,7 +94,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">Diskon</label>
-                        <input type="number" name="diskon" id="diskon" class="form-control">
+                        <input type="number" name="diskon" min="1" max="100" maxlength="3" placeholder="contoh: 20" id="diskon" class="form-control">
                     </div>
 
                     <div class="mb-3">
@@ -100,11 +102,10 @@
                         <input type="date" name="tanggal_selesai" id="tanggalSelesai" class="form-control">
                     </div>
 
-
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" id="btnTambahKategori" class="btn btn-danger w-100">
+                    <button type="submit" id="btnTambahDiskon" class="btn btn-danger w-100">
                         <span class="btn-text"><i class="fa-regular fa-floppy-disk"></i> Simpan Data</span>
                         <span class="btn-loading d-none"><span class="spinner-border spinner-border-sm"></span> Loading...</span>
                     </button>
@@ -115,15 +116,15 @@
 </div>
 
 <!-- Modal Edit Kategori -->
-<div class="modal fade" id="editKategoriModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="editDiskonModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form id="editKategoriForm" method="POST" data-url="{{ route('kategori-action.update', 0) }}">
+            <form id="editDiskonForm" method="POST" data-url="{{ route('diskon.update', 0) }}">
                 @csrf
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Ubah Data Kategori</h5>
+                    <h5 class="modal-title">Ubah Data Diskon</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -131,18 +132,30 @@
                     <input type="hidden" name="id" id="idEdit">
 
                     <div class="mb-3">
-                        <label class="form-label">Nama Kategori</label>
-                        <input type="text" name="nama_kategori" id="namaKategoriEdit" class="form-control" required>
+                        <label class="form-label">Pilih Produk</label>
+                        <select name="produk" id="produkEdit" class="form-select">
+                            <option value="" disabled selected hidden>Pilih Produk</option>
+                            @foreach($produk as $item)
+                                <option value="{{ $item->id }}" data-img="{{ asset('assets/img/Produk/' . $item->foto_1) }}">
+                                    {{ $item->nama_produk }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Makna Hadiah</label>
-                        <textarea type="text" style="min-height: 20dvh" name="makna_hadiah" id="maknaHadiahEdit" class="form-control" required></textarea>
+                        <label class="form-label">Diskon</label>
+                        <input type="number" name="diskon" min="1" max="100" maxlength="3" placeholder="contoh: 20" id="diskonEdit" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Tanggal Selesai</label>
+                        <input type="date" name="tanggal_selesai" id="tanggalEdit" class="form-control">
                     </div>
                 </div>
 
                 <div class="w-100 d-flex justify-content-center">
-                    <button type="submit" class="btn bg-danger py-2 mb-3 w-75" id="btnKategoriEdit">
+                    <button type="submit" class="btn bg-danger py-2 mb-3 w-75" id="btnDiskonEdit">
                         <span class="btn-text text-white">
                             <i class="fa-solid fa-rotate"></i>&nbsp;&nbsp;Perbarui Data
                         </span>
