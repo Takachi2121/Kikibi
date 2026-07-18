@@ -393,7 +393,7 @@ formPengaturan.addEventListener('submit', function(e){
             text: msg
         });
 
-        console.log(err.response);
+        //console.log(err.response);
 
     })
     .finally(() => {

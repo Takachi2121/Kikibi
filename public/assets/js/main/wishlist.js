@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 text: "Data gagal dihapus",
                             });
 
-                            console.log(err.response);
+                            //console.log(err.response);
                         });
                 }
             });
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
             wishlist: wishlistId,
         };
 
-        console.log(payload);
+        //console.log(payload);
 
         axios
             .post(url, payload)
@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (err.response?.status === 422) {
                     msg = Object.values(err.response.data.errors)[0];
                 }
-                console.log(err.response);
+                //console.log(err.response);
                 Swal.fire({
                     icon: "error",
                     title: "Gagal",

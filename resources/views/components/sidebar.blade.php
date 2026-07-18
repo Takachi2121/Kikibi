@@ -251,7 +251,7 @@ if(formProfil){
                 text: msg
             });
 
-            console.log(err.response);
+            //console.log(err.response);
 
         })
         .finally(() => {
@@ -320,7 +320,7 @@ if(formPass){
                 text: msg
             });
 
-            console.log(err.response);
+            //console.log(err.response);
 
         })
         .finally(() => {
