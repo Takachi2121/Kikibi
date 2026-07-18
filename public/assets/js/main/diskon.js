@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     title: "Gagal",
                     text: err.response?.data?.message ?? "Terjadi kesalahan",
                 });
-                console.log(err.response);
+                //console.log(err.response);
             })
             .finally(() => {
                 editBtn.disabled = false;
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const url = tambahForm.dataset.url;
 
         for (feri of formData.entries()) {
-            console.log(feri);
+            //console.log(feri);
         }
 
         axios
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     msg = Object.values(err.response.data.errors)[0][0];
                 }
                 Swal.fire({ icon: "error", title: "Gagal", text: msg });
-                console.log(err.response);
+                //console.log(err.response);
             })
             .finally(() => {
                 tambahBtn.disabled = false;
