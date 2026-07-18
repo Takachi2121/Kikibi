@@ -169,7 +169,7 @@
         <!-- Buttons -->
         <div class="row">
             <div class="col-md-6 mb-sm-3">
-                <a href="#" class="btn btn-danger h-100 w-100 px-5 py-2 shadow-lg"><i class="fa-solid fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a>
+                <a href="{{ route('home') }}" class="btn btn-danger h-100 w-100 px-5 py-2 shadow-lg"><i class="fa-solid fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a>
             </div>
             <div class="col-md-6 mb-sm-3">
                 <button type="submit" class="btn btn-dark h-100 w-100 px-5 py-2 shadow-lg" id="btnAI">

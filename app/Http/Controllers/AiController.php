@@ -48,15 +48,16 @@ class AiController extends Controller
         }";
 
         $response = Http::withHeaders([
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
         ])->post(
-            'https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-flash:generateContent?key=' . env('GEMINI_API_KEY'),
+            'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=' . env('GEMINI_API_KEY'),
             [
                 'contents' => [
                     [
-                        'role' => 'user',
                         'parts' => [
-                            ['text' => $prompt]
+                            [
+                                'text' => $prompt
+                            ]
                         ]
                     ]
                 ]
@@ -64,7 +65,7 @@ class AiController extends Controller
         );
 
         if ($response->failed()) {
-            \Log::error('Vertex AI Error', [
+            \Log::error('Gemini AI Error', [
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
