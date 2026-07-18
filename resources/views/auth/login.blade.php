@@ -85,7 +85,7 @@
                     </div>
                 </div>
 
-                <a href="" class="text-decoration-none text-danger text-end fw-semibold">Lupa Password?</a>
+                {{-- <a href="" class="text-decoration-none text-danger text-end fw-semibold">Lupa Password?</a> --}}
 
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-danger w-100 py-3 mt-3 rounded-3">

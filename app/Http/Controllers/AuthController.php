@@ -124,4 +124,80 @@ class AuthController extends Controller
         Session::flush();
         return redirect()->route('home');
     }
+
+    public function updateProfile(Request $request){
+        $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'no_telp' => 'required|string',
+            'password' => 'required|string|min:6',
+        ],[
+            'nama_lengkap.required' => 'Nama lengkap harus diisi',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Format email tidak valid',
+            'no_telp.required' => 'Nomor telepon harus diisi',
+            'password.required' => 'Password harus diisi',
+            'password.min' => 'Password minimal 6 karakter',
+        ]);
+
+        $user = Auth::user();
+
+        if(!Hash::check($request->password, $user->password)){
+            return response()->json([
+                'success' => false,
+                'errors' => ['password' => ['Password tidak sesuai']]
+            ], 422);
+        }
+
+        $user->nama_lengkap = $request->nama_lengkap;
+        $user->email = $request->email;
+        if (substr($request->no_telp, 0, 2) == '0') {
+            $user->no_telp = '62' . substr($request->no_telp, 2);
+        } elseif (substr($request->no_telp, 0, 2) == '62') {
+            $user->no_telp = $request->no_telp;
+        } else {
+            $user->no_telp = '62' . substr($request->no_telp, 2);
+        }
+
+        $user->update();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Profile berhasil diperbarui'
+        ]);
+    }
+
+    public function updatePass(Request $request){
+        $request->validate([
+            'current_password' => 'required|string|min:6',
+            'password_new' => 'required|string|min:6|confirmed',
+        ],[
+            'current_password.required' => 'Password lama harus diisi',
+            'current_password.min' => 'Password lama minimal 6 karakter',
+            'password_new.required' => 'Password baru harus diisi',
+            'password_new.min' => 'Password baru minimal 6 karakter',
+            'password_new.confirmed' => 'Password baru harus sama dengan konfirmasi password',
+        ]);
+
+        $user = Auth::user();
+
+        if(!Hash::check($request->current_password, $user->password)){
+            return response()->json([
+                'success' => false,
+                'errors' => ['current_password' => ['Password lama tidak sesuai']]
+            ], 422);
+        }
+
+        $user->password = Hash::make($request->password_new);
+        $user->update();
+
+        Auth::logout();
+        Session::flush();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Password berhasil diperbarui',
+            'redirect' => route('login')
+        ]);
+    }
 }

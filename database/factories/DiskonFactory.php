@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Produk;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,12 +17,12 @@ class DiskonFactory extends Factory
      */
     public function definition(): array
     {
+        $produk = Produk::pluck('id')->toArray();
         return [
-            'produk_id' => $this->fake()->randomElement(3, 10)->unique(),
-            'diskon' => $this->fake()->randomElement(10, 50),
-            'harga_akhir' => $this->fake()->randomElement(100000, 200000),
-            'tanggal_mulai' => $this->fake()->date(),
-            'tanggal_selesai' => $this->fake()->date(),
+            'produk_id' => $this->faker->unique()->randomElement($produk),
+            'diskon' => $this->faker->numberBetween(10, 50),
+            'harga_akhir' => $this->faker->numberBetween(100000, 200000),
+            'tanggal_selesai' => $this->faker->dateTimeBetween('now', '+30 days'),
         ];
     }
 }

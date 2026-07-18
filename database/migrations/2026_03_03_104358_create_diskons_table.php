@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('produk_id')->constrained('produks')->onDelete('cascade');
             $table->integer('diskon');
             $table->integer('harga_akhir');
-            $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
         });
     }

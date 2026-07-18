@@ -90,11 +90,14 @@
                         </li>
                         <hr class="my-1">
                         @endif
-                        {{-- <li> <!-- Tombol logout di dropdown -->
-                            <a href="{{ route('admin-produk') }}" class="dropdown-item bg-transparent position-relative ps-5 bg-transparent text-black"> <i class="fa-solid fa-gear position-absolute top-50 translate-middle-y" style="left: 20px"></i>
-                            Pengaturan Akun
-                            </a>
-                        </li> --}}
+                        @if (Auth::user()->role == 'user')
+                        <li> <!-- Tombol logout di dropdown -->
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#modalPengaturan" class="dropdown-item bg-transparent position-relative ps-5 bg-transparent text-black"> <i class="fa-solid fa-gear position-absolute top-50 translate-middle-y" style="left: 20px"></i>
+                                Pengaturan Akun
+                            </button>
+                        </li>
+                        <hr class="my-1">
+                        @endif
                         <li>
                             <!-- Tombol logout di dropdown -->
                             <a href="{{ route('logout') }}"
@@ -106,17 +109,14 @@
                         </li>
                     </ul>
                 </div>
-
-            @else
-                <a href="{{ route('login') }}" class="btn  btn-masuk rounded-pill px-4">Masuk</a>
-                <a href="{{ route('register') }}" class="btn btn-daftar rounded-pill px-4">Daftar</a>
-            @endauth
-        </div>
-
+                @else
+                    <a href="{{ route('login') }}" class="btn  btn-masuk rounded-pill px-4">Masuk</a>
+                    <a href="{{ route('register') }}" class="btn btn-daftar rounded-pill px-4">Daftar</a>
+                @endauth
+            </div>
         </div>
     </div>
 </nav>
-
 
 @if(auth()->check() && auth()->user()->role === 'user')
 <script>
@@ -252,5 +252,157 @@ function timeAgo(datetime) {
     return 'Baru saja';
 }
 
+</script>
+@endif
+
+@if(Auth::check() && Auth::user()->role == 'user')
+<div class="modal fade"
+     id="modalPengaturan"
+     tabindex="-1"
+     data-bs-backdrop="static">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pengaturan Akun</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" data-url="{{ route('update-profile') }}" id="form-pengaturan">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="mb-3">
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text"
+                               name="nama_lengkap"
+                               class="form-control"
+                               value="{{ Auth::user()->nama_lengkap }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nomor Telepon</label>
+                        <input type="text"
+                               name="no_telp"
+                               class="form-control"
+                               value="{{ Auth::user()->no_telp }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email"
+                               name="email"
+                               class="form-control"
+                               value="{{ Auth::user()->email }}">
+                    </div>
+
+                    <div class="mb-3 position-relative">
+                        <label class="form-label">Konfirmasi Password</label>
+
+                        <input type="password"
+                            name="password"
+                            class="form-control pe-5"
+                            id="passwordInput">
+
+                        <span onclick="togglePasswordInput()"
+                            class="position-absolute end-0 me-3"
+                            style="cursor:pointer; top: 57.5%;">
+
+                            <i class="fa-regular fa-eye text-muted" id="togglePassword"></i>
+                        </span>
+                    </div>
+
+                    <script>
+                        function togglePasswordInput() {
+                            const passwordInput = document.getElementById("passwordInput");
+                            const icon = document.getElementById("togglePassword");
+
+                            if (passwordInput.type === "password") {
+                                passwordInput.type = "text";
+                                icon.classList.replace("fa-eye","fa-eye-slash");
+                            } else {
+                                passwordInput.type = "password";
+                                icon.classList.replace("fa-eye-slash","fa-eye");
+                            }
+                        }
+                    </script>
+
+                    <button type="submit" class="btn btn-danger w-100" id="btn-pengaturan">
+                        <span><span class="btn-loading d-none"><span class="spinner-border spinner-border-sm"></span> Loading...</span>
+                        <span class="btn-text"><i class="fa-regular fa-floppy-disk"></i> Simpan</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+@if(auth()->check() && auth()->user()->role === 'user')
+<script>
+const formPengaturan = document.getElementById('form-pengaturan');
+const btnPengaturan = document.getElementById('btn-pengaturan');
+
+formPengaturan.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    btnPengaturan.disabled = true;
+    formPengaturan.querySelector('.btn-loading').classList.remove('d-none');
+    formPengaturan.querySelector('.btn-text').classList.add('d-none');
+
+    const data = {
+        nama_lengkap: formPengaturan.nama_lengkap.value,
+        no_telp: formPengaturan.no_telp.value,
+        email: formPengaturan.email.value,
+        password: formPengaturan.password.value,
+    };
+    const url = formPengaturan.dataset.url;
+
+    axios.put(url, data)
+    .then(res => {
+
+        if(res.data.success){
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: res.data.message ?? 'Profil berhasil diperbarui',
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => location.reload());
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: res.data.message ?? 'Terjadi kesalahan'
+            });
+        }
+
+    })
+    .catch(err => {
+
+        let msg = 'Terjadi kesalahan';
+
+        if (err.response && err.response.status === 422) {
+            msg = Object.values(err.response.data.errors)[0][0];
+        }
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: msg
+        });
+
+        console.log(err.response);
+
+    })
+    .finally(() => {
+
+        btnPengaturan.disabled = false;
+        formPengaturan.querySelector('.btn-loading').classList.add('d-none');
+        formPengaturan.querySelector('.btn-text').classList.remove('d-none');
+
+    });
+});
 </script>
 @endif

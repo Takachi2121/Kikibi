@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Diskon;
 use App\Models\Kategori;
 use App\Models\Notifikasi;
 use App\Models\Pesanan;
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         Testimoni::factory(7)->create();
         Notifikasi::factory(10)->create();
         Wishlist::factory(10)->create();
+        Diskon::factory(5)->create();
 
         User::create([
             'nama_lengkap' => 'Admin',

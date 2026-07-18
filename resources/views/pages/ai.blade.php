@@ -3,7 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/css/ai.css') }}">
 <div class="container my-5">
-    <h2 class="text-center mb-4 fw-semibold" style="margin-top: 70px">Cari rekomendasi dengan AI Kikibi</h2>
+    <h2 class="text-center mb-4 fw-semibold" >Cari rekomendasi dengan AI Kikibi</h2>
 
     <form action="{{ route('ai-rekomendasi') }}" method="POST" id="form-AI">
         @csrf
@@ -22,8 +22,8 @@
             </div>
 
             <div class="col-md-4">
-                <label class="form-label">Perkiraan usia penerima?</label>
-                <select class="form-select" name="usia">
+                <label class="form-label">Perkiraan usia penerima? <span class="text-danger">*</span></label>
+                <select class="form-select" id="usiaPenerima" name="usia">
                     <option value="" selected hidden>Pilih Usia</option>
                     <option value="< 18">&lt; 18</option>
                     <option value="18 - 25">18 - 25</option>
@@ -34,7 +34,7 @@
             </div>
 
             <div class="col-md-5">
-                <label class="form-label d-block">Jenis Kelamin penerima?</label>
+                <label class="form-label d-block">Jenis Kelamin penerima? <span class="text-danger">*</span></label>
                 <div class="d-flex gap-4 mt-2">
                     <div class="form-check d-flex align-items-center gap-2">
                         <input class="form-check-input mt-0" name="gender" type="radio" value="Pria" name="gender" id="laki">
@@ -57,7 +57,7 @@
         <!-- Row 2 -->
         <div class="row g-3 mb-4">
             <div class="col-md-6">
-                <label class="form-label">Hadiah ini diberikan untuk momen apa?</label>
+                <label class="form-label">Hadiah ini diberikan untuk momen apa? <span class="text-danger">*</span></label>
                 <select class="form-select py-2" name="momen">
                     <option value="" selected hidden>Pilih Momen</option>
                     @foreach ($momen as $data)
@@ -182,21 +182,35 @@
                     </span>
                 </button>
             </div>
+            <small><span class="text-danger">*</span> Isi salah satu form diatas untuk mencari hadiah ideal</small>
         </div>
     </form>
 </div>
 
 <script>
     document.getElementById('btnAI').addEventListener('click', function (e) {
-        // jangan submit otomatis dulu
         e.preventDefault();
+
+        const usia = document.getElementById('usiaPenerima').value;
+        const gender = document.querySelector('input[name="gender"]:checked')?.value;
+        const momen = document.querySelector('select[name="momen"]').value;
+
+        // Cek apakah semua kosong
+        if (!usia && !gender && !momen) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops!',
+                text: 'Silakan isi minimal salah satu dari Usia, Jenis Kelamin, atau Momen.',
+            });
+            return; // jangan submit form
+        }
 
         // disable tombol + tampilkan loading
         this.disabled = true;
         this.querySelector('.btn-text').classList.add('d-none');
         this.querySelector('.btn-loading').classList.remove('d-none');
 
-        // submit form manual
+        // submit form
         document.getElementById('form-AI').submit();
     });
 </script>

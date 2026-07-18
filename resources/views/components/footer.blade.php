@@ -35,7 +35,7 @@
                 </li>
                 <li class="mb-2">
                     <a href="https://wa.me/6287731122287" class="text-decoration-none text-white">
-                        WA: +62 8773 1122 287
+                        WA: +62 1234 5678 90
                     </a>
                 </li>
                 <li class="mb-2">Jakarta, Indonesia</li>

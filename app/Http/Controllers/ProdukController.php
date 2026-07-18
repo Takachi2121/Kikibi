@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PesananRequest;
 use App\Http\Requests\ProdukRequest;
 use App\Models\Kategori;
+use App\Models\Pesanan;
 use App\Models\Produk;
+use Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
 
 class ProdukController extends Controller
 {
